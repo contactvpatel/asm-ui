@@ -1,0 +1,19 @@
+<div class="pagenot-found">
+  <div class="container">
+    <p>
+      Your session is timed out or you need to provide your credentials.<br />
+      Please sign in again.
+    </p>
+    <form ngNoForm method="post" [action]="loginLink">
+      <input type="hidden" name="client_id" [value]="clientId" />
+      <input type="hidden" name="client_key" [value]="clientSecret" />
+      <input
+        #loginButton
+        class="btn btn-primary"
+        type="submit"
+        name="submit"
+        value="SIGN IN"
+      />
+    </form>
+  </div>
+</div>

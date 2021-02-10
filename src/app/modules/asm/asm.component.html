@@ -1,0 +1,19 @@
+<app-header class="page-header"></app-header>
+<p-sidebar
+  [(visible)]="sidebarVisibility"
+  styleClass="p-sidebar-sm sidebar-nav"
+  appendTo="pageWrapper"
+>
+  <p-panelMenu
+    [model]="sidebarMenuItems"
+    [style]="{ width: '100%' }"
+  ></p-panelMenu>
+</p-sidebar>
+<div class="page-wrapper" #pageWrapper>
+  <div class="page-content" [class.sidebar-left]="sidebarVisibility">
+    <router-outlet></router-outlet>
+    <div *ngIf="pageLoader" class="my-loader">
+      <p-progressSpinner></p-progressSpinner>
+    </div>
+  </div>
+</div>

@@ -1,1 +1,243 @@
 /* You can add global styles to this file, and also import other style files */
+@import "../node_modules/primeng/resources/themes/mdc-light-indigo/theme.css";
+@import "../node_modules/primeng/resources/primeng.min.css";
+@import "../node_modules/primeicons/primeicons.css";
+@import "../node_modules/primeflex/primeflex.css";
+
+* {
+  box-sizing: border-box;
+}
+
+.page-header {
+  background: #fff;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
+  display: block;
+  position: fixed;
+  left: 0;
+  top: 0px;
+  width: 100%;
+  z-index: 9;
+}
+
+.page-content {
+  padding-top: 70px;
+}
+
+.page-content.sidebar-left {
+  padding-left: 327px;
+}
+
+.p-sidebar {
+  border-right: 1px solid #ddd;
+  box-shadow: none;
+}
+
+.sidebar-nav {
+  top: 74px !important;
+  height: calc(100vh - 74px);
+  padding: 0;
+}
+
+.p-inputtext {
+  width: 100%;
+}
+
+.p-dropdown {
+  width: 100%;
+}
+
+.input-100 {
+  width: 100%;
+}
+.my-loader {
+  position: fixed;
+  right: 0;
+  top: 70px;
+  bottom: 0;
+  z-index: 1004;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #7979795c;
+  left: 327px;
+  height: calc(100vh - 70px);
+}
+
+p-field p-progressspinner {
+  position: absolute;
+  right: 0;
+}
+
+.p-field p-progressspinner {
+  position: absolute;
+  right: 74px;
+  top: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.p-field {
+  position: relative;
+}
+
+// logo
+
+.logo-text {
+  font-size: 24px;
+}
+
+// menu bar
+
+.p-menubar {
+  background: #d4672a;
+  border: none;
+  border-radius: 0;
+
+  .p-menubar-start {
+    a {
+      color: #fff;
+      text-decoration: none;
+    }
+  }
+
+  .p-button {
+    background: #324755;
+  }
+}
+
+.p-panelmenu {
+  box-shadow: none;
+  .p-panelmenu-panel {
+    box-shadow: none;
+    margin: 8px 0;
+    .p-panelmenu-header {
+      .p-panelmenu-header-link {
+        padding: 16px 24px;
+        border-top-right-radius: 20px !important;
+        border-bottom-right-radius: 20px !important;
+        margin: 0;
+        &.p-menuitem-link-active {
+          color: #d4672a !important;
+          background: rgba(212, 103, 42, 0.141) !important;
+        }
+      }
+      &.p-highlight {
+        .p-panelmenu-header-link {
+          background: #f6f6f6 !important;
+          border-color: transparent;
+          color: #000001;
+        }
+        &.p-menuitem-link-active {
+          color: #d4672a !important;
+          background: rgba(212, 103, 42, 0.141) !important;
+        }
+      }
+    }
+  }
+  .p-toggleable-content {
+    .p-panelmenu-content {
+      padding: 0;
+    }
+    .p-menuitem-link {
+      padding: 15px 24px 12px 50px !important;
+      border-top-right-radius: 25px !important;
+      border-bottom-right-radius: 25px !important;
+      margin: 0;
+      background-color: transparent !important;
+
+      &.p-menuitem-link-active {
+        .p-menuitem-text {
+          color: #d4672a !important;
+        }
+      }
+    }
+  }
+}
+
+body {
+  background: #f8f9fa;
+}
+
+// button
+
+.btn-round {
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  outline: none;
+  border: none;
+  background: transparent;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  color: #fff;
+  cursor: pointer;
+
+  &.avtar-btn {
+    width: 32px;
+    height: 32px;
+  }
+
+  &:hover,
+  &:focus {
+    background-color: rgba(0, 0, 0, 0.219);
+  }
+
+  .avtar {
+    width: 100%;
+  }
+}
+
+// top rightnav
+
+.top-rightnav {
+  display: flex;
+  align-items: center;
+
+  li {
+    margin-left: 10px;
+  }
+}
+
+.p-steps .p-steps-item .p-menuitem-link {
+  background-color: #f8f9fa;
+}
+
+.p-toolbar {
+  background: transparent;
+  padding: 24px;
+}
+
+.p-dropdown,
+.p-inputtext,
+.p-calendar,
+.p-inputtextarea,
+.p-multiselect {
+  max-width: 450px;
+}
+
+.p-steps .p-steps-item.p-highlight .p-steps-number {
+  background-color: #d4672a;
+  color: #ffffff;
+}
+
+.p-button.p-button-text {
+  background-color: transparent;
+  color: #d4672a;
+  border-color: transparent;
+}
+
+.p-button.p-button-text:enabled:hover {
+  background: rgba(212, 104, 42, 0.116);
+  color: #d4672a;
+  border-color: transparent;
+}
+
+//apply by pradip
+.p-button.c-button-link {
+  height: 1rem !important;
+  width: 1rem;
+}

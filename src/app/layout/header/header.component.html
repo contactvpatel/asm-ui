@@ -1,0 +1,61 @@
+<p-menubar [model]="appMenuItem">
+  <ng-template pTemplate="start">
+    <a [routerLink]="['/']" class="d-flex"
+      ><i
+        class="pi pi-lock"
+        style="font-size: 1.25rem; padding-right: 10px"
+      ></i>
+      <span class="logo-text">ASM</span></a
+    >
+  </ng-template>
+  <ng-template pTemplate="end">
+    <ul class="top-rightnav">
+      <li>
+        <button pRipple type="button" class="btn-round btn-sm">
+          <span class="p-menuitem-icon pi pi-fw pi-bell"></span>
+        </button>
+      </li>
+      <li>
+        <button
+          class="btn-round avtar-btn btn-sm"
+          (click)="menu.toggle($event)"
+        >
+          <span class="p-menuitem-icon pi pi-fw pi-user"></span>
+        </button>
+        <p-menu [model]="userMenu" #menu [popup]="true"></p-menu>
+      </li>
+    </ul>
+  </ng-template>
+</p-menubar>
+<!-- <header class="header-main" [ngClass]="{'mobiletopbar-show': mobiletopbar }">
+
+  <div class="admin-logo">
+      <a [routerLink]="['/']" class="d-flex">
+        <img class="logo" src="" alt="EMS LOGO" />
+        <span>EMS ADMIN</span></a>
+    </div>
+
+    <nav class="navbar navbar-expand-md navbar-light navbar-custom position-relative px-0">
+      <button class="navbar-toggler px-2 ml-3" type="button" aria-controls="navbarContent"
+        [attr.aria-expanded]="!collapsed" aria-label="Toggle navigation" (click)="collapsed = !collapsed">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+    </nav>
+
+    <div class="head-right d-flex ml-auto">
+      <div class="btn-group head-notification mr-3" dropdown placement="bottom right">
+        Hi, {{fname}} <b>|</b> &nbsp;<a class="dropdown-item" href="Javascript:void(0);" (click)="logout()">Logout</a>
+      </div>
+
+
+    </div>
+
+  </header>-->
+
+<form style="display: none" ngNoForm method="post" [action]="loginLink">
+  <input type="hidden" name="redirect_uri" [value]="redirectURLLogin" />
+  <input type="hidden" name="client_id" [value]="clientId" />
+  <input type="hidden" name="client_key" [value]="clientSecret" />
+  <input #loginButton type="submit" name="submit" value="" />
+</form>
