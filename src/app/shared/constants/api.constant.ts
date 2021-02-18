@@ -123,5 +123,12 @@ export const AccessGroupAPI = {
   
 };
 export const RoleApi = {
-GetRole:"roles/"
+GetRoleByDepartment:"roles/",
+GetRole:"roles"
+}
+export const PositionApi={
+  GetPosition:"positions/"
+}   
+export const AccessGroupAssignmentApi={
+  CreateAccessGroupAssignment:"access-group-assignments"
 }

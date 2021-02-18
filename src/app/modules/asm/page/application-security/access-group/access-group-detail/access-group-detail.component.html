@@ -54,13 +54,8 @@
 <p-table
   #dt
   [value]="modules"
-  [rows]="10"
-  [paginator]="true"
-  [globalFilterFields]="['name']"
-  [rowsPerPageOptions]="[10, 25, 50]"
-  [rowHover]="true"
-  currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-  [showCurrentPageReport]="true"
+  [globalFilterFields]="['name']"  
+  [rowHover]="true"  
 >
   <ng-template pTemplate="header">
     <tr>

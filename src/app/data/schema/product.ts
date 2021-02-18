@@ -84,7 +84,7 @@ export class AccessGroup {
   lastUpdated?: string;
   lastUpdatedBy?: number;
   departmentName?: string;
-
+  
   /**
    *
    */

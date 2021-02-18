@@ -24,15 +24,15 @@
     
     <div class="p-field-radiobutton">              
       <div class="p-field-radiobutton">
-          <p-radioButton name="assignmentType" value="Chicago" [(ngModel)]="city" inputId="role"></p-radioButton>
+          <p-radioButton name="assignmentType" value="Chicago"  (onClick)="ShowRole()" [(ngModel)]="city" inputId="role"></p-radioButton>
           <label for="role">Role</label>
         </div>        
         <div class="p-field-radiobutton p-ml-3">            
-          <p-radioButton name="assignmentType" value="Los Angeles" [(ngModel)]="city" inputId="position"></p-radioButton>
+          <p-radioButton name="assignmentType" value="Los Angeles" (onClick)="ShowPosition()" [(ngModel)]="city" inputId="position"></p-radioButton>
           <label for="position">Position</label>
         </div>
         <div class="p-field-radiobutton p-ml-3">            
-          <p-radioButton name="assignmentType" value="person" [(ngModel)]="city" inputId="person"></p-radioButton>
+          <p-radioButton name="assignmentType" value="person" (onClick)="ShowPerson()" [(ngModel)]="city" inputId="person"></p-radioButton>
           <label for="person">Person</label>
         </div>
       </div>
@@ -45,7 +45,7 @@
       <p-dropdown
         [options]="department"
         [(ngModel)]="selectedDepartment"
-        placeholder="Select  Department"
+        placeholder="Select Department"
         optionLabel="departmentName"
         [showClear]="true"
         (onChange)="GetRole()"
@@ -54,16 +54,38 @@
     </span>
   </div>
   <div class="p-col-12 p-md-6">
-    
-    <span class="p-float-label">
+    <span *ngIf="showRole" class="p-float-label">
       <p-multiSelect 
       [options]="role" 
-      [(ngModel)]="selectedRole"
-      defaultLabel="Select  Role" 
+      [(ngModel)]="selectedRoleList"
+      defaultLabel="Select Role" 
       optionLabel="roleName">
-    </p-multiSelect>
-     
+    </p-multiSelect>     
     </span>
+    <span *ngIf="showPosition" class="p-float-label">
+      <p-dropdown
+        [options]="role"
+        [filter]="true"
+        filterBy="roleName" 
+        [(ngModel)]="selectedRole"
+        placeholder="Select Role"
+        optionLabel="roleName"
+        [showClear]="true"
+        (onChange)="GetPosition()"
+      >
+      </p-dropdown>   
+      
+    </span>
+    <span *ngIf="showPerson" class="p-input-icon-left">
+        <i class="pi pi-search"></i>
+        <input
+          pInputText
+          type="text"   
+          class="search"     
+          placeholder="search person from MIS"
+        />
+      </span> 
+      <!-- (input)="dt.filterGlobal($event.target.value, 'contains')"-->
   </div>
 </div>
 <div class="p-grid p-fluid">
@@ -80,18 +102,26 @@
       </p-dropdown>
     </span>
   </div>
- 
+  <div class="p-col-12 p-md-6">
+    <span *ngIf="showPosition" class="p-float-label"> 
+      <p-multiSelect
+        [options]="position"
+        [filter]="true"
+        filterBy="positionName" 
+        [(ngModel)]="selectedPosition"
+        placeholder="Select Position"
+        optionLabel="positionName"
+        [showClear]="true"        
+      >
+      </p-multiSelect>   
+    </span>
+  </div>
 </div>
 <p-table
   #dt
   [value]="modules"
-  [rows]="10"
-  [paginator]="true"
   [globalFilterFields]="['name']"
-  [rowsPerPageOptions]="[10, 25, 50]"
-  [rowHover]="true"
-  currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-  [showCurrentPageReport]="true"
+  [rowHover]="true"  
 >
   <ng-template pTemplate="header">
     <tr>

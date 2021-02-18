@@ -59,6 +59,7 @@ getAccessGroup()
         return data;
       });
 }
+
 getDepartment() {
   return this.http
       .get<any>('https://localhost:44388/api/v1.0/departments')

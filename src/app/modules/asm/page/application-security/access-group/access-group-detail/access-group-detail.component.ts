@@ -86,6 +86,7 @@ export class AccessGroupDetailComponent implements OnInit, OnDestroy {
         departmentId: this.selectedDepartment.departmentId,
         accessGroupModulePermissions:getPermissions
       };      
+     console.log(request)
       this.accessGroupService.createAccessGroup(request).then((data)=>(this.onCancelClick()));    
 
       } else {
