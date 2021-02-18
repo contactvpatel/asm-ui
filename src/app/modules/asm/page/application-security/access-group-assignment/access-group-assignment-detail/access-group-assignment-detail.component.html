@@ -1,23 +1,78 @@
 <div class="card">
   <div>
-    <h2 class="font">AccessGroup Create</h2>
+    <h2 class="font">Create Access Group Assignment</h2>
   </div>
 </div>
 
 <div class="p-grid p-fluid">
   <div class="p-col-12 p-md-6">
     <span class="p-float-label">
-      <input id="float-input" type="text" pInputText [(ngModel)]="accessGroup.name" />
-      <label for="float-input" class="p-component"> Name </label>
+      <p-dropdown
+      [options]="application"
+      [(ngModel)]="selectedApplication"
+      placeholder="Select Application"
+      optionLabel="name"
+      [showClear]="true"      
+    >
+    </p-dropdown>
+      <!-- <input id="float-input" type="text" pInputText [(ngModel)]="accessGroup.name" />
+      <label for="float-input" class="p-component"> Name </label> -->
     </span>
   </div>
 
   <div class="p-col-12 p-md-6">
+    
+    <div class="p-field-radiobutton">              
+      <div class="p-field-radiobutton">
+          <p-radioButton name="assignmentType" value="Chicago" [(ngModel)]="city" inputId="role"></p-radioButton>
+          <label for="role">Role</label>
+        </div>        
+        <div class="p-field-radiobutton p-ml-3">            
+          <p-radioButton name="assignmentType" value="Los Angeles" [(ngModel)]="city" inputId="position"></p-radioButton>
+          <label for="position">Position</label>
+        </div>
+        <div class="p-field-radiobutton p-ml-3">            
+          <p-radioButton name="assignmentType" value="person" [(ngModel)]="city" inputId="person"></p-radioButton>
+          <label for="person">Person</label>
+        </div>
+      </div>
+      
+  </div>
+</div>
+<div class="p-grid p-fluid">
+  <div class="p-col-12 p-md-6">
     <span class="p-float-label">
       <p-dropdown
-        [options]="application"
-        [(ngModel)]="selectedApplication"
-        placeholder="Select Application"
+        [options]="department"
+        [(ngModel)]="selectedDepartment"
+        placeholder="Select  Department"
+        optionLabel="departmentName"
+        [showClear]="true"
+        (onChange)="GetRole()"
+      >
+      </p-dropdown>
+    </span>
+  </div>
+  <div class="p-col-12 p-md-6">
+    
+    <span class="p-float-label">
+      <p-multiSelect 
+      [options]="role" 
+      [(ngModel)]="selectedRole"
+      defaultLabel="Select  Role" 
+      optionLabel="roleName">
+    </p-multiSelect>
+     
+    </span>
+  </div>
+</div>
+<div class="p-grid p-fluid">
+  <div class="p-col-12 p-md-6">
+    <span class="p-float-label">
+      <p-dropdown
+        [options]="accessGroupList"
+        [(ngModel)]="selectaccessGroup"
+        placeholder="Select Access Group"
         optionLabel="name"
         [showClear]="true"
         (onChange)="getAllModule()"
@@ -25,31 +80,7 @@
       </p-dropdown>
     </span>
   </div>
-</div>
-<div class="p-grid p-fluid">
-  <div class="p-col-12 p-md-6">
-    <span class="p-float-label">
-      <input
-        id="float-input"
-        type="text"
-        pInputText
-        [(ngModel)]="accessGroup.description"
-      />
-      <label for="float-input" class="p-component"> Description </label>
-    </span>
-  </div>
-  <div class="p-col-12 p-md-6">
-    <span class="p-float-label">
-      <p-dropdown
-        [options]="department"
-        [(ngModel)]="selectedDepartment"
-        placeholder="Select Department"
-        optionLabel="departmentName"
-        [showClear]="true"
-      >
-      </p-dropdown>
-    </span>
-  </div>
+ 
 </div>
 <p-table
   #dt
@@ -90,7 +121,7 @@
         <td></td>
       </ng-template>
       <td>{{ accessGroup.name }}</td>
-      <td >
+        <!-- <td >
           <div class="p-field-checkbox">
           <p-checkbox [(ngModel)]=accessGroup.accessGroupModulePermissions.hasViewAccess binary="true"></p-checkbox>          
           </div>
@@ -109,7 +140,7 @@
           <div class="p-field-checkbox">
           <p-checkbox [(ngModel)]=accessGroup.accessGroupModulePermissions.hasDeleteAccess binary="Delete"></p-checkbox>          
           </div>
-        </td>
+        </td> -->
       <td></td>
     </tr>
     <ng-template #elseBlock>
@@ -126,7 +157,7 @@
         <td></td>
         <td></td>
         <td></td>
-        <td  >
+        <!-- <td  >
             <div class="p-field-radiobutton">
               <div class="p-field-radiobutton">
                 <p-radioButton name="isActive" [value]=true [(ngModel)]="accessGroup.accessGroupModulePermissions.hasAccessRight" inputId="true"></p-radioButton>
@@ -137,7 +168,7 @@
                  <label for="false">No</label>
               </div>
             </div>
-          </td>
+          </td> -->
       </tr>
     </ng-template>
   </ng-template>

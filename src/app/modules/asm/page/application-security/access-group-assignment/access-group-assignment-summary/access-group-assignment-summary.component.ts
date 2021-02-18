@@ -7,12 +7,12 @@ import { ConfirmationService } from 'primeng/api';
 import { MessageService } from 'primeng/api';
 
 @Component({
-  selector: 'app-access-group-summary',
-  templateUrl: './access-group-summary.component.html',
-  styleUrls: ['./access-group-summary.component.scss'],
+  selector: 'app-access-group-assignment-summary',
+  templateUrl: './access-group-assignment-summary.component.html',
+  styleUrls: ['./access-group-assignment-summary.component.scss'],
   providers: [EncryptPipe, ConfirmationService],
 })
-export class AccessGroupSummaryComponent implements OnInit {
+export class AccessGroupAssignmentSummaryComponent implements OnInit {
   productDialog: boolean;
 
   products: AccessGroupModel[];
@@ -43,7 +43,7 @@ export class AccessGroupSummaryComponent implements OnInit {
   }
   */
   openNew() {
-    this.route.navigate(['/asm/access-group/0']);
+    this.route.navigate(['/asm/access-group-assignment/0']);
   }
 
   deleteSelectedAccessGroup() {

@@ -1,6 +1,8 @@
+import { IfStmt, THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit, Input } from '@angular/core';
-import { Product } from '@app/data/schema/product';
+import { Application, Module, moduleType,  parentModule } from '@app/data/schema/product';
 import { ModuleService } from '@app/data/services/module.service';
+import { Console } from 'console';
 import { ConfirmationService } from 'primeng/api';
 import { MessageService } from 'primeng/api';
 
@@ -12,67 +14,90 @@ import { MessageService } from 'primeng/api';
 export class ModuleComponent implements OnInit {
   productDialog: boolean;
 
-  products: Product[];
-
-  product: Product;
-
-  selectedProducts: Product[];
-
+  modules: Module[];
+  moduleType: moduleType[];
+  product: Module;
+  selectedmodules: Module[];
+  selectedparentmodules:Module;
   submitted: boolean;
+  selectedApplication: Application;
+  application: Application[];
+  selectedModuleType: moduleType;  
+  isActive:false;
+ 
 
   constructor(
     private moduleService: ModuleService,
     private messageService: MessageService,
     private confirmationService: ConfirmationService
-  ) {}
+  ) {
+    this.application = [
+    {id:"A23B4841-10BF-4DE0-AD84-25E7ADF7EA7A" , name: 'PBR'}       
+];}
 
   ngOnInit() {
-    this.moduleService.getProducts().then((data) => (this.products = data));
-  }
+    this.getAllModule();
+    this.getModuleType();      
+    }
 
   openNew() {
     this.product = {};
+    this.selectedModuleType=null;
+    this.selectedApplication=null;
+    this.selectedmodules=null;
     this.submitted = false;
     this.productDialog = true;
   }
 
-  deleteSelectedProducts() {
+  deleteSelectedmodules() {
+   console.log( this.modules)
     this.confirmationService.confirm({
-      message: 'Are you sure you want to delete the selected products?',
+      message: 'Are you sure you want to delete the selected modules?',
       header: 'Confirm',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-        this.products = this.products.filter(
-          (val) => !this.selectedProducts.includes(val)
-        );
-        this.selectedProducts = null;
+        // this.modules = this.modules.filter(
+        //   (val) => !this.selectedmodules.includes(val)
+        // );
+        this.selectedmodules.forEach((module) => {   
+          this.moduleService.deleteModule(module.moduleId).then((data) => (this.getAllModule()));
+               });
+        this.selectedmodules = null;
         this.messageService.add({
           severity: 'success',
           summary: 'Successful',
-          detail: 'Products Deleted',
+          detail: 'modules Deleted',
           life: 3000,
         });
       },
     });
   }
 
-  editProduct(product: Product) {
-    this.product = { ...product };
+  editProduct(product: Module) {
+    
+    
+    //  this.product = { ...product };
+    //  this.selectedModuleType=this.product.moduleType;
+    this.moduleService.getModuleById(product.moduleId).then((data) =>
+                                        (  this.product = data,
+                                           this.selectedModuleType = data.moduleType ));
     this.productDialog = true;
   }
 
-  deleteProduct(product: Product) {
+  deleteProduct(product: Module) {
     this.confirmationService.confirm({
       message: 'Are you sure you want to delete ' + product.name + '?',
       header: 'Confirm',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-        this.products = this.products.filter((val) => val.id !== product.id);
+        //this.modules = this.modules.filter((val) => val.moduleId !== product.moduleId);
+        this.moduleService.deleteModule(product.moduleId).then((data) =>(this.getAllModule()));
+        
         this.product = {};
         this.messageService.add({
           severity: 'success',
           summary: 'Successful',
-          detail: 'Product Deleted',
+          detail: 'Module Deleted',
           life: 3000,
         });
       },
@@ -88,8 +113,19 @@ export class ModuleComponent implements OnInit {
     this.submitted = true;
 
     if (this.product.name.trim()) {
-      if (this.product.id) {
-        this.products[this.findIndexById(this.product.id)] = this.product;
+      if (this.product.moduleId) {
+        this.product.parentModule=null;
+        this.product.moduleType=null;
+        this.product.moduleTypeId=0;
+        this.product.parentModuleId=0;
+        // this.moduleService.getModuleType().then((data) => (this.moduleType = data));        
+        // this.modules[this.findIndexById(this.product.name)] = this.product;
+        this.product.moduleTypeId=this.selectedModuleType.moduleTypeId;  
+        if (this.selectedparentmodules!==undefined &&this.selectedparentmodules!==null) {
+          this.product.parentModuleId=this.selectedparentmodules.moduleId; 
+        }
+        this.product.applicationId="a23b4841-10bf-4de0-ad84-25e7adf7ea7a"
+        this.moduleService.updateModule(this.product).then((data)=>this.getAllModule(),this.product=null);    
         this.messageService.add({
           severity: 'success',
           summary: 'Successful',
@@ -97,9 +133,13 @@ export class ModuleComponent implements OnInit {
           life: 3000,
         });
       } else {
-        this.product.id = this.createId();
-        this.product.image = 'product-placeholder.svg';
-        this.products.push(this.product);
+        this.product.moduleTypeId=this.selectedModuleType.moduleTypeId;  
+        if (this.selectedparentmodules!==undefined) {
+          this.product.parentModuleId=this.selectedparentmodules.moduleId; 
+        }
+        this.product.applicationId="a23b4841-10bf-4de0-ad84-25e7adf7ea7a"
+        this.moduleService.createModule(this.product).then((data)=>this.getAllModule());    
+        
         this.messageService.add({
           severity: 'success',
           summary: 'Successful',
@@ -108,16 +148,16 @@ export class ModuleComponent implements OnInit {
         });
       }
 
-      this.products = [...this.products];
+      this.modules = [...this.modules];
       this.productDialog = false;
       this.product = {};
     }
   }
-
+  
   findIndexById(id: string): number {
     let index = -1;
-    for (let i = 0; i < this.products.length; i++) {
-      if (this.products[i].id === id) {
+    for (let i = 0; i < this.modules.length; i++) {
+      if (this.modules[i].name === id) {
         index = i;
         break;
       }
@@ -125,7 +165,13 @@ export class ModuleComponent implements OnInit {
 
     return index;
   }
-
+  getAllModule(){
+    this.modules=[];
+    this.moduleService.getModules().then((data) => (this.modules=data,console.log(this.modules)));
+  }
+  getModuleType(){
+    this.moduleService.getModuleType().then((data) => (this.moduleType=data));
+  }
   createId(): string {
     let id = '';
     var chars =

@@ -15,24 +15,25 @@ export class CommonService {
   constructor(private http: HttpClient) {}
 
   public get(url: any) {
-    // return this.http.ge(environment.serverUrl + url);
-    return this.http
-      .get<HttpResponse<Object>>(environment.apiServerUrl + url, {
-        observe: 'response',
-      })
-      .pipe(tap());
+    return this.http.get(environment.serverUrl + url);
+    // return this.http
+    //   .get<HttpResponse<Object>>(url, {
+    //     observe: 'response',
+    //   })
+    //   .pipe(tap());
   }
 
   public post(url: any, data: any) {
-    return this.http.post(environment.apiServerUrl + url, data);
+    return this.http.post(environment.serverUrl + url, data);
   }
 
   public put(url: any, data: any) {
-    return this.http.put(environment.apiServerUrl + url, data);
+    return this.http.put(environment.serverUrl + url, data);
   }
 
   public delete(url: any) {
-    return this.http.delete(url);
+    console.log(url)
+    return this.http.delete(environment.serverUrl + url);
   }
 
   public get_observe(url: any, param: HttpParams = null): Observable<any> {

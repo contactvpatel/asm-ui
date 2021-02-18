@@ -6,7 +6,7 @@
       <button
         pButton
         pRipple
-        label="New Access Group"
+        label="New Access Group Assignment"
         icon="pi pi-plus"
         class="p-button-success p-mr-2"
         (click)="openNew()"
@@ -42,7 +42,7 @@
   >
     <ng-template pTemplate="caption">
       <div class="p-d-flex p-ai-center p-jc-between">
-        <h3 class="p-m-0">Manage Access Group</h3>
+        <h3 class="p-m-0">Manage Access Group Assignment</h3>
         <span class="p-input-icon-left">
           <i class="pi pi-search"></i>
           <input
@@ -63,16 +63,19 @@
           Application <p-sortIcon field="application"></p-sortIcon>
         </th>
         <th pSortableColumn="name">
-          Name <p-sortIcon field="name"></p-sortIcon>
+          Department <p-sortIcon field="name"></p-sortIcon>
         </th>
         <th pSortableColumn="description">
-          Description <p-sortIcon field="description"></p-sortIcon>
+          AccessGroup <p-sortIcon field="description"></p-sortIcon>
         </th>
         <th pSortableColumn="department">
-          Department <p-sortIcon field="department"></p-sortIcon>
+          Role <p-sortIcon field="department"></p-sortIcon>
         </th>
         <th pSortableColumn="isActive">
-          Active <p-sortIcon field="isActive"></p-sortIcon>
+          Position <p-sortIcon field="isActive"></p-sortIcon>
+        </th>
+        <th pSortableColumn="isActive">
+          Person <p-sortIcon field="isActive"></p-sortIcon>
         </th>
         <th></th>
       </tr>
@@ -94,7 +97,7 @@
     </ng-template>
     <ng-template pTemplate="body" let-product>
       <tr>
-        <td>
+        <!-- <td>
           <p-tableCheckbox [value]="product"></p-tableCheckbox>
         </td>
         <td>PBR</td>
@@ -123,7 +126,7 @@
             class="p-button-rounded p-button-danger"
             
           ></button>
-        </td>
+        </td> -->
       </tr>
     </ng-template>
     <ng-template pTemplate="summary">

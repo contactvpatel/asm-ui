@@ -7,33 +7,40 @@ import {
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EncryptPipe } from '@app/modules/encrypt/pipes/encrypt.pipe';
-import { Department } from '@app/data/schema/access-group';
+import { AccessGroupModel, Department } from '@app/data/schema/access-group';
 import { Utils } from '@app/shared/utils/util';
 import { ConfirmationService, MenuItem } from 'primeng/api';
 import { Subscription } from 'rxjs';
 import { AccessGroupService } from '@app/data/services/access-group.service';
-import { AccessGroup, Application, Module } from '@app/data/schema/product';
+import { AccessGroupAssignmentService } from '@app/data/services/access-group-assignment.service';
+import {  AccessGroup, Application, Module } from '@app/data/schema/product';
+
 import { ModuleService } from '@app/data/services/module.service';
 
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { element } from 'protractor';
 import { applicationId } from '@app/shared/constants/global.constant';
 import { Variable } from '@angular/compiler/src/render3/r3_ast';
+import { Role } from '@app/data/schema/access-group-assgnment';
 
 @Component({
-  selector: 'app-access-group-detail',
-  templateUrl: './access-group-detail.component.html',
-  styleUrls: ['./access-group-detail.component.scss'],
+  selector: 'app-access-group-assignment-detail',
+  templateUrl: './access-group-assignment-detail.component.html',
+  styleUrls: ['./access-group-assignment-detail.component.scss'],
   providers: [EncryptPipe, ConfirmationService],
 })
-export class AccessGroupDetailComponent implements OnInit, OnDestroy {
+export class AccessAssignmentGroupDetailComponent implements OnInit, OnDestroy {
   accessGroup: AccessGroup;
+  accessGroupList:AccessGroupModel[];
+  selectaccessGroup:AccessGroupModel;
   subscription: Subscription;
   selectAccess:boolean;
   selectedApplication: Application;
   application: Application[];
   selectedDepartment: Department;
   department: Department[];
+  role:Role[];
+  selectedRole:Role[];
   modules: AccessGroup[];
   submitted = false;
   
@@ -49,7 +56,7 @@ export class AccessGroupDetailComponent implements OnInit, OnDestroy {
     private router: Router,
     private confirmationService: ConfirmationService,
     private moduleService: ModuleService,
-
+    private accessGroupAssignmentService: AccessGroupAssignmentService,
     private accessGroupService: AccessGroupService
   ) {this.application = [
     {id:"A23B4841-10BF-4DE0-AD84-25E7ADF7EA7A" , name: 'PBR'}       
@@ -58,7 +65,7 @@ export class AccessGroupDetailComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.accessGroup = {} as AccessGroup;
-    
+    this.GetAccessGroup();
     this.departmentList();
     this.route.paramMap.subscribe((params) => {
       const accessGroupId = Utils.decrypt(params.get('id')) || 0;
@@ -70,7 +77,7 @@ export class AccessGroupDetailComponent implements OnInit, OnDestroy {
     });
   }
   onCancelClick() {
-    this.router.navigate(['asm/access-group']);
+    this.router.navigate(['asm/access-group-assignment']);
   }
   onFormSubmit() {
     this.submitted = true;
@@ -122,6 +129,14 @@ export class AccessGroupDetailComponent implements OnInit, OnDestroy {
       this.accessGroup= res.body.data
     });
     */
+  }
+  GetAccessGroup()
+  {
+    this.accessGroupService.getAccessGroup().then((data) => (this.accessGroupList = data));      
+  }
+  GetRole()
+  {
+    this.accessGroupAssignmentService.getRoleByDepartmentId(this.selectedDepartment.departmentId).then((data) => (this.role = data));    
   }
   getAllModule(){
    let applicationId;

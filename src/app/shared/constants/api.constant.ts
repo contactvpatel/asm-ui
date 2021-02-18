@@ -108,3 +108,20 @@ export const ApiConstants = {
   EventFrequency: 'EventFrequency',
   EventEntityStatus: 'api/EventOccurrenceStatus/GetEventOccurrenceStatus',
 };
+export const ModuleAPI = {
+  GetModuleByApplication:"modules/applications/",
+  GetAllModule: 'modules',
+  GetModuleType:'moduletypes',
+  GetModuleById: 'modules/',
+  UpdateModule: 'modules',
+  CreateModule: 'Module/',
+  DeleteModule: 'Module/',
+  IsActiveModule: 'module/IsActive',
+};
+export const AccessGroupAPI = {
+  GetAllAccessGroup: 'access-groups',
+  
+};
+export const RoleApi = {
+GetRole:"roles/"
+}

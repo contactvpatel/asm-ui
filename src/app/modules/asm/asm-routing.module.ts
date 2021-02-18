@@ -5,7 +5,8 @@ import { AsmComponent } from './asm.component';
 import { ModuleComponent } from './page/application-security/module/module.component';
 import { AccessGroupSummaryComponent } from './page/application-security/access-group/access-group-summary/access-group-summary.component';
 import { AccessGroupDetailComponent } from './page/application-security/access-group/access-group-detail/access-group-detail.component';
-import { AccessGroupAssignmentComponent } from './page/application-security/access-group-assignment/access-group-assignment.component';
+import { AccessAssignmentGroupDetailComponent } from './page/application-security/access-group-assignment/access-group-assignment-detail/access-group-assignment-detail.component';
+import { AccessGroupAssignmentSummaryComponent } from './page/application-security/access-group-assignment/access-group-assignment-summary/access-group-assignment-summary.component';
 import { HomeComponent } from './page/home/home.component';
 
 const routes: Routes = [
@@ -33,7 +34,11 @@ const routes: Routes = [
         },
         {
           path: 'access-group-assignment',
-          component: AccessGroupAssignmentComponent,
+          component: AccessGroupAssignmentSummaryComponent,
+        },
+        {
+          path: 'access-group-assignment/:id',
+          component: AccessAssignmentGroupDetailComponent,
         },
       ],
     },

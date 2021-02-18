@@ -48,8 +48,8 @@ import { HomeComponent } from './page/home/home.component';
 import { ModuleComponent } from './page/application-security/module/module.component';
 import { AccessGroupSummaryComponent } from './page/application-security/access-group/access-group-summary/access-group-summary.component';
 import { AccessGroupDetailComponent } from './page/application-security/access-group/access-group-detail/access-group-detail.component';
-import { AccessGroupAssignmentComponent } from './page/application-security/access-group-assignment/access-group-assignment.component';
-
+import { AccessGroupAssignmentSummaryComponent } from './page/application-security/access-group-assignment/access-group-assignment-summary/access-group-assignment-summary.component';
+import { AccessAssignmentGroupDetailComponent } from './page/application-security/access-group-assignment/access-group-assignment-detail/access-group-assignment-detail.component';
 import { ConfirmationService } from 'primeng/api';
 import { ModuleService } from '@app/data/services/module.service';
 import { AccessGroupService } from '@app/data/services/access-group.service';
@@ -72,7 +72,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     ModuleComponent,
     AccessGroupSummaryComponent,
     AccessGroupDetailComponent,
-    AccessGroupAssignmentComponent,
+    AccessAssignmentGroupDetailComponent,
+    AccessGroupAssignmentSummaryComponent
   ],
   imports: [
     CommonModule,
