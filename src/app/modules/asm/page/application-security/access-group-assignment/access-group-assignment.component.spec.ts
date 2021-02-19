@@ -3,21 +3,21 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { AccessAssignmentGroupDetailComponent } from './access-group-assignment-detail.component';
+import { AccessGroupAssignmentComponent } from './access-group-assignment.component';
 
-describe('AccessGroupAssignmentDetailComponent', () => {
-  let component: AccessAssignmentGroupDetailComponent;
-  let fixture: ComponentFixture<AccessAssignmentGroupDetailComponent>;
+describe('AccessGroupAssignmentComponent', () => {
+  let component: AccessGroupAssignmentComponent;
+  let fixture: ComponentFixture<AccessGroupAssignmentComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AccessAssignmentGroupDetailComponent ]
+      declarations: [ AccessGroupAssignmentComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AccessAssignmentGroupDetailComponent);
+    fixture = TestBed.createComponent(AccessGroupAssignmentComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

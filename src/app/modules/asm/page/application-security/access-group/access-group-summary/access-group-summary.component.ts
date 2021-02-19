@@ -1,7 +1,7 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { EncryptPipe } from '@app/modules/encrypt/pipes/encrypt.pipe';
 import { Router } from '@angular/router';
-import { AccessGroupModel } from '@app/data/schema/access-group';
+import { Product } from '@app/data/schema/product';
 import { AccessGroupService } from '@app/data/services/access-group.service';
 import { ConfirmationService } from 'primeng/api';
 import { MessageService } from 'primeng/api';
@@ -15,11 +15,11 @@ import { MessageService } from 'primeng/api';
 export class AccessGroupSummaryComponent implements OnInit {
   productDialog: boolean;
 
-  products: AccessGroupModel[];
+  products: Product[];
 
-  product: AccessGroupModel;
-  
-  selectedAccessGroup: AccessGroupModel[];
+  product: Product;
+
+  selectedProducts: Product[];
 
   submitted: boolean;
 
@@ -32,7 +32,9 @@ export class AccessGroupSummaryComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.getAccessGroup();
+    this.accessGroupService
+      .getProducts()
+      .then((data) => (this.products = data));
   }
 
   /*
@@ -46,44 +48,43 @@ export class AccessGroupSummaryComponent implements OnInit {
     this.route.navigate(['/asm/access-group/0']);
   }
 
-  deleteSelectedAccessGroup() {
+  deleteSelectedProducts() {
     this.confirmationService.confirm({
-      message: 'Are you sure you want to delete the selected accessgroup?',
+      message: 'Are you sure you want to delete the selected products?',
       header: 'Confirm',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-        this.selectedAccessGroup.forEach((accessGroup) => {   
-          this.accessGroupService.deleteAccessGroup(accessGroup.accessGroupId).then((data) => (this.getAccessGroup()));
-               });
-       
-        this.selectedAccessGroup = null;
+        this.products = this.products.filter(
+          (val) => !this.selectedProducts.includes(val)
+        );
+        this.selectedProducts = null;
         this.messageService.add({
           severity: 'success',
           summary: 'Successful',
-          detail: 'AccessGroup Deleted',
+          detail: 'Products Deleted',
           life: 3000,
         });
       },
     });
   }
 
-  editProduct(product: AccessGroupModel) {
+  editProduct(product: Product) {
     this.product = { ...product };
     this.productDialog = true;
   }
 
-  deleteProduct(product: AccessGroupModel) {
+  deleteProduct(product: Product) {
     this.confirmationService.confirm({
       message: 'Are you sure you want to delete ' + product.name + '?',
       header: 'Confirm',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-        this.accessGroupService.deleteAccessGroup(product.accessGroupId).then((data) =>(this.getAccessGroup()));
+        this.products = this.products.filter((val) => val.id !== product.id);
         this.product = {};
         this.messageService.add({
           severity: 'success',
           summary: 'Successful',
-          detail: 'AccessGroup Deleted',
+          detail: 'Product Deleted',
           life: 3000,
         });
       },
@@ -99,8 +100,8 @@ export class AccessGroupSummaryComponent implements OnInit {
     this.submitted = true;
 
     if (this.product.name.trim()) {
-      if (this.product.name) {
-        this.products[this.findIndexById(this.product.name)] = this.product;
+      if (this.product.id) {
+        this.products[this.findIndexById(this.product.id)] = this.product;
         this.messageService.add({
           severity: 'success',
           summary: 'Successful',
@@ -108,8 +109,8 @@ export class AccessGroupSummaryComponent implements OnInit {
           life: 3000,
         });
       } else {
-        this.product.name = this.createId();
-        this.product.name = 'product-placeholder.svg';
+        this.product.id = this.createId();
+        this.product.image = 'product-placeholder.svg';
         this.products.push(this.product);
         this.messageService.add({
           severity: 'success',
@@ -128,7 +129,7 @@ export class AccessGroupSummaryComponent implements OnInit {
   findIndexById(id: string): number {
     let index = -1;
     for (let i = 0; i < this.products.length; i++) {
-      if (this.products[i].name === id) {
+      if (this.products[i].id === id) {
         index = i;
         break;
       }
@@ -136,12 +137,7 @@ export class AccessGroupSummaryComponent implements OnInit {
 
     return index;
   }
-  getAccessGroup()
-  {
-    this.accessGroupService
-      .getAccessGroup()
-      .then((data) => (this.products = data,console.log(data)));
-  }
+
   createId(): string {
     let id = '';
     var chars =

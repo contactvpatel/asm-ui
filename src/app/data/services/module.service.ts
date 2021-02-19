@@ -1,15 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from '@env/environment';
-import {  Module,   moduleType } from '../schema/product';
-import { ModuleAPI  } from '../../shared/constants/api.constant';
-import {CommonService}from '../services/common.service'
+import { Product } from '../schema/product';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ModuleService {
-  url = environment.serverUrl;
   status: string[] = ['OUTOFSTOCK', 'INSTOCK', 'LOWSTOCK'];
 
   productNames: string[] = [
@@ -45,109 +41,54 @@ export class ModuleService {
     'Yoga Set',
   ];
 
-  constructor(private http: HttpClient,private commonService:CommonService) {}
+  constructor(private http: HttpClient) {}
 
   getProductsSmall() {
     return this.http
       .get<any>('assets/products-small.json')
       .toPromise()
-      .then((res) => <Module[]>res.data)
+      .then((res) => <Product[]>res.data)
       .then((data) => {
         return data;
       });
   }
 
-  getModules() {
+  getProducts() {
     return this.http
-      .get<any>(this.url+ ModuleAPI.GetAllModule)
+      .get<any>('assets/products.json')
       .toPromise()
-      .then((res) => <Module[]>res.data)
+      .then((res) => <Product[]>res.data)
       .then((data) => {
         return data;
       });
   }
-  getModulesByApplicationId(applicationId:any) {
-    return this.http
-      .get<any>(this.url+ ModuleAPI.GetModuleByApplication+applicationId)
-      .toPromise()
-      .then((res) => <Module[]>res.data)
-      .then((data) => {
-        return data;
-      });
-  }
-  getModuleType() {
-    return this.http
-      .get<any>('https://localhost:44388/api/v1.0/module-types')
-      .toPromise()
-      .then((res) => <moduleType[]>res.data)
-      .then((data) => {
-        return data;
-      });
-  }
-  getModuleById(module:any)
-  {
-    return this.http
-    .get<any>(this.url+ ModuleAPI.GetModuleById+module)
-    .toPromise()
-    .then((res) => <Module>res.data)
-    .then((data) => {
-      return data;
-    });
-  }
-  createModule(module:any) {
-    console.log(module)
-    return this.commonService
-      .post('modules',module)
-      .toPromise()      
-      .then((data) => {
-        return data;
-      });
-  }
-  updateModule(module:any)
-  {
-    return this.http
-    .put<any>(this.url+ ModuleAPI.UpdateModule,module)
-    .toPromise()
-    .then((res) => <Module>res.data)
-    .then((data) => {
-      return data;
-    });
-  }
-  deleteModule(module:any) {
-    console.log(module)
-    return this.commonService
-      .delete('modules/'+module+"/"+0)
-      .toPromise()      
-      .then((data) => {
-        return data;
-      });
-  }
+
   getProductsWithOrdersSmall() {
     return this.http
       .get<any>('assets/products-orders-small.json')
       .toPromise()
-      .then((res) => <Module[]>res.data)
+      .then((res) => <Product[]>res.data)
       .then((data) => {
         return data;
       });
   }
 
-  // generatePrduct(): Module {
-  //   const product: Module = {
-  //     id: this.generateId(),
-  //     name: this.generateName(),
-  //     description: 'Product Description',
-  //     price: this.generatePrice(),
-  //     quantity: this.generateQuantity(),
-  //     category: 'Product Category',
-  //     inventoryStatus: this.generateStatus(),
-  //     rating: this.generateRating(),
-  //   };
+  generatePrduct(): Product {
+    const product: Product = {
+      id: this.generateId(),
+      name: this.generateName(),
+      description: 'Product Description',
+      price: this.generatePrice(),
+      quantity: this.generateQuantity(),
+      category: 'Product Category',
+      inventoryStatus: this.generateStatus(),
+      rating: this.generateRating(),
+    };
 
-  //   product.image =
-  //     product.name.toLocaleLowerCase().split(/[ ,]+/).join('-') + '.jpg';
-  //   return product;
-  // }
+    product.image =
+      product.name.toLocaleLowerCase().split(/[ ,]+/).join('-') + '.jpg';
+    return product;
+  }
 
   generateId() {
     let text = '';

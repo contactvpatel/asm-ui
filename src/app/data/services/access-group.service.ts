@@ -1,20 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { AccessGroupAPI } from '@app/shared/constants/api.constant';
-import { environment } from '@env/environment';
-import { AccessGroupModel, Department } from '../schema/access-group';
-
-import { CommonService } from './common.service';
-
+import { Product } from '../schema/product';
 
 @Injectable({
   providedIn: 'root',
 })
-
 export class AccessGroupService {
-  [x: string]: any;
   status: string[] = ['OUTOFSTOCK', 'INSTOCK', 'LOWSTOCK'];
-  url = environment.serverUrl;
+
   productNames: string[] = [
     'Bamboo Watch',
     'Black Watch',
@@ -48,58 +41,23 @@ export class AccessGroupService {
     'Yoga Set',
   ];
 
-  constructor(private http: HttpClient,private commonService:CommonService) {}
-getAccessGroup()
-{
-  return this.http
-      .get<any>(this.url+ AccessGroupAPI.GetAllAccessGroup)
+  constructor(private http: HttpClient) {}
+
+  getProductsSmall() {
+    return this.http
+      .get<any>('assets/products-small.json')
       .toPromise()
-      .then((res) => <AccessGroupModel[]>res.data)
+      .then((res) => <Product[]>res.data)
       .then((data) => {
         return data;
       });
-}
-getDepartment() {
-  return this.http
-      .get<any>('https://localhost:44388/api/v1.0/departments')
-      .toPromise()
-      .then((res) => <Department[]>res.data)
-      .then((data) => {
-        return data;
-      });
-}
-deleteAccessGroup(accessGroupId:number){
-  return this.commonService
-      .delete('access-groups/'+accessGroupId+'/0')
-      .toPromise()      
-      .then((data) => {
-        return data;
-      });
-}
-createAccessGroup(accessGroup:any)
-{
-  return this.commonService
-  .post('access-groups',accessGroup)
-  .toPromise()      
-  .then((data) => {
-    return data;
-  });
-}
- getProductsSmall() {
-   return this.http
-     .get<any>('assets/products-small.json')
-     .toPromise()
-     .then((res) => <AccessGroupModel[]>res.data)
-     .then((data) => {
-       return data;
-     });
- }
+  }
 
   getProducts() {
     return this.http
       .get<any>('assets/products.json')
       .toPromise()
-      .then((res) => <AccessGroupModel[]>res.data)
+      .then((res) => <Product[]>res.data)
       .then((data) => {
         return data;
       });
@@ -109,28 +67,28 @@ createAccessGroup(accessGroup:any)
     return this.http
       .get<any>('assets/products-orders-small.json')
       .toPromise()
-      .then((res) => <AccessGroupModel[]>res.data)
+      .then((res) => <Product[]>res.data)
       .then((data) => {
         return data;
       });
   }
 
-  // generatePrduct(): Module {
-  //   const product: Module = {
-  //     id: this.generateId(),
-  //     name: this.generateName(),
-  //     description: 'Product Description',
-  //     price: this.generatePrice(),
-  //     quantity: this.generateQuantity(),
-  //     category: 'Product Category',
-  //     inventoryStatus: this.generateStatus(),
-  //     rating: this.generateRating(),
-  //   };
+  generatePrduct(): Product {
+    const product: Product = {
+      id: this.generateId(),
+      name: this.generateName(),
+      description: 'Product Description',
+      price: this.generatePrice(),
+      quantity: this.generateQuantity(),
+      category: 'Product Category',
+      inventoryStatus: this.generateStatus(),
+      rating: this.generateRating(),
+    };
 
-  //   product.image =
-  //     product.name.toLocaleLowerCase().split(/[ ,]+/).join('-') + '.jpg';
-  //   return product;
-  // }
+    product.image =
+      product.name.toLocaleLowerCase().split(/[ ,]+/).join('-') + '.jpg';
+    return product;
+  }
 
   generateId() {
     let text = '';
