@@ -21,9 +21,18 @@ getRoleByDepartmentId(departmentId:number) {
         return data;
       });
 }
+getAccessGroupAssignment() {
+  return this.http
+      .get<any>(this.url+AccessGroupAssignmentApi.GetAccessGroupAssignment)
+      .toPromise()
+      .then((res) => <Role[]>res.data)
+      .then((data) => {
+        return data;
+      });
+}
 createAccessGroupAssignment(accessGroup:any) {
       return this.commonService
-      .post(AccessGroupAssignmentApi.CreateAccessGroupAssignment,module)
+      .post(AccessGroupAssignmentApi.CreateAccessGroupAssignment,accessGroup)
       .toPromise()      
       .then((data) => {
         return data;

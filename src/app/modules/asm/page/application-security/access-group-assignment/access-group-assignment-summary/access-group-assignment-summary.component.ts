@@ -2,7 +2,8 @@ import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { EncryptPipe } from '@app/modules/encrypt/pipes/encrypt.pipe';
 import { Router } from '@angular/router';
 import { AccessGroupModel } from '@app/data/schema/access-group';
-import { AccessGroupService } from '@app/data/services/access-group.service';
+
+import { AccessGroupAssignmentService } from '@app/data/services/access-group-assignment.service';
 import { ConfirmationService } from 'primeng/api';
 import { MessageService } from 'primeng/api';
 
@@ -15,7 +16,7 @@ import { MessageService } from 'primeng/api';
 export class AccessGroupAssignmentSummaryComponent implements OnInit {
   productDialog: boolean;
 
-  products: AccessGroupModel[];
+  accessGroupAssignment: AccessGroupModel[];
 
   product: AccessGroupModel;
   
@@ -24,7 +25,7 @@ export class AccessGroupAssignmentSummaryComponent implements OnInit {
   submitted: boolean;
 
   constructor(
-    private accessGroupService: AccessGroupService,
+    private accessGroupAssignmentService: AccessGroupAssignmentService,
     private messageService: MessageService,
     private confirmationService: ConfirmationService,
     private encrypt: EncryptPipe,
@@ -32,7 +33,7 @@ export class AccessGroupAssignmentSummaryComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.getAccessGroup();
+    this.getAccessGroupAssignment();
   }
 
   /*
@@ -53,8 +54,8 @@ export class AccessGroupAssignmentSummaryComponent implements OnInit {
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
         this.selectedAccessGroup.forEach((accessGroup) => {   
-          this.accessGroupService.deleteAccessGroup(accessGroup.accessGroupId).then((data) => (this.getAccessGroup()));
-               });
+          // this.accessGroupService.deleteAccessGroup(accessGroup.accessGroupId).then((data) => (this.getAccessGroup()));
+                });
        
         this.selectedAccessGroup = null;
         this.messageService.add({
@@ -72,17 +73,17 @@ export class AccessGroupAssignmentSummaryComponent implements OnInit {
     this.productDialog = true;
   }
 
-  deleteProduct(product: AccessGroupModel) {
+  deleteProduct(accessGroupAssignment: AccessGroupModel) {
     this.confirmationService.confirm({
-      message: 'Are you sure you want to delete ' + product.name + '?',
+      message: 'Are you sure you want to delete ' + accessGroupAssignment.name + '?',
       header: 'Confirm',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-        this.accessGroupService.deleteAccessGroup(product.accessGroupId).then((data) =>(this.getAccessGroup()));
+        // this.sr.deleteAccessGroup(product.accessGroupId).then((data) =>(this.getAccessGroup()));
         this.product = {};
         this.messageService.add({
           severity: 'success',
-          summary: 'Successful',
+          summary: 'Successful', 
           detail: 'AccessGroup Deleted',
           life: 3000,
         });
@@ -96,39 +97,39 @@ export class AccessGroupAssignmentSummaryComponent implements OnInit {
   }
 
   saveProduct() {
-    this.submitted = true;
+    // this.submitted = true;
 
-    if (this.product.name.trim()) {
-      if (this.product.name) {
-        this.products[this.findIndexById(this.product.name)] = this.product;
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Successful',
-          detail: 'Product Updated',
-          life: 3000,
-        });
-      } else {
-        this.product.name = this.createId();
-        this.product.name = 'product-placeholder.svg';
-        this.products.push(this.product);
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Successful',
-          detail: 'Product Created',
-          life: 3000,
-        });
-      }
+    // if (this.product.name.trim()) {
+    //   if (this.product.name) {
+    //     this.products[this.findIndexById(this.product.name)] = this.product;
+    //     this.messageService.add({
+    //       severity: 'success',
+    //       summary: 'Successful',
+    //       detail: 'Product Updated',
+    //       life: 3000,
+    //     });
+    //   } else {
+    //     this.product.name = this.createId();
+    //     this.product.name = 'product-placeholder.svg';
+    //     this.products.push(this.product);
+    //     this.messageService.add({
+    //       severity: 'success',
+    //       summary: 'Successful',
+    //       detail: 'Product Created',
+    //       life: 3000,
+    //     });
+    //   }
 
-      this.products = [...this.products];
-      this.productDialog = false;
-      this.product = {};
-    }
+    //   this.products = [...this.products];
+    //   this.productDialog = false;
+    //   this.product = {};
+    // }
   }
 
   findIndexById(id: string): number {
     let index = -1;
-    for (let i = 0; i < this.products.length; i++) {
-      if (this.products[i].name === id) {
+    for (let i = 0; i < this.accessGroupAssignment.length; i++) {
+      if (this.accessGroupAssignment[i].name === id) {
         index = i;
         break;
       }
@@ -136,11 +137,11 @@ export class AccessGroupAssignmentSummaryComponent implements OnInit {
 
     return index;
   }
-  getAccessGroup()
+  getAccessGroupAssignment()
   {
-    this.accessGroupService
-      .getAccessGroup()
-      .then((data) => (this.products = data,console.log(data)));
+    this.accessGroupAssignmentService
+      .getAccessGroupAssignment()
+      .then((data) => (this.accessGroupAssignment = data));
   }
   createId(): string {
     let id = '';

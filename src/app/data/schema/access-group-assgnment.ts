@@ -1,3 +1,19 @@
+export interface AccessGroup {
+    accessGroupId: number,
+    name: string,
+    description: string,
+    applicationId: string,
+    applicationName: string,
+    departmentId: number,
+    departmentName: string,
+    accessGroupAssignmentId: number,
+    roleId: number,
+    roleName: string,
+    positionId: number,
+    positionName: string,
+    personId: number,
+    personName: string
+}
 export interface Role {
  roleId: number,
  roleName: string,

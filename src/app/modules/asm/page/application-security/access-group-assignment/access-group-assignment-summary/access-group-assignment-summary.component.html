@@ -25,7 +25,7 @@
 
   <p-table
     #dt
-    [value]="products"
+    [value]="accessGroupAssignment"
     [rows]="10"
     [paginator]="true"
     [globalFilterFields]="[
@@ -95,43 +95,39 @@
         <th></th> 
       </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-product>
+    <ng-template pTemplate="body" let-accessgroupassignment>
       <tr>
-        <!-- <td>
-          <p-tableCheckbox [value]="product"></p-tableCheckbox>
+        <td>
+          <p-tableCheckbox [value]="accessgroupassignment"></p-tableCheckbox>
         </td>
         <td>PBR</td>
-        <td>{{ product.name }}</td>
-        <td>{{ product.description }}</td>
-        <td>{{ product.departmentName }}</td>
-        <td *ngIf="product.isActive===true; else elseStatement">
+        <td>{{ accessgroupassignment.name }}</td>
+        <td>{{ accessgroupassignment.departmentName }}</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <!-- <td *ngIf="accessgroupassignment.isActive===true; else elseStatement">
           Yes
         </td>
         <ng-template #elseStatement>
          <td>No</td> 
-        </ng-template>
+        </ng-template> -->
         
-        <td>
+        <td>          
           <button
             pButton
-            pRipple
-            icon="pi pi-pencil"
-            class="p-button-rounded p-button-warning p-mr-2"
-          ></button>
-          <button
-            pButton
-            (click)="deleteProduct(product)"
+            (click)="deleteProduct(accessgroupassignment)"
             pRipple
             icon="pi pi-trash"
             class="p-button-rounded p-button-danger"
             
           ></button>
-        </td> -->
+        </td>
       </tr>
     </ng-template>
     <ng-template pTemplate="summary">
       <div class="p-d-flex p-ai-center p-jc-between">
-        In total there are {{ products ? products.length : 0 }} AccessGroup.
+        In total there are {{ accessGroupAssignment ? accessGroupAssignment.length : 0 }} accessGroupAssignment.
       </div>
     </ng-template>
   </p-table>

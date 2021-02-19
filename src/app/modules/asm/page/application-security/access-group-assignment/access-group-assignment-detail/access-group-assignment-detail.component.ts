@@ -96,10 +96,7 @@ export class AccessAssignmentGroupDetailComponent implements OnInit, OnDestroy {
     {
       accessgroupassignment = this.setRoleAndPosition(accessgroupassignment,this.selectedPosition,this.selectaccessGroup);
     }
-    console.log(accessgroupassignment);
-   
-
-    this.accessGroupAssignmentService.createAccessGroupAssignment(accessgroupassignment).then((data) => (console.log(data)));
+     this.accessGroupAssignmentService.createAccessGroupAssignment(accessgroupassignment).then((data) => (console.log(data)));
     }
     setPermissions(
       permission: any[],

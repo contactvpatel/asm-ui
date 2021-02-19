@@ -130,5 +130,6 @@ export const PositionApi={
   GetPosition:"positions/"
 }   
 export const AccessGroupAssignmentApi={
+  GetAccessGroupAssignment:"access-group-assignments",
   CreateAccessGroupAssignment:"access-group-assignments"
 }
