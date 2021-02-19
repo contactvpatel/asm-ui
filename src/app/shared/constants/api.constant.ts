@@ -2,7 +2,7 @@ export const ApiConstants = {
   Auth: {
     requestToken: 'auth/secured/requesttoken',
     login: 'user/login',
-    logout: 'user/logout',
+    logout: 'user/logout'
   },
   EventTemplateType: 'EventTemplateType',
   EventTemplateSubType: 'EventTemplateSubType',
@@ -12,124 +12,123 @@ export const ApiConstants = {
     getbyid: 'EventTemplate/',
     manageevent: '/api/Event/ManageEvent',
     deleteevent: '/api/Event/DeleteEvent',
-    publishevent: 'EventTemplate/Publish',
+    publishevent: 'EventTemplate/Publish'
   },
   EventTemplateEntity: {
     all: '/Entity',
-    ManageEventTemplateEntity: 'EventTemplate/Entity',
+    ManageEventTemplateEntity: 'EventTemplate/Entity'
   },
   EventStatus: {
-    all: 'EventStatus',
+    all: 'EventStatus'
   },
   EventCategory: {
-    all: 'api/EventCategory/GetEventCategories',
+    all: 'api/EventCategory/GetEventCategories'
   },
   EventSubType: {
     all: 'api/EventSubType/GetEventSubTypes',
     manageeventsubtype: 'api/EventSubType',
-    deleteeventsubtype: 'api/EventSubType',
+    deleteeventsubtype: 'api/EventSubType'
   },
   EventSurvey: {
     all: '/Survey',
     GetById: '/Survey/',
     ManageEventSurvey: 'EventTemplate/Survey',
     SurveySettingUpdate: 'EventTemplate/SurveySetting',
-    delete: 'EventTemplate/DeleteSurvey',
+    delete: 'EventTemplate/DeleteSurvey'
   },
   EventTemplateParticipant: {
     getById: '/Participant',
-    ManageParticipant: 'EventTemplate/Participant',
+    ManageParticipant: 'EventTemplate/Participant'
   },
   EventTemplateVolunteer: {
     getById: '/Volunteer',
-    ManageVolunteer: 'EventTemplate/Volunteer',
+    ManageVolunteer: 'EventTemplate/Volunteer'
   },
   EventApproval: {
     all: '/Approval',
     GetById: '/Approval/',
     ManageEventApproval: 'EventTemplate/Approval',
     ApprovalSettingUpdate: 'EventTemplate/ApprovalSetting',
-    delete: 'EventTemplate/DeleteEventApprover',
+    delete: 'EventTemplate/DeleteEventApprover'
   },
   EventEntityTemplate: {
     all: 'EventEntityTemplate',
     getbyid: 'EventEntityTemplate/',
-    publish: '/Publish',
+    publish: '/Publish'
   },
   EventEntityTemplateParticipant: {
-    all: '/Participant',
+    all: '/Participant'
   },
   EventEntityTemplateVolunteer: {
-    all: '/Volunteer',
+    all: '/Volunteer'
   },
   EventEntityTemplateSurvey: {
     all: '/Survey',
-    getbyId: '/Survey/',
+    getbyId: '/Survey/'
   },
   EventEntityTemplateApprovar: {
     all: '/Approval',
     getbyId: '/Approval/',
     delete: 'EventEntityTemplate/DeleteApproval',
-    approvalsetting: 'EventEntityTemplate/ApprovalSetting',
+    approvalsetting: 'EventEntityTemplate/ApprovalSetting'
   },
   SaveUserAuthInfo: {
-    SaveUserData: 'api/UserAuth/SaveUserData',
+    SaveUserData: 'api/UserAuth/SaveUserData'
   },
   Department: {
-    all: 'Department',
+    all: 'Department'
   },
   Center: {
-    all: 'Center',
+    all: 'Center'
   },
   CenterType: {
-    all: 'CenterType',
+    all: 'CenterType'
   },
   GeoLevel: {
-    all: 'GeoLevel',
+    all: 'GeoLevel'
   },
   Owner: {
-    all: 'Owner',
+    all: 'Owner'
   },
   Position: {
-    all: 'Position',
+    all: 'Position'
   },
   Region: {
-    all: 'Region',
+    all: 'Region'
   },
   Role: {
-    all: 'Role',
+    all: 'Role'
   },
   Survey: {
-    all: 'Survey',
+    all: 'Survey'
   },
   ZoneType: {
-    all: 'ZoneType',
+    all: 'ZoneType'
   },
   EventFrequency: 'EventFrequency',
-  EventEntityStatus: 'api/EventOccurrenceStatus/GetEventOccurrenceStatus',
+  EventEntityStatus: 'api/EventOccurrenceStatus/GetEventOccurrenceStatus'
 };
 export const ModuleAPI = {
-  GetModuleByApplication:"modules/applications/",
+  GetModuleByApplication: 'modules/applications/',
   GetAllModule: 'modules',
-  GetModuleType:'moduletypes',
+  GetModuleType: 'moduletypes',
   GetModuleById: 'modules/',
   UpdateModule: 'modules',
   CreateModule: 'Module/',
   DeleteModule: 'Module/',
-  IsActiveModule: 'module/IsActive',
+  IsActiveModule: 'module/IsActive'
 };
 export const AccessGroupAPI = {
-  GetAllAccessGroup: 'access-groups',
-  
+  GetAllAccessGroup: 'access-groups'
 };
 export const RoleApi = {
-GetRoleByDepartment:"roles/",
-GetRole:"roles"
-}
-export const PositionApi={
-  GetPosition:"positions/"
-}   
-export const AccessGroupAssignmentApi={
-  GetAccessGroupAssignment:"access-group-assignments",
-  CreateAccessGroupAssignment:"access-group-assignments"
-}
+  GetRoleByDepartment: 'roles/',
+  GetRole: 'roles'
+};
+export const PositionApi = {
+  GetPosition: 'positions/'
+};
+export const AccessGroupAssignmentApi = {
+  GetAccessGroupAssignment: 'access-group-assignments',
+  CreateAccessGroupAssignment: 'access-group-assignments'
+};

@@ -53,11 +53,11 @@ export class AsmComponent implements OnInit {
         items: [
           {
             label: 'Api Endpoint',
-            //routerLink: ['/asm/module'],
+            // routerLink: ['/asm/module'],
           },
           {
             label: 'Api Access',
-            //routerLink: ['/asm/access-group'],
+            // routerLink: ['/asm/access-group'],
           },
         ],
       },

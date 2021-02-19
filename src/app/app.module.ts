@@ -9,9 +9,6 @@ import { AppComponent } from './app.component';
 import { SessionTimeoutComponent } from './modules/page/session-timeout/session-timeout.component';
 import { NoAccessComponent } from './modules/page/no-access/no-access.component';
 import { PageNotFoundComponent } from './modules/page/page-not-found/page-not-found.component';
-
-//import { NgxUiLoaderModule } from 'ngx-ui-loader';
-
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CoreModule } from '@app/core/core.module';
@@ -33,7 +30,6 @@ import { AsmAuthComponent } from './modules/page/asm-auth/asm-auth.component';
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
-    //NgxUiLoaderModule,
     CoreModule,
     ShellModule,
     ToastModule,

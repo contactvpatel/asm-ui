@@ -9,7 +9,7 @@ describe('PageNotFoundComponent', () => {
   let component: PageNotFoundComponent;
   let fixture: ComponentFixture<PageNotFoundComponent>;
 
-  beforeEach(async(() => {
+  beforeEach((() => {
     TestBed.configureTestingModule({
       declarations: [ PageNotFoundComponent ]
     })

@@ -11,7 +11,7 @@ import { MessageService } from 'primeng/api';
   selector: 'app-access-group-assignment-summary',
   templateUrl: './access-group-assignment-summary.component.html',
   styleUrls: ['./access-group-assignment-summary.component.scss'],
-  providers: [EncryptPipe, ConfirmationService],
+  providers: [EncryptPipe, ConfirmationService]
 })
 export class AccessGroupAssignmentSummaryComponent implements OnInit {
   productDialog: boolean;
@@ -19,7 +19,7 @@ export class AccessGroupAssignmentSummaryComponent implements OnInit {
   accessGroupAssignment: AccessGroupModel[];
 
   product: AccessGroupModel;
-  
+
   selectedAccessGroup: AccessGroupModel[];
 
   submitted: boolean;
@@ -32,7 +32,7 @@ export class AccessGroupAssignmentSummaryComponent implements OnInit {
     private route: Router
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.getAccessGroupAssignment();
   }
 
@@ -43,39 +43,40 @@ export class AccessGroupAssignmentSummaryComponent implements OnInit {
     this.productDialog = true;
   }
   */
-  openNew() {
+  openNew(): void {
     this.route.navigate(['/asm/access-group-assignment/0']);
   }
 
-  deleteSelectedAccessGroup() {
+  deleteSelectedAccessGroup(): void {
     this.confirmationService.confirm({
       message: 'Are you sure you want to delete the selected accessgroup?',
       header: 'Confirm',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-        this.selectedAccessGroup.forEach((accessGroup) => {   
+        this.selectedAccessGroup.forEach((accessGroup) => {
           // this.accessGroupService.deleteAccessGroup(accessGroup.accessGroupId).then((data) => (this.getAccessGroup()));
-                });
-       
+        });
+
         this.selectedAccessGroup = null;
         this.messageService.add({
           severity: 'success',
           summary: 'Successful',
           detail: 'AccessGroup Deleted',
-          life: 3000,
+          life: 3000
         });
-      },
+      }
     });
   }
 
-  editProduct(product: AccessGroupModel) {
+  editProduct(product: AccessGroupModel): void {
     this.product = { ...product };
     this.productDialog = true;
   }
 
-  deleteProduct(accessGroupAssignment: AccessGroupModel) {
+  deleteProduct(accessGroupAssignment: AccessGroupModel): void {
     this.confirmationService.confirm({
-      message: 'Are you sure you want to delete ' + accessGroupAssignment.name + '?',
+      message:
+        'Are you sure you want to delete ' + accessGroupAssignment.name + '?',
       header: 'Confirm',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
@@ -83,22 +84,21 @@ export class AccessGroupAssignmentSummaryComponent implements OnInit {
         this.product = {};
         this.messageService.add({
           severity: 'success',
-          summary: 'Successful', 
+          summary: 'Successful',
           detail: 'AccessGroup Deleted',
-          life: 3000,
+          life: 3000
         });
-      },
+      }
     });
   }
 
-  hideDialog() {
+  hideDialog(): void {
     this.productDialog = false;
     this.submitted = false;
   }
 
-  saveProduct() {
+  saveProduct(): void {
     // this.submitted = true;
-
     // if (this.product.name.trim()) {
     //   if (this.product.name) {
     //     this.products[this.findIndexById(this.product.name)] = this.product;
@@ -119,7 +119,6 @@ export class AccessGroupAssignmentSummaryComponent implements OnInit {
     //       life: 3000,
     //     });
     //   }
-
     //   this.products = [...this.products];
     //   this.productDialog = false;
     //   this.product = {};
@@ -137,17 +136,16 @@ export class AccessGroupAssignmentSummaryComponent implements OnInit {
 
     return index;
   }
-  getAccessGroupAssignment()
-  {
+  getAccessGroupAssignment(): void {
     this.accessGroupAssignmentService
       .getAccessGroupAssignment()
       .then((data) => (this.accessGroupAssignment = data));
   }
   createId(): string {
     let id = '';
-    var chars =
+    const chars =
       'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    for (var i = 0; i < 5; i++) {
+    for (let i = 0; i < 5; i++) {
       id += chars.charAt(Math.floor(Math.random() * chars.length));
     }
     return id;

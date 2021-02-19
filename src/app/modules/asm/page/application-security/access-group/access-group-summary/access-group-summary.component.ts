@@ -1,16 +1,13 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
-import { EncryptPipe } from '@app/modules/encrypt/pipes/encrypt.pipe';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AccessGroupModel } from '@app/data/schema/access-group';
 import { AccessGroupService } from '@app/data/services/access-group.service';
-import { ConfirmationService } from 'primeng/api';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-access-group-summary',
   templateUrl: './access-group-summary.component.html',
   styleUrls: ['./access-group-summary.component.scss'],
-  providers: [EncryptPipe, ConfirmationService],
 })
 export class AccessGroupSummaryComponent implements OnInit {
   productDialog: boolean;
@@ -18,7 +15,7 @@ export class AccessGroupSummaryComponent implements OnInit {
   products: AccessGroupModel[];
 
   product: AccessGroupModel;
-  
+
   selectedAccessGroup: AccessGroupModel[];
 
   submitted: boolean;
@@ -27,35 +24,29 @@ export class AccessGroupSummaryComponent implements OnInit {
     private accessGroupService: AccessGroupService,
     private messageService: MessageService,
     private confirmationService: ConfirmationService,
-    private encrypt: EncryptPipe,
     private route: Router
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.getAccessGroup();
   }
 
-  /*
-  openNew() {
-    this.product = {};
-    this.submitted = false;
-    this.productDialog = true;
-  }
-  */
-  openNew() {
+  openNew(): void {
     this.route.navigate(['/asm/access-group/0']);
   }
 
-  deleteSelectedAccessGroup() {
+  deleteSelectedAccessGroup(): void {
     this.confirmationService.confirm({
       message: 'Are you sure you want to delete the selected accessgroup?',
       header: 'Confirm',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-        this.selectedAccessGroup.forEach((accessGroup) => {   
-          this.accessGroupService.deleteAccessGroup(accessGroup.accessGroupId).then((data) => (this.getAccessGroup()));
-               });
-       
+        this.selectedAccessGroup.forEach((accessGroup) => {
+          this.accessGroupService
+            .deleteAccessGroup(accessGroup.accessGroupId)
+            .then((data) => this.getAccessGroup());
+        });
+
         this.selectedAccessGroup = null;
         this.messageService.add({
           severity: 'success',
@@ -67,18 +58,20 @@ export class AccessGroupSummaryComponent implements OnInit {
     });
   }
 
-  editProduct(product: AccessGroupModel) {
+  editProduct(product: AccessGroupModel): void {
     this.product = { ...product };
     this.productDialog = true;
   }
 
-  deleteProduct(product: AccessGroupModel) {
+  deleteProduct(product: AccessGroupModel): void {
     this.confirmationService.confirm({
       message: 'Are you sure you want to delete ' + product.name + '?',
       header: 'Confirm',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-        this.accessGroupService.deleteAccessGroup(product.accessGroupId).then((data) =>(this.getAccessGroup()));
+        this.accessGroupService
+          .deleteAccessGroup(product.accessGroupId)
+          .then((data) => this.getAccessGroup());
         this.product = {};
         this.messageService.add({
           severity: 'success',
@@ -90,12 +83,12 @@ export class AccessGroupSummaryComponent implements OnInit {
     });
   }
 
-  hideDialog() {
+  hideDialog(): void {
     this.productDialog = false;
     this.submitted = false;
   }
 
-  saveProduct() {
+  saveProduct(): void {
     this.submitted = true;
 
     if (this.product.name.trim()) {
@@ -136,17 +129,16 @@ export class AccessGroupSummaryComponent implements OnInit {
 
     return index;
   }
-  getAccessGroup()
-  {
+  getAccessGroup(): void {
     this.accessGroupService
       .getAccessGroup()
-      .then((data) => (this.products = data,console.log(data)));
+      .then((data) => ((this.products = data), console.log(data)));
   }
   createId(): string {
     let id = '';
-    var chars =
+    const chars =
       'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    for (var i = 0; i < 5; i++) {
+    for (let i = 0; i < 5; i++) {
       id += chars.charAt(Math.floor(Math.random() * chars.length));
     }
     return id;
