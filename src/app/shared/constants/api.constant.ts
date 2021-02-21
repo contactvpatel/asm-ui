@@ -130,5 +130,6 @@ export const PositionApi = {
 };
 export const AccessGroupAssignmentApi = {
   GetAccessGroupAssignment: 'access-group-assignments',
-  CreateAccessGroupAssignment: 'access-group-assignments'
+  CreateAccessGroupAssignment: 'access-group-assignments',
+  DeleteAccessGroupAssignment:'access-group-assignments/'
 };

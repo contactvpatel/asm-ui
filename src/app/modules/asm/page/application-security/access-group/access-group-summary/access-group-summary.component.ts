@@ -10,11 +10,10 @@ import { ConfirmationService, MessageService } from 'primeng/api';
   styleUrls: ['./access-group-summary.component.scss'],
 })
 export class AccessGroupSummaryComponent implements OnInit {
-  productDialog: boolean;
+  
+  accessGroups: AccessGroupModel[];
 
-  products: AccessGroupModel[];
-
-  product: AccessGroupModel;
+  accessGroup: AccessGroupModel;
 
   selectedAccessGroup: AccessGroupModel[];
 
@@ -37,7 +36,7 @@ export class AccessGroupSummaryComponent implements OnInit {
 
   deleteSelectedAccessGroup(): void {
     this.confirmationService.confirm({
-      message: 'Are you sure you want to delete the selected accessgroup?',
+      message: 'Are you sure you want to delete the selected accessgroups?',
       header: 'Confirm',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
@@ -51,28 +50,23 @@ export class AccessGroupSummaryComponent implements OnInit {
         this.messageService.add({
           severity: 'success',
           summary: 'Successful',
-          detail: 'AccessGroup Deleted',
+          detail: 'AccessGroups Deleted',
           life: 3000,
         });
       },
     });
-  }
+  }  
 
-  editProduct(product: AccessGroupModel): void {
-    this.product = { ...product };
-    this.productDialog = true;
-  }
-
-  deleteProduct(product: AccessGroupModel): void {
+  deleteAccessGroup(accessGroup: AccessGroupModel): void {
     this.confirmationService.confirm({
-      message: 'Are you sure you want to delete ' + product.name + '?',
+      message: 'Are you sure you want to delete ' + accessGroup.name + '?',
       header: 'Confirm',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
         this.accessGroupService
-          .deleteAccessGroup(product.accessGroupId)
+          .deleteAccessGroup(accessGroup.accessGroupId)
           .then((data) => this.getAccessGroup());
-        this.product = {};
+        this.accessGroup = {};
         this.messageService.add({
           severity: 'success',
           summary: 'Successful',
@@ -83,45 +77,12 @@ export class AccessGroupSummaryComponent implements OnInit {
     });
   }
 
-  hideDialog(): void {
-    this.productDialog = false;
-    this.submitted = false;
-  }
 
-  saveProduct(): void {
-    this.submitted = true;
-
-    if (this.product.name.trim()) {
-      if (this.product.name) {
-        this.products[this.findIndexById(this.product.name)] = this.product;
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Successful',
-          detail: 'Product Updated',
-          life: 3000,
-        });
-      } else {
-        this.product.name = this.createId();
-        this.product.name = 'product-placeholder.svg';
-        this.products.push(this.product);
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Successful',
-          detail: 'Product Created',
-          life: 3000,
-        });
-      }
-
-      this.products = [...this.products];
-      this.productDialog = false;
-      this.product = {};
-    }
-  }
-
+  
   findIndexById(id: string): number {
     let index = -1;
-    for (let i = 0; i < this.products.length; i++) {
-      if (this.products[i].name === id) {
+    for (let i = 0; i < this.accessGroups.length; i++) {
+      if (this.accessGroups[i].name === id) {
         index = i;
         break;
       }
@@ -132,15 +93,6 @@ export class AccessGroupSummaryComponent implements OnInit {
   getAccessGroup(): void {
     this.accessGroupService
       .getAccessGroup()
-      .then((data) => ((this.products = data), console.log(data)));
-  }
-  createId(): string {
-    let id = '';
-    const chars =
-      'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    for (let i = 0; i < 5; i++) {
-      id += chars.charAt(Math.floor(Math.random() * chars.length));
-    }
-    return id;
-  }
+      .then((data) => ((this.accessGroups = data)));
+  }  
 }

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '@env/environment';
-import {  Module,   moduleType } from '../schema/product';
+import {  Module,   moduleType } from '../schema/module';
 import { ModuleAPI  } from '../../shared/constants/api.constant';
 import {CommonService}from '../services/common.service'
 

@@ -1,8 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AccessGroupModel, Department } from '@app/data/schema/access-group';
 import { Position, Role } from '@app/data/schema/access-group-assgnment';
-import { AccessGroup, Application } from '@app/data/schema/product';
+import { AccessGroup, Application } from '@app/data/schema/module';
 import { AccessGroupAssignmentService } from '@app/data/services/access-group-assignment.service';
 import { AccessGroupService } from '@app/data/services/access-group.service';
 import { ModuleService } from '@app/data/services/module.service';
@@ -15,7 +16,7 @@ import { Subscription } from 'rxjs';
   selector: 'app-access-group-assignment-detail',
   templateUrl: './access-group-assignment-detail.component.html',
   styleUrls: ['./access-group-assignment-detail.component.scss'],
-  providers: [EncryptPipe, ConfirmationService],
+  providers: [EncryptPipe, ConfirmationService]
 })
 export class AccessAssignmentGroupDetailComponent implements OnInit, OnDestroy {
   accessGroup: AccessGroup;
@@ -32,45 +33,43 @@ export class AccessAssignmentGroupDetailComponent implements OnInit, OnDestroy {
   selectedRole: Role;
   position: Position[];
   selectedPosition: Position[];
-  modules: AccessGroup[];
+  accessGroups: AccessGroup[];
   submitted = false;
   showRole = false;
   showPosition = false;
   showPerson = false;
-  city;
-  // accessgroupForm = new FormGroup({
-
-  //   name: new FormControl('', [Validators.required]),
-  //   description: new FormControl('', [Validators.required]),
-  //   applicationId: new FormControl('', [Validators.required]),
-  //   departmentId: new FormControl('', [Validators.required])
-  //   });
+  
+  accessgroupAssignmentForm: FormGroup;
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private confirmationService: ConfirmationService,
     private moduleService: ModuleService,
     private accessGroupAssignmentService: AccessGroupAssignmentService,
-    private accessGroupService: AccessGroupService
+    private accessGroupService: AccessGroupService,
+    private fb: FormBuilder
   ) {
     this.application = [
-      { id: 'A23B4841-10BF-4DE0-AD84-25E7ADF7EA7A', name: 'PBR' },
+      { id: 'A23B4841-10BF-4DE0-AD84-25E7ADF7EA7A', name: 'PBR' }
     ];
   }
 
   /****************Lifecycle methods**************/
   ngOnInit(): void {
     this.accessGroup = {} as AccessGroup;
+    this.createForm();
     this.GetAccessGroup();
     this.departmentList();
     this.GetallRole();
-    this.route.paramMap.subscribe((params) => {
-      const accessGroupId = Utils.decrypt(params.get('id')) || 0;
-      if (accessGroupId > 0) {
-        // this.GetAccessGroupById(accessGroupId);
-      } else {
-        this.accessGroup = {} as AccessGroup;
-      }
+    
+  }
+
+  createForm() {
+    this.accessgroupAssignmentForm = this.fb.group({
+      accessgroupassignment: [null, [Validators.required]],
+      description: [null, [Validators.required]],
+      applicationId: [null, [Validators.required]],
+      departmentId: [null, [Validators.required]]
     });
   }
 
@@ -87,9 +86,11 @@ export class AccessAssignmentGroupDetailComponent implements OnInit, OnDestroy {
     this.router.navigate(['asm/access-group-assignment']);
   }
   onFormSubmit(): void {
+    this.accessgroupAssignmentForm.value;
+    console.log(this.accessgroupAssignmentForm.value)
     this.submitted = true;
     let accessgroupassignment = [];
-    console.log(this.modules);
+    console.log(this.accessGroups);
     if (this.selectedRoleList !== null) {
       accessgroupassignment = this.setPermissions(
         this.selectedRoleList,
@@ -117,7 +118,7 @@ export class AccessAssignmentGroupDetailComponent implements OnInit, OnDestroy {
         accessGroupId: accessGroupId.accessGroupId,
         roleId: data.roleId,
         positionId: 0,
-        personId: 0,
+        personId: 0
       });
     });
     return flatDataItems;
@@ -133,7 +134,7 @@ export class AccessAssignmentGroupDetailComponent implements OnInit, OnDestroy {
         accessGroupId: accessGroupId.accessGroupId,
         roleId: data.roleId,
         positionId: data.positionId,
-        personId: 0,
+        personId: 0
       });
     });
     return accessGroupassignment;
@@ -198,8 +199,8 @@ export class AccessAssignmentGroupDetailComponent implements OnInit, OnDestroy {
     }
 
     this.moduleService.getModulesByApplicationId(applicationId).then((data) => {
-      this.modules = new AccessGroup().fromJson(data);
-      console.log(this.modules);
+      this.accessGroups = new AccessGroup().fromJson(data);
+      console.log(this.accessGroups);
     });
   }
 

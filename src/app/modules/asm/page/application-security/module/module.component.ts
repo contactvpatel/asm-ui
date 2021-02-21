@@ -1,13 +1,6 @@
-import { IfStmt, THIS_EXPR } from '@angular/compiler/src/output/output_ast';
-import { Component, OnInit, Input } from '@angular/core';
-import {
-  Application,
-  Module,
-  moduleType,
-  parentModule
-} from '@app/data/schema/product';
+import { Component, OnInit } from '@angular/core';
+import { Application, Module, moduleType } from '@app/data/schema/module';
 import { ModuleService } from '@app/data/services/module.service';
-import { Console } from 'console';
 import { ConfirmationService } from 'primeng/api';
 import { MessageService } from 'primeng/api';
 
@@ -17,13 +10,13 @@ import { MessageService } from 'primeng/api';
   styleUrls: ['./module.component.scss']
 })
 export class ModuleComponent implements OnInit {
-  productDialog: boolean;
+  moduleDialog: boolean;
 
   modules: Module[];
   moduleType: moduleType[];
-  product: Module;
+  module: Module;
   selectedmodules: Module[];
-  selectedparentmodules: Module;
+  selectedparentmodules: number;
   submitted: boolean;
   selectedApplication: Application;
   application: Application[];
@@ -46,12 +39,12 @@ export class ModuleComponent implements OnInit {
   }
 
   openNew(): void {
-    this.product = {};
+    this.module = {};
     this.selectedModuleType = null;
     this.selectedApplication = null;
     this.selectedmodules = null;
     this.submitted = false;
-    this.productDialog = true;
+    this.moduleDialog = true;
   }
 
   deleteSelectedmodules(): void {
@@ -80,31 +73,26 @@ export class ModuleComponent implements OnInit {
     });
   }
 
-  editProduct(product: Module): void {
-    //  this.product = { ...product };
-    //  this.selectedModuleType=this.product.moduleType;
-    this.moduleService
-      .getModuleById(product.moduleId)
-      .then(
-        (data) => (
-          (this.product = data), (this.selectedModuleType = data.moduleType)
-        )
-      );
-    this.productDialog = true;
+  editModule(module: Module): void {
+    this.moduleService.getModuleById(module.moduleId).then((data) => {
+      this.module = data;
+      this.selectedModuleType = data.moduleType;
+      this.selectedparentmodules = data.parentModuleId;
+    });
+    this.moduleDialog = true;
   }
 
-  deleteProduct(product: Module): void {
+  deleteModule(module: Module): void {
     this.confirmationService.confirm({
-      message: 'Are you sure you want to delete ' + product.name + '?',
+      message: 'Are you sure you want to delete ' + module.name + '?',
       header: 'Confirm',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-        // this.modules = this.modules.filter((val) => val.moduleId !== product.moduleId);
         this.moduleService
-          .deleteModule(product.moduleId)
+          .deleteModule(module.moduleId)
           .then((data) => this.getAllModule());
 
-        this.product = {};
+        this.module = {};
         this.messageService.add({
           severity: 'success',
           summary: 'Successful',
@@ -116,59 +104,57 @@ export class ModuleComponent implements OnInit {
   }
 
   hideDialog(): void {
-    this.productDialog = false;
+    this.moduleDialog = false;
     this.submitted = false;
   }
 
-  saveProduct(): void {
+  saveModule(): void {
     this.submitted = true;
 
-    if (this.product.name.trim()) {
-      if (this.product.moduleId) {
-        this.product.parentModule = null;
-        this.product.moduleType = null;
-        this.product.moduleTypeId = 0;
-        this.product.parentModuleId = 0;
-        // this.moduleService.getModuleType().then((data) => (this.moduleType = data));
-        // this.modules[this.findIndexById(this.product.name)] = this.product;
-        this.product.moduleTypeId = this.selectedModuleType.moduleTypeId;
+    if (this.module.name.trim()) {
+      if (this.module.moduleId) {
+        this.module.parentModule = null;
+        this.module.moduleType = null;
+        this.module.moduleTypeId = 0;
+        this.module.parentModuleId = 0;
+        this.module.moduleTypeId = this.selectedModuleType.moduleTypeId;
         if (
           this.selectedparentmodules !== undefined &&
           this.selectedparentmodules !== null
         ) {
-          this.product.parentModuleId = this.selectedparentmodules.moduleId;
+        //  this.module.parentModuleId = this.selectedparentmodules.moduleId;
         }
-        this.product.applicationId = 'a23b4841-10bf-4de0-ad84-25e7adf7ea7a';
+        this.module.applicationId = 'a23b4841-10bf-4de0-ad84-25e7adf7ea7a';
         this.moduleService
-          .updateModule(this.product)
-          .then((data) => this.getAllModule(), (this.product = null));
+          .updateModule(this.module)
+          .then((data) => this.getAllModule(), (this.module = null));
         this.messageService.add({
           severity: 'success',
           summary: 'Successful',
-          detail: 'Product Updated',
+          detail: 'Module Updated',
           life: 3000
         });
       } else {
-        this.product.moduleTypeId = this.selectedModuleType.moduleTypeId;
+        this.module.moduleTypeId = this.selectedModuleType.moduleTypeId;
         if (this.selectedparentmodules !== undefined) {
-          this.product.parentModuleId = this.selectedparentmodules.moduleId;
+        //  this.module.parentModuleId = this.selectedparentmodules.moduleId;
         }
-        this.product.applicationId = 'a23b4841-10bf-4de0-ad84-25e7adf7ea7a';
+        this.module.applicationId = 'a23b4841-10bf-4de0-ad84-25e7adf7ea7a';
         this.moduleService
-          .createModule(this.product)
+          .createModule(this.module)
           .then((data) => this.getAllModule());
 
         this.messageService.add({
           severity: 'success',
           summary: 'Successful',
-          detail: 'Product Created',
+          detail: 'Module Created',
           life: 3000
         });
       }
 
       this.modules = [...this.modules];
-      this.productDialog = false;
-      this.product = {};
+      this.moduleDialog = false;
+      this.module = {};
     }
   }
 
@@ -191,14 +177,5 @@ export class ModuleComponent implements OnInit {
   }
   getModuleType(): void {
     this.moduleService.getModuleType().then((data) => (this.moduleType = data));
-  }
-  createId(): string {
-    let id = '';
-    const chars =
-      'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    for (let i = 0; i < 5; i++) {
-      id += chars.charAt(Math.floor(Math.random() * chars.length));
-    }
-    return id;
   }
 }

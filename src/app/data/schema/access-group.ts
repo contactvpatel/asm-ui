@@ -1,4 +1,5 @@
 export interface AccessGroupModel {
+    accessGroupAssignmentId?:number,
     accessGroupId?: number,
     name?: string,
     description?: string,

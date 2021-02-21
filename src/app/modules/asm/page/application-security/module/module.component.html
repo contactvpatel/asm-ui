@@ -82,10 +82,12 @@
           LastUpdate <p-sortIcon field="lastUpdate"></p-sortIcon>
         </th> -->
         <th></th>
-        
       </tr>
       <tr>
-        <th></th><th></th>
+        <th></th>
+        <th>
+          <p-columnFilter type="text" field="application"></p-columnFilter>
+        </th>
         <th>
           <p-columnFilter type="text" field="name"></p-columnFilter>
         </th>
@@ -96,32 +98,33 @@
           <p-columnFilter type="text" field="moduleType.name"></p-columnFilter>
         </th>
         <th>
-          <p-columnFilter type="text" field="parentModule.name"></p-columnFilter>
+          <p-columnFilter
+            type="text"
+            field="parentModule.name"
+          ></p-columnFilter>
         </th>
         <th></th>
         <th></th>
       </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-product>
+    <ng-template pTemplate="body" let-module>
       <tr>
         <td>
-          <p-tableCheckbox [value]="product"></p-tableCheckbox>
+          <p-tableCheckbox [value]="module"></p-tableCheckbox>
         </td>
         <td>PBR</td>
-        <td>{{ product.name }}</td>
-        <td>{{ product.code }}</td>
-        <td>{{ product.moduleType.name }}</td>
-        <td *ngIf="product.parentModule!==null; else elseBlock">
-          {{ product.parentModule.name }}
+        <td>{{ module.name }}</td>
+        <td>{{ module.code }}</td>
+        <td>{{ module.moduleType.name }}</td>
+        <td *ngIf="module.parentModule !== null; else elseBlock">
+          {{ module.parentModule.name }}
         </td>
         <ng-template #elseBlock>
-         <td></td> 
+          <td></td>
         </ng-template>
-        <td *ngIf="product.isActive===true; else elseStatement">
-          Yes
-        </td>
+        <td *ngIf="module.isActive === true; else elseStatement">Yes</td>
         <ng-template #elseStatement>
-         <td>No</td> 
+          <td>No</td>
         </ng-template>
         <!-- <td>{{ product.lastUpdated | date : 'dd-MM-yyyy' }}</td> -->
         <td>
@@ -130,14 +133,14 @@
             pRipple
             icon="pi pi-pencil"
             class="p-button-rounded p-button-warning p-mr-2"
-            (click)="editProduct(product)">
-          </button>
+            (click)="editModule(module)"
+          ></button>
           <button
             pButton
             pRipple
             icon="pi pi-trash"
             class="p-button-rounded p-button-danger"
-            (click)="deleteProduct(product)"
+            (click)="deleteModule(module)"
           ></button>
         </td>
       </tr>
@@ -151,86 +154,98 @@
 </div>
 
 <p-dialog
-  [(visible)]="productDialog"
+  [(visible)]="moduleDialog"
   [style]="{ width: '450px' }"
-  header="Product Details"
+  header="Module Details"
   [modal]="true"
   styleClass="p-fluid"
 >
-<div class="p-field">
-<!-- <label for="application">Application</label> -->
-<p-dropdown
- [options]="application"
- [(ngModel)]="selectedApplication"
- placeholder="Select Application" 
- optionLabel="name"
- [showClear]="true">
-</p-dropdown>
-</div>
+  <div class="p-field">
+    <!-- <label for="application">Application</label> -->
+    <p-dropdown
+      [options]="application"
+      [(ngModel)]="selectedApplication"
+      placeholder="Select Application"
+      optionLabel="name"
+      [showClear]="true"
+      autofocus
+    >
+    </p-dropdown>
+  </div>
   <ng-template pTemplate="content">
     <div class="p-field">
       <span class="p-float-label">
-       <input
-        id="name"
-        type="text"
-        pInputText 
-        [(ngModel)]="product.name"
-         required
-        autofocus> 
-        <label for="name">
-           Name
-        </label>
-      </span>     
-      <small class="p-invalid" *ngIf="submitted && !product.name"
+        <input
+          id="name"
+          type="text"
+          pInputText
+          [(ngModel)]="module.name"
+          required
+          
+        />
+        <label for="name"> Name </label>
+      </span>
+      <small class="p-invalid" *ngIf="submitted && !module.name"
         >Name is required.</small
       >
     </div>
     <div class="p-field">
-    
       <span class="p-float-label">
         <input
-         id="code"
-         type="text"
-         pInputText 
-         [(ngModel)]="product.code"
+          id="code"
+          type="text"
+          pInputText
+          [(ngModel)]="module.code"
           required
-         autofocus> 
-         <label for="code">
-            Code
-         </label>
-       </span>
-      <small class="p-invalid" *ngIf="submitted && !product.code">
+          autofocus
+        />
+        <label for="code"> Code </label>
+      </span>
+      <small class="p-invalid" *ngIf="submitted && !module.code">
         Name is required.
       </small>
     </div>
     <div class="p-field">
       <p-dropdown
-      [options]="moduleType"
-      [(ngModel)]="selectedModuleType"
-      placeholder="Select ModuleType" 
-      optionLabel="name"
-      [showClear]="true">
-      </p-dropdown>      
+        [options]="moduleType"
+        [(ngModel)]="selectedModuleType"
+        placeholder="Select Module Type"
+        optionLabel="name"
+        [showClear]="true"
+      >
+      </p-dropdown>
     </div>
     <div class="p-field">
       <p-dropdown
-      [options]="modules"
-      [(ngModel)]="selectedparentmodules"
-      placeholder="Select Parent Module" 
-      optionLabel="name"
-      [showClear]="true">
+        [options]="modules"
+        [(ngModel)]="selectedparentmodules"
+        placeholder="Select Parent Module"
+        optionLabel="name"
+        optionValue="moduleId"
+        [showClear]="true"
+      >
       </p-dropdown>
     </div>
-        <div class="p-field">
-          <label for="moduleType">IsActive</label>
+    <div class="p-field">
+      <label for="moduleType">Active</label>
       <div class="p-field-radiobutton">
         <div class="p-field-radiobutton">
-          <p-radioButton name="isActive" [value]=true [(ngModel)]="product.isActive" inputId="true"></p-radioButton>
-            <label for="true">Yes</label>
-        </div>        
-        <div class="p-field-radiobutton p-ml-3">            
-          <p-radioButton name="isActive" [value]=false [(ngModel)]="product.isActive" inputId="false"></p-radioButton>
-           <label for="false">No</label>
+          <p-radioButton
+            name="isActive"
+            [value]="true"
+            [(ngModel)]="module.isActive"
+            inputId="true"
+          ></p-radioButton>
+          <label for="true">Yes</label>
+        </div>
+        <div class="p-field-radiobutton p-ml-3">
+          <p-radioButton
+            name="isActive"
+            [value]="false"
+            [(ngModel)]="module.isActive"
+            inputId="false"
+          ></p-radioButton>
+          <label for="false">No</label>
         </div>
       </div>
     </div>
@@ -251,7 +266,7 @@
       label="Save"
       icon="pi pi-check"
       class="p-button-text"
-      (click)="saveProduct()"
+      (click)="saveModule()"
     ></button>
   </ng-template>
 </p-dialog>

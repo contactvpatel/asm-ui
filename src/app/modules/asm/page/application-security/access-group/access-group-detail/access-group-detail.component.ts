@@ -1,30 +1,24 @@
 import {
   Component,
   OnInit,
-  OnDestroy,
-  Output,
-  EventEmitter,
+  OnDestroy
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { EncryptPipe } from '@app/modules/encrypt/pipes/encrypt.pipe';
 import { Department } from '@app/data/schema/access-group';
 import { Utils } from '@app/shared/utils/util';
 import { ConfirmationService, MenuItem } from 'primeng/api';
 import { Subscription } from 'rxjs';
 import { AccessGroupService } from '@app/data/services/access-group.service';
-import { AccessGroup, Application, Module } from '@app/data/schema/product';
+import { AccessGroup, Application, Module } from '@app/data/schema/module';
 import { ModuleService } from '@app/data/services/module.service';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { element } from 'protractor';
-import { applicationId } from '@app/shared/constants/global.constant';
-import { Variable } from '@angular/compiler/src/render3/r3_ast';
 
 @Component({
   selector: 'app-access-group-detail',
   templateUrl: './access-group-detail.component.html',
   styleUrls: ['./access-group-detail.component.scss'],
-  providers: [EncryptPipe, ConfirmationService],
+  providers: [ ConfirmationService],
 })
 export class AccessGroupDetailComponent implements OnInit, OnDestroy {
   accessGroup: AccessGroup;
@@ -34,9 +28,9 @@ export class AccessGroupDetailComponent implements OnInit, OnDestroy {
   application: Application[];
   selectedDepartment: Department;
   department: Department[];
-  modules: AccessGroup[];
+  accessGroups: AccessGroup[];
   submitted = false;
-  
+  accessgroupForm: FormGroup;
   // accessgroupForm = new FormGroup({
     
   //   name: new FormControl('', [Validators.required]),
@@ -45,11 +39,11 @@ export class AccessGroupDetailComponent implements OnInit, OnDestroy {
   //   departmentId: new FormControl('', [Validators.required])    
   //   });
   constructor(
+    private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
     private confirmationService: ConfirmationService,
     private moduleService: ModuleService,
-
     private accessGroupService: AccessGroupService
   ) {this.application = [
     {id:"A23B4841-10BF-4DE0-AD84-25E7ADF7EA7A" , name: 'PBR'}       
@@ -69,6 +63,14 @@ export class AccessGroupDetailComponent implements OnInit, OnDestroy {
       }
     });
   }
+  createForm() {
+    this.accessgroupForm = this.fb.group({
+      name: [null, [Validators.required]],
+      description: [null, [Validators.required]],
+      applicationId: [null, [Validators.required]],
+      departmentId: [null, [Validators.required]]
+    });
+  }
   onCancelClick() {
     this.router.navigate(['asm/access-group']);
   }
@@ -78,7 +80,7 @@ export class AccessGroupDetailComponent implements OnInit, OnDestroy {
     if (this.accessGroup.name.trim()) {
       let getPermissions = [];
 
-    getPermissions = this.setPermissions(this.modules,getPermissions);
+    getPermissions = this.setPermissions(this.accessGroups,getPermissions);
       const request = {
         name: this.accessGroup.name,        
         description: this.accessGroup.description,
@@ -135,8 +137,8 @@ export class AccessGroupDetailComponent implements OnInit, OnDestroy {
     }
 
     this.moduleService.getModulesByApplicationId(applicationId).then((data) => {
-      this.modules = new AccessGroup().fromJson(data);
-      console.log(this.modules)
+      this.accessGroups = new AccessGroup().fromJson(data);
+      console.log(this.accessGroups)
     });
   }
   departmentList()

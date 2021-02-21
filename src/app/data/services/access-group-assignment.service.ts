@@ -30,6 +30,14 @@ getAccessGroupAssignment() {
         return data;
       });
 }
+deleteAccessGroupAssignment(accessGroupAssignmentId : number){
+  return this.commonService
+  .delete(AccessGroupAssignmentApi.DeleteAccessGroupAssignment+accessGroupAssignmentId+'/'+0)
+  .toPromise()      
+  .then((data) => {
+    return data;
+  });
+}
 createAccessGroupAssignment(accessGroup:any) {
       return this.commonService
       .post(AccessGroupAssignmentApi.CreateAccessGroupAssignment,accessGroup)

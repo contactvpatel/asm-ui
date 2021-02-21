@@ -25,7 +25,7 @@
 
   <p-table
     #dt
-    [value]="accessGroupAssignment"
+    [value]="accessGroupAssignments"
     [rows]="10"
     [paginator]="true"
     [globalFilterFields]="[
@@ -36,7 +36,7 @@
     [rowsPerPageOptions]="[10, 25, 50]"
     [(selection)]="selectedAccessGroup"
     [rowHover]="true"
-    dataKey="accessGroupId"
+    dataKey="accessGroupAssignmentId"
     currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
     [showCurrentPageReport]="true"
   >
@@ -66,7 +66,7 @@
           Department <p-sortIcon field="name"></p-sortIcon>
         </th>
         <th pSortableColumn="description">
-          AccessGroup <p-sortIcon field="description"></p-sortIcon>
+          Access Group <p-sortIcon field="description"></p-sortIcon>
         </th>
         <th pSortableColumn="department">
           Role <p-sortIcon field="department"></p-sortIcon>
@@ -101,8 +101,9 @@
           <p-tableCheckbox [value]="accessgroupassignment"></p-tableCheckbox>
         </td>
         <td>PBR</td>
-        <td>{{ accessgroupassignment.name }}</td>
         <td>{{ accessgroupassignment.departmentName }}</td>
+        <td>{{ accessgroupassignment.name }}</td>
+        
         <td></td>
         <td></td>
         <td></td>
@@ -116,7 +117,7 @@
         <td>          
           <button
             pButton
-            (click)="deleteProduct(accessgroupassignment)"
+            (click)="deleteAccessGroupAssignment(accessgroupassignment)"
             pRipple
             icon="pi pi-trash"
             class="p-button-rounded p-button-danger"
@@ -127,7 +128,7 @@
     </ng-template>
     <ng-template pTemplate="summary">
       <div class="p-d-flex p-ai-center p-jc-between">
-        In total there are {{ accessGroupAssignment ? accessGroupAssignment.length : 0 }} accessGroupAssignment.
+        In total there are {{ accessGroupAssignments ? accessGroupAssignments.length : 0 }} accessGroupAssignments.
       </div>
     </ng-template>
   </p-table>

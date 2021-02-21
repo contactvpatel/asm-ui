@@ -25,7 +25,7 @@
 
   <p-table
     #dt
-    [value]="products"
+    [value]="accessGroups"
     [rows]="10"
     [paginator]="true"
     [globalFilterFields]="[
@@ -82,26 +82,30 @@
           <p-columnFilter type="text" field="application"></p-columnFilter>
         </th>
         <th>
-          <p-columnFilter type="text" field="department"></p-columnFilter>
-        </th>
-        <th>
           <p-columnFilter type="text" field="name"></p-columnFilter>
         </th>
-        <th></th> 
+        <th>
+          <p-columnFilter type="text" field="description"></p-columnFilter>
+        </th>
+        <th>
+          <p-columnFilter type="text" field="departmentName"></p-columnFilter>
+        </th>
+        
+        
         <th></th> 
         <th></th> 
       </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-product>
+    <ng-template pTemplate="body" let-accessGroup>
       <tr>
         <td>
-          <p-tableCheckbox [value]="product"></p-tableCheckbox>
+          <p-tableCheckbox [value]="accessGroup"></p-tableCheckbox>
         </td>
         <td>PBR</td>
-        <td>{{ product.name }}</td>
-        <td>{{ product.description }}</td>
-        <td>{{ product.departmentName }}</td>
-        <td *ngIf="product.isActive===true; else elseStatement">
+        <td>{{ accessGroup.name }}</td>
+        <td>{{ accessGroup.description }}</td>
+        <td>{{ accessGroup.departmentName }}</td>
+        <td *ngIf="accessGroup.isActive===true; else elseStatement">
           Yes
         </td>
         <ng-template #elseStatement>
@@ -117,7 +121,7 @@
           ></button>
           <button
             pButton
-            (click)="deleteProduct(product)"
+            (click)="deleteAccessGroup(accessGroup)"
             pRipple
             icon="pi pi-trash"
             class="p-button-rounded p-button-danger"
@@ -128,7 +132,7 @@
     </ng-template>
     <ng-template pTemplate="summary">
       <div class="p-d-flex p-ai-center p-jc-between">
-        In total there are {{ products ? products.length : 0 }} AccessGroup.
+        In total there are {{ accessGroups ? accessGroups.length : 0 }} AccessGroup.
       </div>
     </ng-template>
   </p-table>
