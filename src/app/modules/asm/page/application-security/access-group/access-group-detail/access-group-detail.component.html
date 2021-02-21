@@ -3,68 +3,61 @@
     <h2 class="font">AccessGroup Create</h2>
   </div>
 </div>
-<!-- <form [formGroup]="accessgroupForm"> -->
-<div class="p-grid p-fluid">
-  <div class="p-col-12 p-md-6">
-    <span class="p-float-label">
-      <input
-      id="float-input" 
-      type="text"
-      pInputText
-      />
-      <!-- formControlName="name"  -->
-      <label for="float-input" class="p-component"> Name </label>
-    </span>
-  </div>
+<form [formGroup]="accessgroupForm">
+  <div class="p-grid p-fluid">
+    <div class="p-col-12 p-md-6">
+      <span class="p-float-label">
+        <input id="float-input" type="text" pInputText formControlName="name" />
+        <label for="float-input" class="p-component"> Name </label>
+      </span>
+    </div>
 
-  <div class="p-col-12 p-md-6">
-    <span class="p-float-label">
-      <p-dropdown
-        [options]="application"
-        
-        placeholder="Select Application"
-        optionLabel="name"
-        [showClear]="true"
-        (onChange)="getAllModule()"
-      >
-      </p-dropdown>
-      <!-- formControlName="applicationId" -->
-    </span>
+    <div class="p-col-12 p-md-6">
+      <span class="p-float-label">
+        <p-dropdown
+          [options]="application"
+          placeholder="Select Application"
+          optionLabel="name"
+          [showClear]="true"
+          formControlName="applicationId"
+          (onChange)="getAllModule()"
+        >
+        </p-dropdown>
+      </span>
+    </div>
   </div>
-</div>
-<div class="p-grid p-fluid">
-  <div class="p-col-12 p-md-6">
-    <span class="p-float-label">
-      <input
-        id="float-input"
-        type="text"
-        pInputText
-        
-      />
-      <!-- formControlName="description" -->
-      <label for="float-input" class="p-component"> Description </label>
-    </span>
+  <div class="p-grid p-fluid">
+    <div class="p-col-12 p-md-6">
+      <span class="p-float-label">
+        <input
+          id="float-input"
+          type="text"
+          pInputText
+          formControlName="description"
+        />
+
+        <label for="float-input" class="p-component"> Description </label>
+      </span>
+    </div>
+    <div class="p-col-12 p-md-6">
+      <span class="p-float-label">
+        <p-dropdown
+          [options]="department"
+          placeholder="Select Department"
+          optionLabel="departmentName"
+          [showClear]="true"
+          formControlName="departmentId"
+        >
+        </p-dropdown>
+      </span>
+    </div>
   </div>
-  <div class="p-col-12 p-md-6">
-    <span class="p-float-label">
-      <p-dropdown
-        [options]="department"
-        
-        placeholder="Select Department"
-        optionLabel="departmentName"
-        [showClear]="true"
-      >
-      </p-dropdown>
-      <!-- formControlName="departmentId" -->
-    </span>
-  </div>
-</div>
-<!-- </form> -->
+</form>
 <p-table
   #dt
   [value]="accessGroups"
-  [globalFilterFields]="['name']"  
-  [rowHover]="true"  
+  [globalFilterFields]="['name']"
+  [rowHover]="true"
 >
   <ng-template pTemplate="header">
     <tr>
@@ -94,26 +87,44 @@
         <td></td>
       </ng-template>
       <td>{{ accessGroup.name }}</td>
-      <td >
-          <div class="p-field-checkbox">
-          <p-checkbox [(ngModel)]=accessGroup.accessGroupModulePermissions.hasViewAccess binary="true"></p-checkbox>          
-          </div>
-        </td>
-        <td >
-          <div class="p-field-checkbox">
-          <p-checkbox [(ngModel)]=accessGroup.accessGroupModulePermissions.hasCreateAccess binary="true"></p-checkbox>          
-          </div>
-        </td>
-        <td >
-          <div class="p-field-checkbox">
-          <p-checkbox [(ngModel)]=accessGroup.accessGroupModulePermissions.hasUpdateAccess binary="Create"></p-checkbox>          
-          </div>
-        </td>
-        <td>
-          <div class="p-field-checkbox">
-          <p-checkbox [(ngModel)]=accessGroup.accessGroupModulePermissions.hasDeleteAccess binary="Delete"></p-checkbox>          
-          </div>
-        </td>
+      <td>
+        <div class="p-field-checkbox">
+          <p-checkbox
+            [(ngModel)]="accessGroup.accessGroupModulePermissions.hasViewAccess"
+            binary="true"
+          ></p-checkbox>
+        </div>
+      </td>
+      <td>
+        <div class="p-field-checkbox">
+          <p-checkbox
+            [(ngModel)]="
+              accessGroup.accessGroupModulePermissions.hasCreateAccess
+            "
+            binary="true"
+          ></p-checkbox>
+        </div>
+      </td>
+      <td>
+        <div class="p-field-checkbox">
+          <p-checkbox
+            [(ngModel)]="
+              accessGroup.accessGroupModulePermissions.hasUpdateAccess
+            "
+            binary="Create"
+          ></p-checkbox>
+        </div>
+      </td>
+      <td>
+        <div class="p-field-checkbox">
+          <p-checkbox
+            [(ngModel)]="
+              accessGroup.accessGroupModulePermissions.hasDeleteAccess
+            "
+            binary="Delete"
+          ></p-checkbox>
+        </div>
+      </td>
       <td></td>
     </tr>
     <ng-template #elseBlock>
@@ -130,18 +141,32 @@
         <td></td>
         <td></td>
         <td></td>
-        <td  >
+        <td>
+          <div class="p-field-radiobutton">
             <div class="p-field-radiobutton">
-              <div class="p-field-radiobutton">
-                <p-radioButton name="isActive" [value]=true [(ngModel)]="accessGroup.accessGroupModulePermissions.hasAccessRight" inputId="true"></p-radioButton>
-                  <label for="true">Yes</label>
-              </div>        
-              <div class="p-field-radiobutton p-ml-3">            
-                <p-radioButton name="isActive" [value]=false [(ngModel)]="accessGroup.accessGroupModulePermissions.hasAccessRight" inputId="false"></p-radioButton>
-                 <label for="false">No</label>
-              </div>
+              <p-radioButton
+                name="isActive"
+                [value]="true"
+                [(ngModel)]="
+                  accessGroup.accessGroupModulePermissions.hasAccessRight
+                "
+                inputId="true"
+              ></p-radioButton>
+              <label for="true">Yes</label>
             </div>
-          </td>
+            <div class="p-field-radiobutton p-ml-3">
+              <p-radioButton
+                name="isActive"
+                [value]="false"
+                [(ngModel)]="
+                  accessGroup.accessGroupModulePermissions.hasAccessRight
+                "
+                inputId="false"
+              ></p-radioButton>
+              <label for="false">No</label>
+            </div>
+          </div>
+        </td>
       </tr>
     </ng-template>
   </ng-template>

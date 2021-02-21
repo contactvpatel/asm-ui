@@ -34,13 +34,6 @@ export class AccessGroupDetailComponent implements OnInit, OnDestroy {
 
   activatedRoute$: null;
 
-  // accessgroupForm = new FormGroup({
-
-  //   name: new FormControl('', [Validators.required]),
-  //   description: new FormControl('', [Validators.required]),
-  //   applicationId: new FormControl('', [Validators.required]),
-  //   departmentId: new FormControl('', [Validators.required])
-  //   });
   constructor(
     private fb: FormBuilder,
     private activatedRoute: ActivatedRoute,
@@ -56,7 +49,7 @@ export class AccessGroupDetailComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.accessGroup = {} as AccessGroup;
-
+    this.createForm();
     this.departmentList();
     this.subscribeActivatedRoute();
   }
