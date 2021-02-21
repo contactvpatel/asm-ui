@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Application, Module, moduleType } from '@app/data/schema/module';
+import { Application, Module,  ModuleType } from '@app/data/schema/module';
 import { ModuleService } from '@app/data/services/module.service';
 import { ConfirmationService } from 'primeng/api';
 import { MessageService } from 'primeng/api';
@@ -13,14 +13,14 @@ export class ModuleComponent implements OnInit {
   moduleDialog: boolean;
 
   modules: Module[];
-  moduleType: moduleType[];
+  moduleType: ModuleType[];
   module: Module;
   selectedmodules: Module[];
   selectedparentmodules: number;
   submitted: boolean;
   selectedApplication: Application;
   application: Application[];
-  selectedModuleType: moduleType;
+  selectedModuleType: ModuleType;
   isActive: false;
 
   constructor(

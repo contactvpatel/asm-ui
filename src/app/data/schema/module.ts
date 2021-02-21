@@ -6,44 +6,9 @@ export interface Module {
   applicationId?: string;
   parentModuleId?: number;
   isActive?: string;
-  moduleType?: moduleType;
-  parentModule?: parentModule;
-  accessGroupModulePermissions?: accessGroupModulePermissions;
-}
-// export interface AccessGroup
-// {
-//   accessGroupId: number,
-//   name: String,
-//   description: String,
-//   applicationId: String,
-//   applicationName: String,
-//   departmentId: Number,
-//   departmentName: String,
-//   isActive: Boolean,
-//   createdBy: Number,
-//   lastUpdatedBy: Number,
-//   accessGroupModulePermissions?:accessGroupModulePermissions
-// }
-export interface accessGroupModulePermissions {
-  accessGroupId: Number;
-  moduleId: Number;
-  hasViewAccess: Boolean;
-  hasCreateAccess: Boolean;
-  hasUpdateAccess: Boolean;
-  hasDeleteAccess: Boolean;
-  hasAccessRight: Boolean;
-}
-export interface moduleType {
-  moduleTypeId: number;
-  name: string;
-  isControlType: boolean;
-  isActive: boolean;
-  isDeleted: boolean;
-  lastUpdated: string;
-}
-export interface parentModule {
-  moduleId: number;
-  name: string;
+  moduleType?: ModuleType;
+  parentModule?: ParentModule;
+  accessGroupModulePermissions?: AccessGroupModulePermissions;
 }
 
 export interface Application {
@@ -62,9 +27,9 @@ export interface Application {
 
 export class AccessGroup {
   accessGroupId: number;
-  name: String;
-  description: String;
-  applicationId: String;
+  name: string;
+  description: string;
+  applicationId: string;
   applicationName?: string;
   moduleId: number;
   code: string;
@@ -84,7 +49,7 @@ export class AccessGroup {
   lastUpdated?: string;
   lastUpdatedBy?: number;
   departmentName?: string;
-  
+
   /**
    *
    */
@@ -115,7 +80,7 @@ export class AccessGroup {
           data
         ),
         description: data.description,
-        showCheckbox: data.moduleType.isControlType === false ? true : false,
+        showCheckbox: data.moduleType.isControlType === false ? true : false
       });
     });
     return accessData;
@@ -142,7 +107,7 @@ export class AccessGroup {
           data
         ),
         description: data.description,
-        showCheckbox: data.moduleType.isControlType === false ? true : false,
+        showCheckbox: data.moduleType.isControlType === false ? true : false
       });
     });
     return accessData;
@@ -157,7 +122,7 @@ export class AccessGroup {
       hasCreateAccess: false,
       hasUpdateAccess: false,
       hasDeleteAccess: false,
-      hasAccessRight: false,
+      hasAccessRight: false
     };
 
     return accessGroupModulePermissions;
@@ -173,7 +138,7 @@ export class AccessGroup {
       hasCreateAccess: data.hasCreateAccess,
       hasUpdateAccess: data.hasUpdateAccess,
       hasDeleteAccess: data.hasDeleteAccess,
-      hasAccessRight: data.hasAccessRight,
+      hasAccessRight: data.hasAccessRight
     };
 
     return accessGroupModulePermissions;
@@ -190,7 +155,7 @@ interface AccessGroupModulePermissions {
 
   accessGroupId?: number;
 }
-interface ModuleType {
+export interface ModuleType {
   moduleTypeId: number;
   name: string;
   isControlType: boolean;

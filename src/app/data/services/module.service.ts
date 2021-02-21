@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '@env/environment';
-import {  Module,   moduleType } from '../schema/module';
+import {  Module,   ModuleType } from '../schema/module';
 import { ModuleAPI  } from '../../shared/constants/api.constant';
 import {CommonService}from '../services/common.service'
 
@@ -79,7 +79,7 @@ export class ModuleService {
     return this.http
       .get<any>('https://localhost:44388/api/v1.0/module-types')
       .toPromise()
-      .then((res) => <moduleType[]>res.data)
+      .then((res) => <ModuleType[]>res.data)
       .then((data) => {
         return data;
       });
