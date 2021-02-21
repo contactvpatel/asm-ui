@@ -6,11 +6,9 @@ import { AccessGroupModel, Department } from '../schema/access-group';
 
 import { CommonService } from './common.service';
 
-
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
-
 export class AccessGroupService {
   [x: string]: any;
   status: string[] = ['OUTOFSTOCK', 'INSTOCK', 'LOWSTOCK'];
@@ -45,56 +43,54 @@ export class AccessGroupService {
     'Teal T-Shirt',
     'Yellow Earbuds',
     'Yoga Mat',
-    'Yoga Set',
+    'Yoga Set'
   ];
 
-  constructor(private http: HttpClient,private commonService:CommonService) {}
-getAccessGroup()
-{
-  return this.http
-      .get<any>(this.url+ AccessGroupAPI.GetAllAccessGroup)
+  constructor(private http: HttpClient, private commonService: CommonService) {}
+  getAccessGroup() {
+    return this.http
+      .get<any>(this.url + AccessGroupAPI.GetAllAccessGroup)
       .toPromise()
       .then((res) => <AccessGroupModel[]>res.data)
       .then((data) => {
         return data;
       });
-}
+  }
 
-getDepartment() {
-  return this.http
-      .get<any>('https://localhost:44388/api/v1.0/departments')
+  getDepartment() {
+    return this.http
+      .get<any>(this.url + 'departments')
       .toPromise()
       .then((res) => <Department[]>res.data)
       .then((data) => {
         return data;
       });
-}
-deleteAccessGroup(accessGroupId:number){
-  return this.commonService
-      .delete('access-groups/'+accessGroupId+'/0')
-      .toPromise()      
+  }
+  deleteAccessGroup(accessGroupId: number) {
+    return this.commonService
+      .delete('access-groups/' + accessGroupId + '/0')
+      .toPromise()
       .then((data) => {
         return data;
       });
-}
-createAccessGroup(accessGroup:any)
-{
-  return this.commonService
-  .post('access-groups',accessGroup)
-  .toPromise()      
-  .then((data) => {
-    return data;
-  });
-}
- getProductsSmall() {
-   return this.http
-     .get<any>('assets/products-small.json')
-     .toPromise()
-     .then((res) => <AccessGroupModel[]>res.data)
-     .then((data) => {
-       return data;
-     });
- }
+  }
+  createAccessGroup(accessGroup: any) {
+    return this.commonService
+      .post('access-groups', accessGroup)
+      .toPromise()
+      .then((data) => {
+        return data;
+      });
+  }
+  getProductsSmall() {
+    return this.http
+      .get<any>('assets/products-small.json')
+      .toPromise()
+      .then((res) => <AccessGroupModel[]>res.data)
+      .then((data) => {
+        return data;
+      });
+  }
 
   getProducts() {
     return this.http

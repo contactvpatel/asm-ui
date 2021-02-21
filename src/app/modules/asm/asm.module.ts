@@ -6,7 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
   PerfectScrollbarConfigInterface,
   PerfectScrollbarModule,
-  PERFECT_SCROLLBAR_CONFIG,
+  PERFECT_SCROLLBAR_CONFIG
 } from 'ngx-perfect-scrollbar';
 import { AccordionModule } from 'primeng/accordion';
 import { MenubarModule } from 'primeng/Menubar';
@@ -58,9 +58,10 @@ import { AccessGroupAssignmentService } from '@app/data/services/access-group-as
 import { EncryptPipeModule } from '../encrypt/encrypt.pipe.module';
 
 import { AsmService } from './asm.service';
+import { ApplicationSecurityModule } from './page/application-security/application-security.module';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
-  suppressScrollX: false,
+  suppressScrollX: false
 };
 
 @NgModule({
@@ -112,18 +113,18 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     ProgressBarModule,
     SliderModule,
     AsmRoutingModule,
-    EncryptPipeModule,
+    EncryptPipeModule
   ],
   providers: [
     {
       provide: PERFECT_SCROLLBAR_CONFIG,
-      useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,
+      useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
     },
     ConfirmationService,
     AsmService,
     ModuleService,
     AccessGroupService,
-    AccessGroupAssignmentService,
-  ],
+    AccessGroupAssignmentService
+  ]
 })
 export class AsmModule {}

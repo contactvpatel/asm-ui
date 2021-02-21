@@ -18,31 +18,30 @@ const routes: Routes = [
       children: [
         {
           path: 'home',
-          component: HomeComponent,
+          component: HomeComponent
+        },
+        {
+          path: 'application-security',
+          loadChildren: () =>
+            import(
+              './page/application-security/application-security.module'
+            ).then((m) => m.ApplicationSecurityModule)
         },
         {
           path: 'module',
-          component: ModuleComponent,
-        },
-        {
-          path: 'access-group',
-          component: AccessGroupSummaryComponent,
-        },
-        {
-          path: 'access-group/:id',
-          component: AccessGroupDetailComponent,
+          component: ModuleComponent
         },
         {
           path: 'access-group-assignment',
-          component: AccessGroupAssignmentSummaryComponent,
+          component: AccessGroupAssignmentSummaryComponent
         },
         {
           path: 'access-group-assignment/:id',
-          component: AccessAssignmentGroupDetailComponent,
-        },
-      ],
-    },
-  ]),
+          component: AccessAssignmentGroupDetailComponent
+        }
+      ]
+    }
+  ])
 ];
 
 @NgModule({

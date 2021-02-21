@@ -7,10 +7,9 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 @Component({
   selector: 'app-access-group-summary',
   templateUrl: './access-group-summary.component.html',
-  styleUrls: ['./access-group-summary.component.scss'],
+  styleUrls: ['./access-group-summary.component.scss']
 })
 export class AccessGroupSummaryComponent implements OnInit {
-  
   accessGroups: AccessGroupModel[];
 
   accessGroup: AccessGroupModel;
@@ -31,7 +30,13 @@ export class AccessGroupSummaryComponent implements OnInit {
   }
 
   openNew(): void {
-    this.route.navigate(['/asm/access-group/0']);
+    this.route.navigate(['/asm/application-security/access-group/create']);
+  }
+
+  editAccessGroup(access: any): void {
+    this.route.navigate([
+      '/asm/application-security/access-group/edit/' + access.accessGroupId
+    ]);
   }
 
   deleteSelectedAccessGroup(): void {
@@ -51,11 +56,11 @@ export class AccessGroupSummaryComponent implements OnInit {
           severity: 'success',
           summary: 'Successful',
           detail: 'AccessGroups Deleted',
-          life: 3000,
+          life: 3000
         });
-      },
+      }
     });
-  }  
+  }
 
   deleteAccessGroup(accessGroup: AccessGroupModel): void {
     this.confirmationService.confirm({
@@ -71,14 +76,12 @@ export class AccessGroupSummaryComponent implements OnInit {
           severity: 'success',
           summary: 'Successful',
           detail: 'AccessGroup Deleted',
-          life: 3000,
+          life: 3000
         });
-      },
+      }
     });
   }
 
-
-  
   findIndexById(id: string): number {
     let index = -1;
     for (let i = 0; i < this.accessGroups.length; i++) {
@@ -93,6 +96,6 @@ export class AccessGroupSummaryComponent implements OnInit {
   getAccessGroup(): void {
     this.accessGroupService
       .getAccessGroup()
-      .then((data) => ((this.accessGroups = data)));
-  }  
+      .then((data) => (this.accessGroups = data));
+  }
 }
