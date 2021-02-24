@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AccessGroupModel, Department } from '@app/data/schema/access-group';
 import { Position, Role } from '@app/data/schema/access-group-assgnment';
-import { AccessGroup, Application } from '@app/data/schema/module';
+import { AccessGroup, Application, Module } from '@app/data/schema/module';
 import { AccessGroupAssignmentService } from '@app/data/services/access-group-assignment.service';
 import { AccessGroupService } from '@app/data/services/access-group.service';
 import { ModuleService } from '@app/data/services/module.service';
@@ -22,6 +22,7 @@ export class AccessAssignmentGroupDetailComponent implements OnInit, OnDestroy {
   accessGroup: AccessGroup;
   accessGroupList: AccessGroupModel[];
   selectaccessGroup: AccessGroupModel;
+  accessGroupModel: AccessGroupModel;
   subscription: Subscription;
   selectAccess: boolean;
   selectedApplication: Application;
@@ -38,7 +39,7 @@ export class AccessAssignmentGroupDetailComponent implements OnInit, OnDestroy {
   showRole = false;
   showPosition = false;
   showPerson = false;
-  
+  module:Module[];
   accessgroupAssignmentForm: FormGroup;
   constructor(
     private route: ActivatedRoute,
@@ -50,7 +51,8 @@ export class AccessAssignmentGroupDetailComponent implements OnInit, OnDestroy {
     private fb: FormBuilder
   ) {
     this.application = [
-      { id: 'A23B4841-10BF-4DE0-AD84-25E7ADF7EA7A', name: 'PBR' }
+      { id: '3FA85F64-5717-4562-B3FC-2C963F66AFA6', name: 'PBR' }
+      
     ];
   }
 
@@ -58,7 +60,7 @@ export class AccessAssignmentGroupDetailComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.accessGroup = {} as AccessGroup;
     this.createForm();
-    this.GetAccessGroup();
+    
     this.departmentList();
     this.GetallRole();
     
@@ -66,10 +68,10 @@ export class AccessAssignmentGroupDetailComponent implements OnInit, OnDestroy {
 
   createForm() {
     this.accessgroupAssignmentForm = this.fb.group({
-      accessgroupassignment: [null, [Validators.required]],
+      assignmentType: [null, [Validators.required]],
       description: [null, [Validators.required]],
       applicationId: [null, [Validators.required]],
-      departmentId: [null, [Validators.required]]
+      departmentId: [null, [Validators.required]]      
     });
   }
 
@@ -87,10 +89,10 @@ export class AccessAssignmentGroupDetailComponent implements OnInit, OnDestroy {
   }
   onFormSubmit(): void {
     this.accessgroupAssignmentForm.value;
-    console.log(this.accessgroupAssignmentForm.value)
+    
     this.submitted = true;
     let accessgroupassignment = [];
-    console.log(this.accessGroups);
+    
     if (this.selectedRoleList !== null) {
       accessgroupassignment = this.setPermissions(
         this.selectedRoleList,
@@ -106,7 +108,7 @@ export class AccessAssignmentGroupDetailComponent implements OnInit, OnDestroy {
     }
     this.accessGroupAssignmentService
       .createAccessGroupAssignment(accessgroupassignment)
-      .then((data) => console.log(data));
+      .then((data)=>this.onCancelClick());
   }
   setPermissions(
     permission: any[],
@@ -141,20 +143,22 @@ export class AccessAssignmentGroupDetailComponent implements OnInit, OnDestroy {
   }
 
   GetAccessGroup(): void {
+    const departmentId = this.selectedDepartment.departmentId;
+    const applicationId= this.selectedApplication.id;
     this.accessGroupService
-      .getAccessGroup()
+      .getAccessGroupByApplicationIdAndDepartmentId(applicationId,departmentId)
       .then((data) => (this.accessGroupList = data));
   }
   GetRole(): void {
-    let departmentId;
-    if (this.selectedDepartment !== null) {
-      departmentId = this.selectedDepartment.departmentId;
-    } else {
-      departmentId = 0;
-    }
-    this.accessGroupAssignmentService
-      .getRoleByDepartmentId(departmentId)
-      .then((data) => (this.role = data));
+    // let departmentId;
+    // if (this.selectedDepartment !== null) {
+    //   departmentId = this.selectedDepartment.departmentId;
+    // } else {
+    //   departmentId = 0;
+    // }
+    // this.accessGroupAssignmentService
+    //   .getRoleByDepartmentId(departmentId)
+    //   .then((data) => (this.role = data));
   }
   GetallRole(): void {
     this.accessGroupAssignmentService
@@ -197,12 +201,79 @@ export class AccessAssignmentGroupDetailComponent implements OnInit, OnDestroy {
     } else {
       applicationId = this.selectedApplication.id;
     }
-
-    this.moduleService.getModulesByApplicationId(applicationId).then((data) => {
-      this.accessGroups = new AccessGroup().fromJson(data);
-      console.log(this.accessGroups);
-    });
+    this.accessGroupService.getAccessGroupById(this.selectaccessGroup.accessGroupId).then((data) => {
+      this.accessGroupModel = data;          
+      this.moduleService.getModules().then((data) => {
+      (this.module = data), this.setmodule();
+      });
+    });   
   }
+
+
+  setmodule() {
+    let accessGroup = [];
+    
+    accessGroup = this.setEditAccessGroup(
+      this.module,
+      this.accessGroupModel.accessGroupModulePermissions,
+      accessGroup
+    );
+    
+    this.accessGroups = new AccessGroup().fromJson(accessGroup,true);
+    
+  }
+  setEditAccessGroup(
+    modules: Module[],
+    accessGroup: any,
+    flatDataItems: any[]
+  ) {
+    modules.forEach((item) => {
+      const permissionFound = accessGroup.find(
+        (a) => a.moduleId == item.moduleId
+      );
+      if (permissionFound) {
+        flatDataItems.push({
+          moduleId: item.moduleId,          
+          name: item.name,
+          moduleType:{
+            name: item.moduleType.name,
+            isControlType:item.moduleType.isControlType
+          },
+          parentModule:{
+         name: item.parentModule === null ? '' : item.parentModule.name},
+          accessGroupModulePermissions:{
+            moduleId:permissionFound.moduleId,
+          hasViewAccess: permissionFound.hasViewAccess,
+          hasCreateAccess: permissionFound.hasCreateAccess,
+          hasUpdateAccess: permissionFound.hasUpdateAccess,
+          hasDeleteAccess: permissionFound.hasDeleteAccess,
+          hasAccessRight: permissionFound.hasAccessRight}
+        });
+      } else {
+        flatDataItems.push({
+          moduleId: item.moduleId,          
+          name: item.name,
+          moduleType:{
+            name: item.moduleType.name,
+            isControlType:item.moduleType.isControlType
+          },
+          parentModule:{
+         name: item.parentModule === null ? '' : item.parentModule.name},
+          accessGroupModulePermissions:{
+            moduleId:0,
+          hasViewAccess: false,
+          hasCreateAccess: false,
+          hasUpdateAccess: false,
+          hasDeleteAccess: false,
+          hasAccessRight: false
+        }
+        });
+      }
+      // });
+    });
+    return flatDataItems;
+  }
+
 
   departmentList(): void {
     this.accessGroupService

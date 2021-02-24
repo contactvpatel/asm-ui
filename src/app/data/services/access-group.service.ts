@@ -49,14 +49,31 @@ export class AccessGroupService {
   constructor(private http: HttpClient, private commonService: CommonService) {}
   getAccessGroup() {
     return this.http
-      .get<any>(this.url + AccessGroupAPI.GetAllAccessGroup)
+      .get<any>('https://localhost:44388/api/v1.0/access-groups')
       .toPromise()
       .then((res) => <AccessGroupModel[]>res.data)
       .then((data) => {
         return data;
       });
   }
-
+  getAccessGroupByApplicationIdAndDepartmentId(applicatioId:any,departmentId:Number) {
+    return this.http
+      .get<any>('https://localhost:44388/api/v1.0/access-groups/'+applicatioId+'/'+departmentId)
+      .toPromise()
+      .then((res) => <AccessGroupModel[]>res.data)
+      .then((data) => {
+        return data;
+      });
+  }
+  getAccessGroupById(id:number) {
+    return this.http
+      .get<any>(this.url + AccessGroupAPI.GetAllAccessGroup+'/'+id)
+      .toPromise()
+      .then((res) => <AccessGroupModel>res.data)
+      .then((data) => {
+        return data;
+      });
+  }
   getDepartment() {
     return this.http
       .get<any>(this.url + 'departments')
@@ -77,6 +94,14 @@ export class AccessGroupService {
   createAccessGroup(accessGroup: any) {
     return this.commonService
       .post('access-groups', accessGroup)
+      .toPromise()
+      .then((data) => {
+        return data;
+      });
+  }
+  updateAccessGroup(accessGroup: any) {
+    return this.commonService
+      .put('access-groups', accessGroup)
       .toPromise()
       .then((data) => {
         return data;

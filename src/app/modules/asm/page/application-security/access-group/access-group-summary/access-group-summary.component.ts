@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AccessGroupModel } from '@app/data/schema/access-group';
+import { IsActive } from '@app/data/schema/module';
 import { AccessGroupService } from '@app/data/services/access-group.service';
 import { ConfirmationService, MessageService } from 'primeng/api';
 
@@ -15,7 +16,7 @@ export class AccessGroupSummaryComponent implements OnInit {
   accessGroup: AccessGroupModel;
 
   selectedAccessGroup: AccessGroupModel[];
-
+  
   submitted: boolean;
 
   constructor(

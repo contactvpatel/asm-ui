@@ -1,25 +1,36 @@
 <div class="card">
-  <div>
-    <h2 class="font">AccessGroup Create</h2>
+  <div *ngIf="config.mode.isEdit===false">
+    <h2 class="font">Access Group Create</h2>
+  </div>
+  <div *ngIf="config.mode.isEdit===true">
+    <h2 class="font">Access Group Edit</h2>
   </div>
 </div>
 <form [formGroup]="accessgroupForm">
   <div class="p-grid p-fluid">
     <div class="p-col-12 p-md-6">
       <span class="p-float-label">
-        <input id="float-input" type="text" pInputText formControlName="name" />
-        <label for="float-input" class="p-component"> Name </label>
-      </span>
+        <input id="float-input" [ngClass]="{
+          'ng-invalid ng-dirty':
+            submitted && accessgroupForm.controls.name.errors?.required
+        }" type="text" pInputText formControlName="name" />
+        <label  for="float-input" class="p-component"> Name </label>
+    </span>
     </div>
 
     <div class="p-col-12 p-md-6">
       <span class="p-float-label">
         <p-dropdown
-          [options]="application"
+          [options]="application"          
+          [ngClass]="{
+            'ng-invalid ng-dirty':
+              submitted && accessgroupForm.controls.applicationId.errors?.required
+          }"          
           placeholder="Select Application"
           optionLabel="name"
           [showClear]="true"
           formControlName="applicationId"
+          optionValue="id"
           (onChange)="getAllModule()"
         >
         </p-dropdown>
@@ -32,7 +43,7 @@
         <input
           id="float-input"
           type="text"
-          pInputText
+          pInputText          
           formControlName="description"
         />
 
@@ -44,7 +55,12 @@
         <p-dropdown
           [options]="department"
           placeholder="Select Department"
+          [ngClass]="{
+            'ng-invalid ng-dirty':
+              submitted && accessgroupForm.controls.departmentId.errors?.required
+          }"
           optionLabel="departmentName"
+          optionValue="departmentId"
           [showClear]="true"
           formControlName="departmentId"
         >

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AccessGroupDetailComponent } from './access-group-detail/access-group-detail.component';
 import { AccessGroupSummaryComponent } from './access-group-summary/access-group-summary.component';
+// import { AccessGroupEditResolver } from './resolver/access-group.resolver';
 
 const routes: Routes = [
   {
@@ -11,6 +12,7 @@ const routes: Routes = [
   {
     path: 'edit/:id',
     component: AccessGroupDetailComponent
+    // resolve: { accessGroup: AccessGroupEditResolver }
   },
   {
     path: 'create',

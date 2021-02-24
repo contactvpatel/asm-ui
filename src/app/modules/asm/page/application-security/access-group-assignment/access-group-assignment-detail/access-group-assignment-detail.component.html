@@ -4,135 +4,142 @@
   </div>
 </div>
 
-<form [formGroup]="accessgroupAssignmentForm">
-  <div class="p-grid p-fluid">
-    <div class="p-col-12 p-md-6">
-      <span class="p-float-label">
-        <p-dropdown
-          [options]="application"
-          formControlName="applicationId"
-          placeholder="Select Application"
-          optionLabel="name"
-          [showClear]="true"
-        >
-        </p-dropdown>
-        <!-- <input id="float-input" type="text" pInputText [(ngModel)]="accessGroup.name" />
+<!-- <form [formGroup]="accessgroupAssignmentForm"> -->
+<div class="p-grid p-fluid">
+  <div class="p-col-12 p-md-6">
+    <span class="p-float-label">
+      <p-dropdown
+        [options]="application"
+        [(ngModel)]="selectedApplication"
+        placeholder="Select Application"
+        optionLabel="name"
+        [showClear]="true"
+      >
+      </p-dropdown>
+      <!-- formControlName="applicationId" -->
+      <!-- <input id="float-input" type="text" pInputText [(ngModel)]="accessGroup.name" />
       <label for="float-input" class="p-component"> Name </label> -->
-      </span>
-    </div>
+    </span>
+  </div>
 
-    <div class="p-col-12 p-md-6">
+  <div class="p-col-12 p-md-6">
+    <div class="p-field-radiobutton">
       <div class="p-field-radiobutton">
-        <div class="p-field-radiobutton">
-          <p-radioButton
-            name="assignmentType"
-            value="Chicago"
-            (onClick)="ShowRole()"
-            formControlName="accessgroupassignment"
-            inputId="role"
-          ></p-radioButton>
-          <label for="role" class="font">Role</label>
-        </div>
-        <div class="p-field-radiobutton p-ml-3">
-          <p-radioButton
-            name="assignmentType"
-            value="Los Angeles"
-            (onClick)="ShowPosition()"
-            inputId="position"
-          ></p-radioButton>
-          <label for="position" class="font">Position</label>
-        </div>
-        <div class="p-field-radiobutton p-ml-3">
-          <p-radioButton
-            name="assignmentType"
-            value="person"
-            (onClick)="ShowPerson()"
-            inputId="person"
-          ></p-radioButton>
-          <label for="person" class="font">Person</label>
-        </div>
+        <p-radioButton
+          name="assignmentType"
+          value="role"
+          (onClick)="ShowRole()"
+          [(ngModel)]="city"
+          inputId="role"
+        ></p-radioButton>
+        <label for="role">Role</label>
       </div>
+      <div class="p-field-radiobutton p-ml-3">
+        <p-radioButton
+          name="assignmentType"
+          value="position"
+          (onClick)="ShowPosition()"
+          [(ngModel)]="city"
+          inputId="position"
+        ></p-radioButton>
+        <label for="position">Position</label>
+      </div>
+      <div class="p-field-radiobutton p-ml-3">
+        <p-radioButton
+          name="assignmentType"
+          value="person"
+          (onClick)="ShowPerson()"
+          [(ngModel)]="city"
+          inputId="person"
+        ></p-radioButton>
+        <label for="person">Person</label>
+      </div>
+
+      <!-- formControlName="assignmentType" -->
     </div>
   </div>
-  <div class="p-grid p-fluid">
-    <div class="p-col-12 p-md-6">
-      <span class="p-float-label">
-        <p-dropdown
-          [options]="department"
-          [(ngModel)]="selectedDepartment"
-          placeholder="Select Department"
-          optionLabel="departmentName"
-          [showClear]="true"
-          (onChange)="GetRole()"
-        >
-        </p-dropdown>
-      </span>
-    </div>
-    <div class="p-col-12 p-md-6">
-      <span *ngIf="showRole" class="p-float-label">
-        <p-multiSelect
-          [options]="role"
-          [(ngModel)]="selectedRoleList"
-          defaultLabel="Select Role"
-          optionLabel="roleName"
-        >
-        </p-multiSelect>
-      </span>
-      <span *ngIf="showPosition" class="p-float-label">
-        <p-dropdown
-          [options]="role"
-          [filter]="true"
-          filterBy="roleName"
-          [(ngModel)]="selectedRole"
-          placeholder="Select Role"
-          optionLabel="roleName"
-          [showClear]="true"
-          (onChange)="GetPosition()"
-        >
-        </p-dropdown>
-      </span>
-      <span *ngIf="showPerson" class="p-input-icon-left">
-        <i class="pi pi-search"></i>
-        <input
-          pInputText
-          type="text"
-          class="search"
-          placeholder="search person from MIS"
-        />
-      </span>
-      <!-- (input)="dt.filterGlobal($event.target.value, 'contains')"-->
-    </div>
+</div>
+<div class="p-grid p-fluid">
+  <div class="p-col-12 p-md-6">
+    <span class="p-float-label">
+      <p-dropdown
+        [options]="department"
+        [(ngModel)]="selectedDepartment"
+        placeholder="Select Department"
+        optionLabel="departmentName"
+        [showClear]="true"
+        (onChange)="GetRole(); GetAccessGroup()"
+      >
+      </p-dropdown>
+      <!-- formControlName="departmentId" -->
+    </span>
   </div>
-  <div class="p-grid p-fluid">
-    <div class="p-col-12 p-md-6">
-      <span class="p-float-label">
-        <p-dropdown
-          [options]="accessGroupList"
-          [(ngModel)]="selectaccessGroup"
-          placeholder="Select Access Group"
-          optionLabel="name"
-          [showClear]="true"
-          (onChange)="getAllModule()"
-        >
-        </p-dropdown>
-      </span>
-    </div>
-    <div class="p-col-12 p-md-6">
-      <span *ngIf="showPosition" class="p-float-label">
-        <p-multiSelect
-          [options]="position"
-          [filter]="true"
-          filterBy="positionName"
-          [(ngModel)]="selectedPosition"
-          placeholder="Select Position"
-          optionLabel="positionName"
-          [showClear]="true"
-        >
-        </p-multiSelect>
-      </span>
-    </div>
+  <div class="p-col-12 p-md-6">
+    <span *ngIf="showRole" class="p-float-label">
+      <p-multiSelect
+        [options]="role"
+        [(ngModel)]="selectedRoleList"
+        defaultLabel="Select Role"
+        optionLabel="roleName"
+      >
+      </p-multiSelect>
+    </span>
+    <!-- formControlName="departmentId" -->
+    <span *ngIf="showPosition" class="p-float-label">
+      <p-dropdown
+        [options]="role"
+        [filter]="true"
+        filterBy="roleName"
+        [(ngModel)]="selectedRole"
+        placeholder="Select Role"
+        optionLabel="roleName"
+        [showClear]="true"
+        (onChange)="GetPosition()"
+      >
+      </p-dropdown>
+    </span>
+    <span *ngIf="showPerson" class="p-input-icon-left">
+      <i class="pi pi-search"></i>
+      <input
+        pInputText
+        type="text"
+        class="search"
+        placeholder="search person from MIS"
+      />
+    </span>
+    <!-- (input)="dt.filterGlobal($event.target.value, 'contains')"-->
   </div>
-</form>
+</div>
+<div class="p-grid p-fluid">
+  <div class="p-col-12 p-md-6">
+    <span class="p-float-label">
+      <p-dropdown
+        [options]="accessGroupList"
+        [(ngModel)]="selectaccessGroup"
+        placeholder="Select Access Group"
+        optionLabel="name"
+        [showClear]="true"
+        (onChange)="getAllModule()"
+      >
+      </p-dropdown>
+    </span>
+  </div>
+  <div class="p-col-12 p-md-6">
+    <span *ngIf="showPosition" class="p-float-label">
+      <p-multiSelect
+        [options]="position"
+        [filter]="true"
+        filterBy="positionName"
+        [(ngModel)]="selectedPosition"
+        placeholder="Select Position"
+        optionLabel="positionName"
+        [showClear]="true"
+      >
+      </p-multiSelect>
+    </span>
+  </div>
+</div>
+<!-- </form> -->
 <p-table
   #dt
   [value]="accessGroups"
@@ -157,67 +164,82 @@
       <th pSortableColumn="lastUpdate">Access</th>
     </tr>
   </ng-template>
-  <ng-template pTemplate="body" let-accessGroupAssignment>
-    <tr *ngIf="accessGroupAssignment.showCheckbox; else elseBlock">
-      <td>{{ accessGroupAssignment.moduleType.name }}</td>
-      <td *ngIf="accessGroupAssignment.parentModule !== null; else elseBlock">
-        {{ accessGroupAssignment.parentModule.name }}
+  <ng-template pTemplate="body" let-accessGroup let-index>
+    <tr>
+      <td>{{ accessGroup.moduleType.name }}</td>
+      <td *ngIf="accessGroup.parentModule !== null; else elseBlock">
+        {{ accessGroup.parentModule.name }}
       </td>
       <ng-template #elseBlock>
         <td></td>
       </ng-template>
-      <td>{{ accessGroupAssignment.name }}</td>
-      <!-- <td >
-          <div class="p-field-checkbox">
-          <p-checkbox [(ngModel)]=accessGroup.accessGroupModulePermissions.hasViewAccess binary="true"></p-checkbox>          
-          </div>
-        </td>
-        <td >
-          <div class="p-field-checkbox">
-          <p-checkbox [(ngModel)]=accessGroup.accessGroupModulePermissions.hasCreateAccess binary="true"></p-checkbox>          
-          </div>
-        </td>
-        <td >
-          <div class="p-field-checkbox">
-          <p-checkbox [(ngModel)]=accessGroup.accessGroupModulePermissions.hasUpdateAccess binary="Create"></p-checkbox>          
-          </div>
-        </td>
-        <td>
-          <div class="p-field-checkbox">
-          <p-checkbox [(ngModel)]=accessGroup.accessGroupModulePermissions.hasDeleteAccess binary="Delete"></p-checkbox>          
-          </div>
-        </td> -->
-      <td></td>
+      <td>{{ accessGroup.name }}</td>
+      <td *ngIf="accessGroup.accessGroupModulePermissions.hasViewAccess; else elseBlock">
+        Yes
+      </td>
+      <ng-template #elseBlock>
+        <td></td>
+      </ng-template>
+      <td *ngIf="accessGroup.accessGroupModulePermissions.hasCreateAccess; else elseBlock">
+        Yes
+      </td>
+      <ng-template #elseBlock>
+        <td></td>
+      </ng-template>
+      <td *ngIf="accessGroup.accessGroupModulePermissions.hasUpdateAccess; else elseBlock">
+        Yes
+      </td>
+      <ng-template #elseBlock>
+        <td></td>
+      </ng-template>
+      <td *ngIf="accessGroup.accessGroupModulePermissions.hasDeleteAccess; else elseBlock">
+        Yes
+      </td>
+      <ng-template #elseBlock>
+        <td></td>
+      </ng-template>
+      
+      <td *ngIf="accessGroup.accessGroupModulePermissions.hasAccessRight; else elseBlock">
+        Yes
+      </td>
+      <ng-template #elseBlock>
+        <td></td>
+      </ng-template>
+      <!-- <td>
+        <div class="p-field-checkbox">
+          <p-checkbox
+            [(ngModel)]="
+              accessGroup.accessGroupModulePermissions.hasCreateAccess
+            "
+            binary="true"
+          ></p-checkbox>
+        </div>
+      </td>
+      <td>
+        <div class="p-field-checkbox">
+          <p-checkbox
+            [(ngModel)]="
+              accessGroup.accessGroupModulePermissions.hasUpdateAccess
+            "
+            binary="Create"
+          ></p-checkbox>
+        </div>
+      </td>
+      <td>
+        <div class="p-field-checkbox">
+          <p-checkbox
+            [(ngModel)]="
+              accessGroup.accessGroupModulePermissions.hasDeleteAccess
+            "
+            binary="Delete"
+          ></p-checkbox>
+        </div>
+      </td>
+      <td></td> -->
     </tr>
-    <ng-template #elseBlock>
-      <tr>
-        <td>{{ accessGroupAssignment.moduleType.name }}</td>
-        <td *ngIf="accessGroupAssignment.parentModule !== null; else elseBlock">
-          {{ accessGroupAssignment.parentModule.name }}
-        </td>
-        <ng-template #elseBlock>
-          <td></td>
-        </ng-template>
-        <td>{{ accessGroupAssignment.name }}</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <!-- <td  >
-            <div class="p-field-radiobutton">
-              <div class="p-field-radiobutton">
-                <p-radioButton name="isActive" [value]=true [(ngModel)]="accessGroup.accessGroupModulePermissions.hasAccessRight" inputId="true"></p-radioButton>
-                  <label for="true">Yes</label>
-              </div>        
-              <div class="p-field-radiobutton p-ml-3">            
-                <p-radioButton name="isActive" [value]=false [(ngModel)]="accessGroup.accessGroupModulePermissions.hasAccessRight" inputId="false"></p-radioButton>
-                 <label for="false">No</label>
-              </div>
-            </div>
-          </td> -->
-      </tr>
-    </ng-template>
+    
   </ng-template>
+
 
   <ng-template pTemplate="summary">
     <div class="button-div">

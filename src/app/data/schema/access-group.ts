@@ -13,8 +13,18 @@ export interface AccessGroupModel {
     createdBy?: number,
     lastUpdated?: string,
     lastUpdatedBy?: number,
-    departmentName?: string            
+    departmentName?: string,
+    accessGroupModulePermissions?: accessGroupModulePermissions
 }
+export interface accessGroupModulePermissions {
+        accessGroupId: number,
+        moduleId: number,
+        hasViewAccess: boolean,
+        hasCreateAccess: boolean,
+        hasUpdateAccess: boolean,
+        hasDeleteAccess: boolean,
+        hasAccessRight: boolean
+} 
 export interface Department{
     
     departmentId: number,
