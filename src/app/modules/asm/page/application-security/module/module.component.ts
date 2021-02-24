@@ -1,8 +1,11 @@
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from '@angular/core';
 import { Application, Module,  ModuleType } from '@app/data/schema/module';
 import { ModuleService } from '@app/data/services/module.service';
+import { applicationService } from '@app/data/services/application.service';
 import { ConfirmationService } from 'primeng/api';
 import { MessageService } from 'primeng/api';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-module',
@@ -11,44 +14,58 @@ import { MessageService } from 'primeng/api';
 })
 export class ModuleComponent implements OnInit {
   moduleDialog: boolean;
-
   modules: Module[];
   moduleType: ModuleType[];
   module: Module;
   selectedmodules: Module[];
   selectedparentmodules: number;
   submitted: boolean;
-  selectedApplication: Application;
+  selectedApplication: string;
   application: Application[];
   selectedModuleType: ModuleType;
-  isActive: false;
-
+  moduleForm: FormGroup;
   constructor(
     private moduleService: ModuleService,
+    private applicationService:applicationService,
     private messageService: MessageService,
-    private confirmationService: ConfirmationService
-  ) {
-    this.application = [
-      { id: 'A23B4841-10BF-4DE0-AD84-25E7ADF7EA7A', name: 'PBR' }
-    ];
-  }
+    private confirmationService: ConfirmationService,
+    private fb: FormBuilder,
+  ) {}
 
   ngOnInit(): void {
     this.getAllModule();
     this.getModuleType();
-  }
+    this.getApplication();
+    this.createForm();
+    }
 
   openNew(): void {
-    this.module = {};
+    this.module  = {
+      name: null,
+      code: null,
+      isActive: 'true'
+    }
+    this.selectedparentmodules=null;
     this.selectedModuleType = null;
     this.selectedApplication = null;
     this.selectedmodules = null;
     this.submitted = false;
     this.moduleDialog = true;
+    
   }
-
+  createForm() {
+    this.moduleForm = this.fb.group({
+      applicatioId:[null,[Validators.required]],
+      name: [null, [Validators.required]],
+      code: [null, [Validators.required]],
+      applicationId: [null, [Validators.required]],
+      moduleTypeId: [null, [Validators.required]],
+      parentId:[null, [Validators.required]],
+      isActive:[null, [Validators.required]],
+    });
+  }
   deleteSelectedmodules(): void {
-    console.log(this.modules);
+    
     this.confirmationService.confirm({
       message: 'Are you sure you want to delete the selected modules?',
       header: 'Confirm',
@@ -74,8 +91,17 @@ export class ModuleComponent implements OnInit {
   }
 
   editModule(module: Module): void {
+      
     this.moduleService.getModuleById(module.moduleId).then((data) => {
-      this.module = data;
+      this.module=data;
+      this.module = {
+        name: data.name,
+        code: data.code,
+        moduleId:data.moduleId,
+        isActive: data.isActive.toString()
+      }
+      
+      this.selectedApplication=data.applicationId;
       this.selectedModuleType = data.moduleType;
       this.selectedparentmodules = data.parentModuleId;
     });
@@ -110,8 +136,8 @@ export class ModuleComponent implements OnInit {
 
   saveModule(): void {
     this.submitted = true;
-
-    if (this.module.name.trim()) {
+     
+    if (this.module.name.trim() && this.module.code.trim() && this.selectedModuleType.moduleTypeId!==null && this.selectedApplication.trim()) {
       if (this.module.moduleId) {
         this.module.parentModule = null;
         this.module.moduleType = null;
@@ -122,9 +148,10 @@ export class ModuleComponent implements OnInit {
           this.selectedparentmodules !== undefined &&
           this.selectedparentmodules !== null
         ) {
-        //  this.module.parentModuleId = this.selectedparentmodules.moduleId;
+          this.module.parentModuleId = this.selectedparentmodules;
         }
-        this.module.applicationId = 'a23b4841-10bf-4de0-ad84-25e7adf7ea7a';
+        
+        this.module.applicationId = this.selectedApplication;
         this.moduleService
           .updateModule(this.module)
           .then((data) => this.getAllModule(), (this.module = null));
@@ -137,9 +164,10 @@ export class ModuleComponent implements OnInit {
       } else {
         this.module.moduleTypeId = this.selectedModuleType.moduleTypeId;
         if (this.selectedparentmodules !== undefined) {
-        //  this.module.parentModuleId = this.selectedparentmodules.moduleId;
+          this.module.parentModuleId = this.selectedparentmodules;
         }
-        this.module.applicationId = 'a23b4841-10bf-4de0-ad84-25e7adf7ea7a';
+        this.module.applicationId = this.selectedApplication;
+        
         this.moduleService
           .createModule(this.module)
           .then((data) => this.getAllModule());
@@ -169,11 +197,17 @@ export class ModuleComponent implements OnInit {
 
     return index;
   }
+  getApplication():void{
+    
+    this.applicationService
+      .getApplication()
+      .then((data) => ((this.application = data)));
+  }
   getAllModule(): void {
     this.modules = [];
     this.moduleService
       .getModules()
-      .then((data) => ((this.modules = data), console.log(this.modules)));
+      .then((data) => ((this.modules = data)));
   }
   getModuleType(): void {
     this.moduleService.getModuleType().then((data) => (this.moduleType = data));

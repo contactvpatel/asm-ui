@@ -1,6 +1,7 @@
 export interface Module {
   moduleId?: number;
   name?: string;
+  applicationName?:string,
   code?: string;
   moduleTypeId?: number;
   applicationId?: string;
@@ -12,8 +13,12 @@ export interface Module {
 }
 
 export interface Application {
-  id: string;
-  name: string;
+  applicationId: string;
+  applicationName: string;
+}
+export interface IsActive {
+  
+  isActive: string;
 }
 // export interface ModuleType
 // {
@@ -88,23 +93,14 @@ export class AccessGroup {
 
   private getEditModeAccessData(jsonData) {
     const accessData = [];
-    jsonData.accessGroupModulePermissions.forEach((data) => {
+    jsonData.forEach((data) => {
       accessData.push({
         moduleId: data.moduleId,
-        name: data.name,
-        code: data.code,
-        moduleTypeId: data.moduleTypeId,
-        applicationId: data.applicationId,
-        parentModuleId: data.parentModuleId,
-        isActive: data.isActive,
+        name: data.name,                
         moduleType: data.moduleType,
         parentModule: data.parentModule,
-        accessGroupId: data.accessGroupId,
-        applicationName: data.applicationName,
-        departmentId: data.departmentId,
-        departmentName: data.departmentName,
         accessGroupModulePermissions: this.getAccessGroupModulePermissionsForEditMode(
-          data
+          data.accessGroupModulePermissions
         ),
         description: data.description,
         showCheckbox: data.moduleType.isControlType === false ? true : false
@@ -124,16 +120,15 @@ export class AccessGroup {
       hasDeleteAccess: false,
       hasAccessRight: false
     };
-
     return accessGroupModulePermissions;
   }
 
   getAccessGroupModulePermissionsForEditMode(
     data
   ): AccessGroupModulePermissions {
+    console.log(data)
     const accessGroupModulePermissions: AccessGroupModulePermissions = {
-      moduleId: data.moduleId,
-      accessGroupId: data.accessGroupId,
+      moduleId: data.moduleId,      
       hasViewAccess: data.hasViewAccess,
       hasCreateAccess: data.hasCreateAccess,
       hasUpdateAccess: data.hasUpdateAccess,

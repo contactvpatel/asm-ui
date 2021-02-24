@@ -133,3 +133,6 @@ export const AccessGroupAssignmentApi = {
   CreateAccessGroupAssignment: 'access-group-assignments',
   DeleteAccessGroupAssignment:'access-group-assignments/'
 };
+export const ApplicationApi={
+  GetApplication:'applications'
+}

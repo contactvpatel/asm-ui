@@ -31,8 +31,11 @@
     [globalFilterFields]="[
       'name',
       'code',
+      'applicationName',
       'moduleType.name',
-      'parentModule.name'
+      'parentModule.name',
+      'isActive'
+
     ]"
     [rowsPerPageOptions]="[10, 25, 50]"
     [(selection)]="selectedmodules"
@@ -60,8 +63,8 @@
         <th style="width: 3rem">
           <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
         </th>
-        <th pSortableColumn="application">
-          Application <p-sortIcon field="application"></p-sortIcon>
+        <th pSortableColumn="applicationName">
+          Application <p-sortIcon field="applicationName"></p-sortIcon>
         </th>
         <th pSortableColumn="name">
           Name <p-sortIcon field="name"></p-sortIcon>
@@ -69,13 +72,13 @@
         <th pSortableColumn="code">
           Code <p-sortIcon field="code"></p-sortIcon>
         </th>
-        <th pSortableColumn="category">
-          Type <p-sortIcon field="category"></p-sortIcon>
+        <th pSortableColumn="moduleType.name">
+          Type <p-sortIcon field="moduleType.name"></p-sortIcon>
         </th>
-        <th pSortableColumn="parentModule">
-          Parent Module <p-sortIcon field="parentModule"></p-sortIcon>
+        <th pSortableColumn="parentModule.name">
+          Parent Module <p-sortIcon field="parentModule.name"></p-sortIcon>
         </th>
-        <th pSortableColumn="active">
+        <th pSortableColumn="isActive">
           Active <p-sortIcon field="active"></p-sortIcon>
         </th>
         <!-- <th pSortableColumn="lastUpdate">
@@ -86,7 +89,7 @@
       <tr>
         <th></th>
         <th>
-          <p-columnFilter type="text" field="application"></p-columnFilter>
+          <p-columnFilter type="text" field="applicationName"></p-columnFilter>
         </th>
         <th>
           <p-columnFilter type="text" field="name"></p-columnFilter>
@@ -112,13 +115,12 @@
         <td>
           <p-tableCheckbox [value]="module"></p-tableCheckbox>
         </td>
-        <td>PBR</td>
+        <td>{{module.applicationName}}</td>
         <td>{{ module.name }}</td>
         <td>{{ module.code }}</td>
         <td>{{ module.moduleType.name }}</td>
         <td *ngIf="module.parentModule !== null; else elseBlock">
-          {{ module.parentModule.name }}
-        </td>
+          {{ module.parentModule.name }} </td>
         <ng-template #elseBlock>
           <td></td>
         </ng-template>
@@ -160,17 +162,24 @@
   [modal]="true"
   styleClass="p-fluid"
 >
+
   <div class="p-field">
     <!-- <label for="application">Application</label> -->
     <p-dropdown
       [options]="application"
       [(ngModel)]="selectedApplication"
       placeholder="Select Application"
-      optionLabel="name"
+      optionLabel="applicationName"
+      optionValue="applicationId"
       [showClear]="true"
-      autofocus
+      [ngClass]="{
+        'ng-invalid ng-dirty': submitted && !selectedApplication
+      }"
     >
     </p-dropdown>
+    <small class="p-invalid error" *ngIf="submitted && !selectedApplication">
+      Application is required.
+    </small>
   </div>
   <ng-template pTemplate="content">
     <div class="p-field">
@@ -181,11 +190,13 @@
           pInputText
           [(ngModel)]="module.name"
           required
-          
+          [ngClass]="{
+            'ng-invalid ng-dirty': submitted && !module.name
+          }"
         />
         <label for="name"> Name </label>
       </span>
-      <small class="p-invalid" *ngIf="submitted && !module.name"
+      <small class="p-invalid error" *ngIf="submitted && !module.name"
         >Name is required.</small
       >
     </div>
@@ -196,24 +207,32 @@
           type="text"
           pInputText
           [(ngModel)]="module.code"
+          [ngClass]="{
+            'ng-invalid ng-dirty': submitted && !module.code
+          }"
           required
-          autofocus
         />
         <label for="code"> Code </label>
       </span>
-      <small class="p-invalid" *ngIf="submitted && !module.code">
-        Name is required.
+      <small class="p-invalid error" *ngIf="submitted && !module.code">
+        Code is required.
       </small>
     </div>
     <div class="p-field">
       <p-dropdown
         [options]="moduleType"
         [(ngModel)]="selectedModuleType"
+        [ngClass]="{
+          'ng-invalid ng-dirty': submitted && !selectedModuleType
+        }"
         placeholder="Select Module Type"
         optionLabel="name"
         [showClear]="true"
       >
       </p-dropdown>
+      <small class="p-invalid error" *ngIf="submitted && !selectedModuleType">
+        Module Type is required.
+      </small>
     </div>
     <div class="p-field">
       <p-dropdown
@@ -232,18 +251,18 @@
         <div class="p-field-radiobutton">
           <p-radioButton
             name="isActive"
-            [value]="true"
+            value="true"
             [(ngModel)]="module.isActive"
-            inputId="true"
+            inputId="op1"
           ></p-radioButton>
           <label for="true">Yes</label>
         </div>
         <div class="p-field-radiobutton p-ml-3">
           <p-radioButton
             name="isActive"
-            [value]="false"
+            value="false"
             [(ngModel)]="module.isActive"
-            inputId="false"
+            inputId="op2"
           ></p-radioButton>
           <label for="false">No</label>
         </div>

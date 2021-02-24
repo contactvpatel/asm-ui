@@ -28,11 +28,7 @@
     [value]="accessGroupAssignments"
     [rows]="10"
     [paginator]="true"
-    [globalFilterFields]="[
-      'name',
-      'departmentName',
-      'description'
-    ]"
+    [globalFilterFields]="['name', 'departmentName', 'description']"
     [rowsPerPageOptions]="[10, 25, 50]"
     [(selection)]="selectedAccessGroup"
     [rowHover]="true"
@@ -59,9 +55,7 @@
         <th style="width: 3rem">
           <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
         </th>
-        <th pSortableColumn="application">
-          Application <p-sortIcon field="application"></p-sortIcon>
-        </th>
+
         <th pSortableColumn="name">
           Department <p-sortIcon field="name"></p-sortIcon>
         </th>
@@ -90,9 +84,9 @@
         <th>
           <p-columnFilter type="text" field="name"></p-columnFilter>
         </th>
-        <th></th> 
-        <th></th> 
-        <th></th> 
+        <th></th>
+        <th></th>
+        <th></th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-accessgroupassignment>
@@ -100,35 +94,38 @@
         <td>
           <p-tableCheckbox [value]="accessgroupassignment"></p-tableCheckbox>
         </td>
-        <td>PBR</td>
+
         <td>{{ accessgroupassignment.departmentName }}</td>
         <td>{{ accessgroupassignment.name }}</td>
-        
+        <td>{{ accessgroupassignment.roleName }}</td>
         <td></td>
         <td></td>
-        <td></td>
+
         <!-- <td *ngIf="accessgroupassignment.isActive===true; else elseStatement">
           Yes
         </td>
         <ng-template #elseStatement>
          <td>No</td> 
         </ng-template> -->
-        
-        <td>          
+
+        <td>
           <button
             pButton
             (click)="deleteAccessGroupAssignment(accessgroupassignment)"
             pRipple
             icon="pi pi-trash"
             class="p-button-rounded p-button-danger"
-            
           ></button>
         </td>
       </tr>
     </ng-template>
     <ng-template pTemplate="summary">
       <div class="p-d-flex p-ai-center p-jc-between">
-        In total there are {{ accessGroupAssignments ? accessGroupAssignments.length : 0 }} accessGroupAssignments.
+        In total there are
+        {{
+          accessGroupAssignments ? accessGroupAssignments.length : 0
+        }}
+        accessGroupAssignments.
       </div>
     </ng-template>
   </p-table>
