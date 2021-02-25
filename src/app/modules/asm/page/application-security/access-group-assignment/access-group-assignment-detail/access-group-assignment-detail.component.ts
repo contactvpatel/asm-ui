@@ -52,14 +52,25 @@ export class AccessAssignmentGroupDetailComponent implements OnInit, OnDestroy {
     private accessGroupService: AccessGroupService,
     private fb: FormBuilder
   ) {
+<<<<<<< HEAD
     
+=======
+    this.application = [
+      { id: '3FA85F64-5717-4562-B3FC-2C963F66AFA6', name: 'PBR' }
+      
+    ];
+>>>>>>> 09adda8978309406959e04d0eeb27aab797ef30f
   }
 
   /****************Lifecycle methods**************/
   ngOnInit(): void {
     this.accessGroup = {} as AccessGroup;
     this.createForm();
+<<<<<<< HEAD
     this.getApplication();
+=======
+    
+>>>>>>> 09adda8978309406959e04d0eeb27aab797ef30f
     this.departmentList();
     this.GetallRole();
     
@@ -143,7 +154,11 @@ export class AccessAssignmentGroupDetailComponent implements OnInit, OnDestroy {
 
   GetAccessGroup(): void {
     const departmentId = this.selectedDepartment.departmentId;
+<<<<<<< HEAD
     const applicationId= this.selectedApplication.applicationId;
+=======
+    const applicationId= this.selectedApplication.id;
+>>>>>>> 09adda8978309406959e04d0eeb27aab797ef30f
     this.accessGroupService
       .getAccessGroupByApplicationIdAndDepartmentId(applicationId,departmentId)
       .then((data) => (this.accessGroupList = data));
@@ -207,10 +222,15 @@ export class AccessAssignmentGroupDetailComponent implements OnInit, OnDestroy {
       });
     });   
   }
+<<<<<<< HEAD
 getApplication(){
 this.applicationService.getApplication().then((data)=>(this.application=data,console.log(this.application)))
 }
 
+=======
+
+
+>>>>>>> 09adda8978309406959e04d0eeb27aab797ef30f
   setmodule() {
     let accessGroup = [];
     

@@ -38,7 +38,6 @@ import { RatingModule } from 'primeng/rating';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { SliderModule } from 'primeng/slider';
-import { NgxUiLoaderModule } from 'ngx-ui-loader';
 
 import { HeaderComponent } from '@app/layout/header/header.component';
 import { FooterComponent } from '@app/layout/footer/footer.component';
@@ -59,9 +58,17 @@ import { EncryptPipeModule } from '../encrypt/encrypt.pipe.module';
 
 import { AsmService } from './asm.service';
 import { ApplicationSecurityModule } from './page/application-security/application-security.module';
+import { NgxUiLoaderConfig } from 'ngx-ui-loader';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: false
+};
+
+export const LoaderConfiguration: NgxUiLoaderConfig = {
+  fgsColor: '#e64a19',
+  pbThickness: 3,
+  hasProgressBar: true,
+  pbColor: '#e64a19'
 };
 
 @NgModule({
@@ -108,7 +115,6 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     PickListModule,
     MenuModule,
     RatingModule,
-    NgxUiLoaderModule,
     ProgressSpinnerModule,
     ProgressBarModule,
     SliderModule,

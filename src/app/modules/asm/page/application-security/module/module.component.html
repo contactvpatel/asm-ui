@@ -169,8 +169,13 @@
       [options]="application"
       [(ngModel)]="selectedApplication"
       placeholder="Select Application"
+<<<<<<< HEAD
       optionLabel="applicationName"
       optionValue="applicationId"
+=======
+      optionLabel="name"
+      optionValue="id"
+>>>>>>> 09adda8978309406959e04d0eeb27aab797ef30f
       [showClear]="true"
       [ngClass]="{
         'ng-invalid ng-dirty': submitted && !selectedApplication
@@ -178,7 +183,11 @@
     >
     </p-dropdown>
     <small class="p-invalid error" *ngIf="submitted && !selectedApplication">
+<<<<<<< HEAD
       Application is required.
+=======
+      application is required.
+>>>>>>> 09adda8978309406959e04d0eeb27aab797ef30f
     </small>
   </div>
   <ng-template pTemplate="content">
@@ -231,7 +240,11 @@
       >
       </p-dropdown>
       <small class="p-invalid error" *ngIf="submitted && !selectedModuleType">
+<<<<<<< HEAD
         Module Type is required.
+=======
+        ModuleType is required.
+>>>>>>> 09adda8978309406959e04d0eeb27aab797ef30f
       </small>
     </div>
     <div class="p-field">
