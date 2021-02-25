@@ -97,6 +97,6 @@ export class AccessGroupSummaryComponent implements OnInit {
   getAccessGroup(): void {
     this.accessGroupService
       .getAccessGroup()
-      .then((data) => (this.accessGroups = data));
+      .subscribe((data) => (this.accessGroups = data));
   }
 }

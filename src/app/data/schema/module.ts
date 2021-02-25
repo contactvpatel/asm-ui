@@ -16,18 +16,8 @@ export interface Application {
   name: string;
 }
 export interface IsActive {
-  
   isActive: string;
 }
-// export interface ModuleType
-// {
-//   moduleTypeId: number,
-//   name: string,
-//   isControlType: boolean,
-//   isActive: boolean,
-//   isDeleted: boolean,
-//   lastUpdated: string
-// }
 
 export class AccessGroup {
   accessGroupId: number;
@@ -59,7 +49,7 @@ export class AccessGroup {
    */
   constructor() {}
 
-  fromJson(jsonData: any, isEditMode = false) {
+  fromJson(jsonData: any, isEditMode = false): any {
     if (isEditMode) {
       return this.getEditModeAccessData(jsonData);
     } else {
@@ -67,7 +57,7 @@ export class AccessGroup {
     }
   }
 
-  private getCreateModeAccessData(jsonData) {
+  private getCreateModeAccessData(jsonData): any {
     const accessData = [];
     jsonData.forEach((data) => {
       accessData.push({
@@ -90,12 +80,12 @@ export class AccessGroup {
     return accessData;
   }
 
-  private getEditModeAccessData(jsonData) {
+  private getEditModeAccessData(jsonData): any {
     const accessData = [];
     jsonData.forEach((data) => {
       accessData.push({
         moduleId: data.moduleId,
-        name: data.name,                
+        name: data.name,
         moduleType: data.moduleType,
         parentModule: data.parentModule,
         accessGroupModulePermissions: this.getAccessGroupModulePermissionsForEditMode(
@@ -125,9 +115,9 @@ export class AccessGroup {
   getAccessGroupModulePermissionsForEditMode(
     data
   ): AccessGroupModulePermissions {
-    console.log(data)
+    console.log(data);
     const accessGroupModulePermissions: AccessGroupModulePermissions = {
-      moduleId: data.moduleId,      
+      moduleId: data.moduleId,
       hasViewAccess: data.hasViewAccess,
       hasCreateAccess: data.hasCreateAccess,
       hasUpdateAccess: data.hasUpdateAccess,

@@ -16,6 +16,7 @@ import { ShellModule } from './shared/shell/shell.module';
 import { MessageService } from 'primeng/api';
 import { AsmAuthComponent } from './modules/page/asm-auth/asm-auth.component';
 import { AsmModule } from './modules/asm/asm.module';
+import { NgxUiLoaderModule } from 'ngx-ui-loader';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { AsmModule } from './modules/asm/asm.module';
     CoreModule,
     ShellModule,
     ToastModule,
-    AppRoutingModule
+    NgxUiLoaderModule,
+    AppRoutingModule,
   ],
   providers: [MessageService],
   bootstrap: [AppComponent]
