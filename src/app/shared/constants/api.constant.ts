@@ -122,7 +122,7 @@ export const AccessGroupAPI = {
   GetAllAccessGroup: 'access-groups'
 };
 export const RoleApi = {
-  GetRoleByDepartment: 'roles/',
+  GetRoleByDepartment: 'roles/departments/',
   GetRole: 'roles'
 };
 export const PositionApi = {

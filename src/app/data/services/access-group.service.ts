@@ -5,6 +5,7 @@ import { environment } from '@env/environment';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AccessGroupModel, Department } from '../schema/access-group';
+import { AccessGroup } from '../schema/module';
 
 import { CommonService } from './common.service';
 
@@ -20,9 +21,6 @@ export class AccessGroupService {
   // Make all other api call like below method
   getAccessGroup(): Observable<AccessGroupModel[]> {
     return this.http
-<<<<<<< HEAD
-      .get<any>('https://localhost:44388/api/v1.0/access-groups')
-=======
       .get(this.url + AccessGroupAPI.GetAllAccessGroup)
       .pipe(map((res: any) => res.data as AccessGroupModel[]));
   }
@@ -30,105 +28,39 @@ export class AccessGroupService {
   getAccessGroupByApplicationIdAndDepartmentId(
     applicatioId: any,
     departmentId: number
-  ) {
+  ): Observable<AccessGroupModel[]> {
     return this.http
-      .get<any>(
+      .get(
         'https://localhost:44388/api/v1.0/access-groups/' +
           applicatioId +
           '/' +
           departmentId
       )
->>>>>>> 09adda8978309406959e04d0eeb27aab797ef30f
-      .toPromise()
-      .then((res) => <AccessGroupModel[]>res.data)
-      .then((data) => {
-        return data;
-      });
+      .pipe(map((res: any) => res.data as AccessGroupModel[]));
   }
-<<<<<<< HEAD
-  getAccessGroupByApplicationIdAndDepartmentId(applicatioId:any,departmentId:Number) {
+  getAccessGroupById(id: number): Observable<AccessGroupModel> {
     return this.http
-      .get<any>('https://localhost:44388/api/v1.0/access-groups/'+applicatioId+'/'+departmentId)
-      .toPromise()
-      .then((res) => <AccessGroupModel[]>res.data)
-      .then((data) => {
-        return data;
-      });
+      .get(this.url + AccessGroupAPI.GetAllAccessGroup + '/' + id)
+      .pipe(map((res: any) => res.data as AccessGroupModel));
   }
-  getAccessGroupById(id:number) {
+  getDepartment(): Observable<Department[]> {
     return this.http
-      .get<any>(this.url + AccessGroupAPI.GetAllAccessGroup+'/'+id)
-=======
-  getAccessGroupById(id: number) {
-    return this.http
-      .get<any>(this.url + AccessGroupAPI.GetAllAccessGroup + '/' + id)
->>>>>>> 09adda8978309406959e04d0eeb27aab797ef30f
-      .toPromise()
-      .then((res) => <AccessGroupModel>res.data)
-      .then((data) => {
-        return data;
-      });
+      .get(this.url + 'departments')
+      .pipe(map((res: any) => res.data as Department[]));
   }
-  getDepartment() {
-    return this.http
-      .get<any>(this.url + 'departments')
-      .toPromise()
-      .then((res) => <Department[]>res.data)
-      .then((data) => {
-        return data;
-      });
-  }
-  deleteAccessGroup(accessGroupId: number) {
+  deleteAccessGroup(accessGroupId: number): Observable<AccessGroupModel> {
     return this.commonService
       .delete('access-groups/' + accessGroupId + '/0')
-      .toPromise()
-      .then((data) => {
-        return data;
-      });
+      .pipe(map((res: any) => res.data as AccessGroupModel));
   }
-  createAccessGroup(accessGroup: any) {
+  createAccessGroup(accessGroup: any): Observable<AccessGroupModel> {
     return this.commonService
       .post('access-groups', accessGroup)
-      .toPromise()
-      .then((data) => {
-        return data;
-      });
+      .pipe(map((res: any) => res.data as AccessGroupModel));
   }
-  updateAccessGroup(accessGroup: any) {
+  updateAccessGroup(accessGroup: any): Observable<AccessGroupModel> {
     return this.commonService
       .put('access-groups', accessGroup)
-      .toPromise()
-      .then((data) => {
-        return data;
-      });
-  }
-  getProductsSmall() {
-    return this.http
-      .get<any>('assets/products-small.json')
-      .toPromise()
-      .then((res) => <AccessGroupModel[]>res.data)
-      .then((data) => {
-        return data;
-      });
-  }
-
-  getProducts() {
-    return this.http
-      .get<any>('assets/products.json')
-      .toPromise()
-      .then((res) => <AccessGroupModel[]>res.data)
-      .then((data) => {
-        return data;
-      });
-  }
-
-  getProductsWithOrdersSmall() {
-    return this.http
-      .get<any>('assets/products-orders-small.json')
-      .toPromise()
-      .then((res) => <AccessGroupModel[]>res.data)
-      .then((data) => {
-        return data;
-      });
+      .pipe(map((res: any) => res.data as AccessGroupModel));
   }
 }

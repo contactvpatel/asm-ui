@@ -4,36 +4,41 @@
   </div>
 </div>
 
-<!-- <form [formGroup]="accessgroupAssignmentForm"> -->
+<form [formGroup]="accessgroupAssignmentForm">
 <div class="p-grid p-fluid">
-  <div class="p-col-12 p-md-6">
+  <div class="p-col-12 p-md-6 ">
     <span class="p-float-label">
       <p-dropdown
         [options]="application"
-        [(ngModel)]="selectedApplication"
+        formControlName="applicationId"
         placeholder="Select Application"
-<<<<<<< HEAD
+        [ngClass]="{
+          'ng-invalid ng-dirty':
+            submitted && accessgroupAssignmentForm.controls.applicationId.errors?.required
+        }"
         optionLabel="applicationName"
-=======
-        optionLabel="name"
->>>>>>> 09adda8978309406959e04d0eeb27aab797ef30f
+        optionValue="applicationId"
         [showClear]="true"
+        (onChange)="GetAccessGroup()"
       >
       </p-dropdown>
       <!-- formControlName="applicationId" -->
       <!-- <input id="float-input" type="text" pInputText [(ngModel)]="accessGroup.name" />
       <label for="float-input" class="p-component"> Name </label> -->
     </span>
+    <small class="p-invalid error" *ngIf="submitted && accessgroupAssignmentForm.controls.applicationId.errors?.required">
+      Application is required.
+    </small>
   </div>
 
-  <div class="p-col-12 p-md-6">
+  <div class="p-col-12 p-md-6 ">
     <div class="p-field-radiobutton">
       <div class="p-field-radiobutton">
         <p-radioButton
           name="assignmentType"
           value="role"
           (onClick)="ShowRole()"
-          [(ngModel)]="city"
+          formControlName="assignmentType"
           inputId="role"
         ></p-radioButton>
         <label for="role">Role</label>
@@ -43,34 +48,35 @@
           name="assignmentType"
           value="position"
           (onClick)="ShowPosition()"
-          [(ngModel)]="city"
+          formControlName="assignmentType"
           inputId="position"
         ></p-radioButton>
         <label for="position">Position</label>
       </div>
-      <div class="p-field-radiobutton p-ml-3">
+      <!-- <div class="p-field-radiobutton p-ml-3">
         <p-radioButton
           name="assignmentType"
           value="person"
           (onClick)="ShowPerson()"
-          [(ngModel)]="city"
+          formControlName="assignmentType"
           inputId="person"
         ></p-radioButton>
         <label for="person">Person</label>
-      </div>
+      </div> -->
 
       <!-- formControlName="assignmentType" -->
     </div>
   </div>
 </div>
 <div class="p-grid p-fluid">
-  <div class="p-col-12 p-md-6">
+  <div class="p-col-12 p-md-6 p-mb-2">
     <span class="p-float-label">
       <p-dropdown
         [options]="department"
-        [(ngModel)]="selectedDepartment"
+        formControlName="departmentId"
         placeholder="Select Department"
         optionLabel="departmentName"
+        optionValue="departmentId"
         [showClear]="true"
         (onChange)="GetRole(); GetAccessGroup()"
       >
@@ -78,31 +84,49 @@
       <!-- formControlName="departmentId" -->
     </span>
   </div>
-  <div class="p-col-12 p-md-6">
+  <div class="p-col-12 p-md-6 p-mb-2">
     <span *ngIf="showRole" class="p-float-label">
       <p-multiSelect
         [options]="role"
-        [(ngModel)]="selectedRoleList"
+        formControlName="roleId"
         defaultLabel="Select Role"
         optionLabel="roleName"
+        optionValue="roleId"
+        [ngClass]="{
+          'ng-invalid ng-dirty':
+            submitted && accessgroupAssignmentForm.controls.roleId.errors?.required
+        }"
       >
       </p-multiSelect>
+      <small class="p-invalid error" *ngIf="submitted && accessgroupAssignmentForm.controls.roleId.errors?.required">
+        Role is required.
+      </small>
     </span>
+    
     <!-- formControlName="departmentId" -->
     <span *ngIf="showPosition" class="p-float-label">
       <p-dropdown
         [options]="role"
         [filter]="true"
         filterBy="roleName"
-        [(ngModel)]="selectedRole"
+        formControlName="roleId"
+        [ngClass]="{
+          'ng-invalid ng-dirty':
+            submitted && accessgroupAssignmentForm.controls.roleId.errors?.required
+        }"
         placeholder="Select Role"
         optionLabel="roleName"
+        optionValue="roleId"
         [showClear]="true"
         (onChange)="GetPosition()"
       >
       </p-dropdown>
+      <small class="p-invalid error" *ngIf="submitted && accessgroupAssignmentForm.controls.roleId.errors?.required">
+        Role is required.
+      </small>
     </span>
-    <span *ngIf="showPerson" class="p-input-icon-left">
+    
+    <!-- <span *ngIf="showPerson" class="p-input-icon-left">
       <i class="pi pi-search"></i>
       <input
         pInputText
@@ -110,16 +134,21 @@
         class="search"
         placeholder="search person from MIS"
       />
-    </span>
+    </span> -->
     <!-- (input)="dt.filterGlobal($event.target.value, 'contains')"-->
   </div>
 </div>
 <div class="p-grid p-fluid">
-  <div class="p-col-12 p-md-6">
+  <div class="p-col-12 p-md-6 ">
     <span class="p-float-label">
       <p-dropdown
         [options]="accessGroupList"
-        [(ngModel)]="selectaccessGroup"
+        formControlName="accessGroupId"
+        optionValue="accessGroupId"
+        [ngClass]="{
+          'ng-invalid ng-dirty':
+            submitted && accessgroupAssignmentForm.controls.accessGroupId.errors?.required
+        }"
         placeholder="Select Access Group"
         optionLabel="name"
         [showClear]="true"
@@ -127,6 +156,9 @@
       >
       </p-dropdown>
     </span>
+    <small class="p-invalid error" *ngIf="submitted && accessgroupAssignmentForm.controls.accessGroupId.errors?.required">
+      AccessGroup is required.
+    </small>
   </div>
   <div class="p-col-12 p-md-6">
     <span *ngIf="showPosition" class="p-float-label">
@@ -134,16 +166,17 @@
         [options]="position"
         [filter]="true"
         filterBy="positionName"
-        [(ngModel)]="selectedPosition"
+        formControlName="positionId"
         placeholder="Select Position"
         optionLabel="positionName"
+        optionValue="positionId"
         [showClear]="true"
       >
-      </p-multiSelect>
+     </p-multiSelect>
     </span>
   </div>
 </div>
-<!-- </form> -->
+</form>
 <p-table
   #dt
   [value]="accessGroups"
@@ -178,32 +211,57 @@
         <td></td>
       </ng-template>
       <td>{{ accessGroup.name }}</td>
-      <td *ngIf="accessGroup.accessGroupModulePermissions.hasViewAccess; else elseBlock">
+      <td
+        *ngIf="
+          accessGroup.accessGroupModulePermissions.hasViewAccess;
+          else elseBlock
+        "
+      >
         Yes
       </td>
       <ng-template #elseBlock>
         <td></td>
       </ng-template>
-      <td *ngIf="accessGroup.accessGroupModulePermissions.hasCreateAccess; else elseBlock">
+      <td
+        *ngIf="
+          accessGroup.accessGroupModulePermissions.hasCreateAccess;
+          else elseBlock
+        "
+      >
         Yes
       </td>
       <ng-template #elseBlock>
         <td></td>
       </ng-template>
-      <td *ngIf="accessGroup.accessGroupModulePermissions.hasUpdateAccess; else elseBlock">
+      <td
+        *ngIf="
+          accessGroup.accessGroupModulePermissions.hasUpdateAccess;
+          else elseBlock
+        "
+      >
         Yes
       </td>
       <ng-template #elseBlock>
         <td></td>
       </ng-template>
-      <td *ngIf="accessGroup.accessGroupModulePermissions.hasDeleteAccess; else elseBlock">
+      <td
+        *ngIf="
+          accessGroup.accessGroupModulePermissions.hasDeleteAccess;
+          else elseBlock
+        "
+      >
         Yes
       </td>
       <ng-template #elseBlock>
         <td></td>
       </ng-template>
-      
-      <td *ngIf="accessGroup.accessGroupModulePermissions.hasAccessRight; else elseBlock">
+
+      <td
+        *ngIf="
+          accessGroup.accessGroupModulePermissions.hasAccessRight;
+          else elseBlock
+        "
+      >
         Yes
       </td>
       <ng-template #elseBlock>
@@ -241,9 +299,7 @@
       </td>
       <td></td> -->
     </tr>
-    
   </ng-template>
-
 
   <ng-template pTemplate="summary">
     <div class="button-div">

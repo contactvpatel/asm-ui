@@ -45,7 +45,7 @@ export class AccessGroupAssignmentSummaryComponent implements OnInit {
       accept: () => {
         this.selectedAccessGroup.forEach((accessGroup) => {
            this.accessGroupAssignmentService.deleteAccessGroupAssignment(
-                              accessGroup.accessGroupAssignmentId).then((data) => (this.getAccessGroupAssignment()));
+                              accessGroup.accessGroupAssignmentId).subscribe((data) => (this.getAccessGroupAssignment()));
         });
 
         this.selectedAccessGroup = null;
@@ -68,7 +68,7 @@ export class AccessGroupAssignmentSummaryComponent implements OnInit {
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
          this.accessGroupAssignmentService.deleteAccessGroupAssignment(
-                           accessGroupAssignment.accessGroupAssignmentId).then((data) =>(this.getAccessGroupAssignment()));
+                           accessGroupAssignment.accessGroupAssignmentId).subscribe((data) =>(this.getAccessGroupAssignment()));
         this.accessGroupAssignment = {};
         this.messageService.add({
           severity: 'success',
@@ -93,6 +93,6 @@ export class AccessGroupAssignmentSummaryComponent implements OnInit {
   getAccessGroupAssignment(): void {
     this.accessGroupAssignmentService
       .getAccessGroupAssignment()
-      .then((data) => (this.accessGroupAssignments = data,console.log(this.accessGroupAssignments)));
+      .subscribe((data) => (this.accessGroupAssignments = data,console.log(this.accessGroupAssignments)));
   }
  }

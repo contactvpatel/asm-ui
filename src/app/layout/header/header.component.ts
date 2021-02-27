@@ -58,7 +58,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       if (res) {
         let token = res.split('.');
         var decoded = jwt_decode(token[0] + '.' + token[1]);
-        this.fname = decoded.fn;
+        // this.fname = decoded.fn;
       }
     });
     this.appMenuItem = [

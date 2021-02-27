@@ -2,11 +2,7 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from '@angular/core';
 import { Application, IsActive, Module,  ModuleType } from '@app/data/schema/module';
 import { ModuleService } from '@app/data/services/module.service';
-<<<<<<< HEAD
 import { applicationService } from '@app/data/services/application.service';
-=======
-import { Console } from 'console';
->>>>>>> 09adda8978309406959e04d0eeb27aab797ef30f
 import { ConfirmationService } from 'primeng/api';
 import { MessageService } from 'primeng/api';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -27,36 +23,20 @@ export class ModuleComponent implements OnInit {
   selectedApplication: string;
   application: Application[];
   selectedModuleType: ModuleType;
-<<<<<<< HEAD
   moduleForm: FormGroup;
-=======
-  isActive:IsActive[];
->>>>>>> 09adda8978309406959e04d0eeb27aab797ef30f
   constructor(
     private moduleService: ModuleService,
     private applicationService:applicationService,
     private messageService: MessageService,
-<<<<<<< HEAD
     private confirmationService: ConfirmationService,
     private fb: FormBuilder,
   ) {}
-=======
-    private confirmationService: ConfirmationService
-  ) {
-    this.application = [
-      { id: '3fa85f64-5717-4562-b3fc-2c963f66afa6', name: 'PBR' }
-    ];
-  }
->>>>>>> 09adda8978309406959e04d0eeb27aab797ef30f
 
   ngOnInit(): void {
     this.getAllModule();
     this.getModuleType();
-<<<<<<< HEAD
     this.getApplication();
     this.createForm();
-=======
->>>>>>> 09adda8978309406959e04d0eeb27aab797ef30f
     }
 
   openNew(): void {
@@ -65,11 +45,7 @@ export class ModuleComponent implements OnInit {
       code: null,
       isActive: 'true'
     }
-<<<<<<< HEAD
     this.selectedparentmodules=null;
-=======
-
->>>>>>> 09adda8978309406959e04d0eeb27aab797ef30f
     this.selectedModuleType = null;
     this.selectedApplication = null;
     this.selectedmodules = null;
@@ -101,7 +77,7 @@ export class ModuleComponent implements OnInit {
         this.selectedmodules.forEach((module) => {
           this.moduleService
             .deleteModule(module.moduleId)
-            .then((data) => this.getAllModule());
+            .subscribe((data) => this.getAllModule());
         });
         this.selectedmodules = null;
         this.messageService.add({
@@ -116,20 +92,15 @@ export class ModuleComponent implements OnInit {
 
   editModule(module: Module): void {
       
-    this.moduleService.getModuleById(module.moduleId).then((data) => {
+    this.moduleService.getModuleById(module.moduleId).subscribe((data) => {
       this.module=data;
       this.module = {
         name: data.name,
         code: data.code,
-<<<<<<< HEAD
         moduleId:data.moduleId,
         isActive: data.isActive.toString()
       }
       
-=======
-        isActive: data.isActive.toString()
-      }
->>>>>>> 09adda8978309406959e04d0eeb27aab797ef30f
       this.selectedApplication=data.applicationId;
       this.selectedModuleType = data.moduleType;
       this.selectedparentmodules = data.parentModuleId;
@@ -145,7 +116,7 @@ export class ModuleComponent implements OnInit {
       accept: () => {
         this.moduleService
           .deleteModule(module.moduleId)
-          .then((data) => this.getAllModule());
+          .subscribe((data) => this.getAllModule());
 
         this.module = {};
         this.messageService.add({
@@ -166,11 +137,7 @@ export class ModuleComponent implements OnInit {
   saveModule(): void {
     this.submitted = true;
      
-<<<<<<< HEAD
     if (this.module.name.trim() && this.module.code.trim() && this.selectedModuleType.moduleTypeId!==null && this.selectedApplication.trim()) {
-=======
-    if (this.module.name.trim()) {
->>>>>>> 09adda8978309406959e04d0eeb27aab797ef30f
       if (this.module.moduleId) {
         this.module.parentModule = null;
         this.module.moduleType = null;
@@ -183,15 +150,11 @@ export class ModuleComponent implements OnInit {
         ) {
           this.module.parentModuleId = this.selectedparentmodules;
         }
-<<<<<<< HEAD
         
         this.module.applicationId = this.selectedApplication;
-=======
-        this.module.applicationId = '3FA85F64-5717-4562-B3FC-2C963F66AFA6';
->>>>>>> 09adda8978309406959e04d0eeb27aab797ef30f
         this.moduleService
           .updateModule(this.module)
-          .then((data) => this.getAllModule(), (this.module = null));
+          .subscribe((data) => this.getAllModule(), (this.module = null));
         this.messageService.add({
           severity: 'success',
           summary: 'Successful',
@@ -203,15 +166,11 @@ export class ModuleComponent implements OnInit {
         if (this.selectedparentmodules !== undefined) {
           this.module.parentModuleId = this.selectedparentmodules;
         }
-<<<<<<< HEAD
         this.module.applicationId = this.selectedApplication;
         
-=======
-        this.module.applicationId = '3FA85F64-5717-4562-B3FC-2C963F66AFA6';
->>>>>>> 09adda8978309406959e04d0eeb27aab797ef30f
         this.moduleService
           .createModule(this.module)
-          .then((data) => this.getAllModule());
+          .subscribe((data) => this.getAllModule());
 
         this.messageService.add({
           severity: 'success',
@@ -242,15 +201,15 @@ export class ModuleComponent implements OnInit {
     
     this.applicationService
       .getApplication()
-      .then((data) => ((this.application = data)));
+      .subscribe((data) => ((this.application = data)));
   }
   getAllModule(): void {
     this.modules = [];
     this.moduleService
       .getModules()
-      .then((data) => ((this.modules = data)));
+      .subscribe((data) => ((this.modules = data)));
   }
   getModuleType(): void {
-    this.moduleService.getModuleType().then((data) => (this.moduleType = data));
+    this.moduleService.getModuleType().subscribe((data) => (this.moduleType = data));
   }
 }

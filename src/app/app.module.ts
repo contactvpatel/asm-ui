@@ -36,6 +36,7 @@ import { NgxUiLoaderModule } from 'ngx-ui-loader';
     ShellModule,
     ToastModule,
     NgxUiLoaderModule,
+    AsmModule,
     AppRoutingModule,
   ],
   providers: [MessageService],

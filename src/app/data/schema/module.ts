@@ -90,11 +90,7 @@ export class AccessGroup {
     jsonData.forEach((data) => {
       accessData.push({
         moduleId: data.moduleId,
-<<<<<<< HEAD
-        name: data.name,                
-=======
         name: data.name,
->>>>>>> 09adda8978309406959e04d0eeb27aab797ef30f
         moduleType: data.moduleType,
         parentModule: data.parentModule,
         accessGroupModulePermissions: this.getAccessGroupModulePermissionsForEditMode(
@@ -124,15 +120,9 @@ export class AccessGroup {
   getAccessGroupModulePermissionsForEditMode(
     data
   ): AccessGroupModulePermissions {
-<<<<<<< HEAD
-    console.log(data)
-    const accessGroupModulePermissions: AccessGroupModulePermissions = {
-      moduleId: data.moduleId,      
-=======
     console.log(data);
     const accessGroupModulePermissions: AccessGroupModulePermissions = {
       moduleId: data.moduleId,
->>>>>>> 09adda8978309406959e04d0eeb27aab797ef30f
       hasViewAccess: data.hasViewAccess,
       hasCreateAccess: data.hasCreateAccess,
       hasUpdateAccess: data.hasUpdateAccess,

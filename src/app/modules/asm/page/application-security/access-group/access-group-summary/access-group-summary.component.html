@@ -31,6 +31,7 @@
     [globalFilterFields]="[
       'name',
       'departmentName',
+       'applicationName',
       'description'
     ]"
     [rowsPerPageOptions]="[10, 25, 50]"
@@ -59,8 +60,8 @@
         <th style="width: 3rem">
           <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
         </th>
-        <th pSortableColumn="application">
-          Application <p-sortIcon field="application"></p-sortIcon>
+        <th pSortableColumn="applicationName">
+          Application <p-sortIcon field="applicationName"></p-sortIcon>
         </th>
         <th pSortableColumn="name">
           Name <p-sortIcon field="name"></p-sortIcon>
@@ -79,7 +80,7 @@
       <tr>
         <th></th>
         <th>
-          <p-columnFilter type="text" field="application"></p-columnFilter>
+          <p-columnFilter type="text" field="applicationName"></p-columnFilter>
         </th>
         <th>
           <p-columnFilter type="text" field="name"></p-columnFilter>
@@ -90,10 +91,9 @@
         <th>
           <p-columnFilter type="text" field="departmentName"></p-columnFilter>
         </th>
-        
-        
-        <th></th> 
-        <th></th> 
+
+        <th></th>
+        <th></th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-accessGroup>
@@ -101,17 +101,15 @@
         <td>
           <p-tableCheckbox [value]="accessGroup"></p-tableCheckbox>
         </td>
-        <td>{{accessGroup.applicationName}}</td>
+        <td>{{ accessGroup.applicationName }}</td>
         <td>{{ accessGroup.name }}</td>
         <td>{{ accessGroup.description }}</td>
         <td>{{ accessGroup.departmentName }}</td>
-        <td *ngIf="accessGroup.isActive===true; else elseStatement">
-          Yes
-        </td>
+        <td *ngIf="accessGroup.isActive === true; else elseStatement">Yes</td>
         <ng-template #elseStatement>
-         <td>No</td> 
+          <td>No</td>
         </ng-template>
-        
+
         <td>
           <button
             pButton
@@ -126,14 +124,14 @@
             pRipple
             icon="pi pi-trash"
             class="p-button-rounded p-button-danger"
-            
           ></button>
         </td>
       </tr>
     </ng-template>
     <ng-template pTemplate="summary">
       <div class="p-d-flex p-ai-center p-jc-between">
-        In total there are {{ accessGroups ? accessGroups.length : 0 }} AccessGroup.
+        In total there are
+        {{ accessGroups ? accessGroups.length : 0 }} AccessGroup.
       </div>
     </ng-template>
   </p-table>

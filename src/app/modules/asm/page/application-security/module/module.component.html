@@ -35,7 +35,6 @@
       'moduleType.name',
       'parentModule.name',
       'isActive'
-
     ]"
     [rowsPerPageOptions]="[10, 25, 50]"
     [(selection)]="selectedmodules"
@@ -115,12 +114,13 @@
         <td>
           <p-tableCheckbox [value]="module"></p-tableCheckbox>
         </td>
-        <td>{{module.applicationName}}</td>
+        <td>{{ module.applicationName }}</td>
         <td>{{ module.name }}</td>
         <td>{{ module.code }}</td>
         <td>{{ module.moduleType.name }}</td>
         <td *ngIf="module.parentModule !== null; else elseBlock">
-          {{ module.parentModule.name }} </td>
+          {{ module.parentModule.name }}
+        </td>
         <ng-template #elseBlock>
           <td></td>
         </ng-template>
@@ -162,20 +162,14 @@
   [modal]="true"
   styleClass="p-fluid"
 >
-
   <div class="p-field">
     <!-- <label for="application">Application</label> -->
     <p-dropdown
       [options]="application"
       [(ngModel)]="selectedApplication"
       placeholder="Select Application"
-<<<<<<< HEAD
       optionLabel="applicationName"
       optionValue="applicationId"
-=======
-      optionLabel="name"
-      optionValue="id"
->>>>>>> 09adda8978309406959e04d0eeb27aab797ef30f
       [showClear]="true"
       [ngClass]="{
         'ng-invalid ng-dirty': submitted && !selectedApplication
@@ -183,11 +177,7 @@
     >
     </p-dropdown>
     <small class="p-invalid error" *ngIf="submitted && !selectedApplication">
-<<<<<<< HEAD
       Application is required.
-=======
-      application is required.
->>>>>>> 09adda8978309406959e04d0eeb27aab797ef30f
     </small>
   </div>
   <ng-template pTemplate="content">
@@ -234,17 +224,14 @@
         [ngClass]="{
           'ng-invalid ng-dirty': submitted && !selectedModuleType
         }"
+        
         placeholder="Select Module Type"
         optionLabel="name"
         [showClear]="true"
       >
       </p-dropdown>
       <small class="p-invalid error" *ngIf="submitted && !selectedModuleType">
-<<<<<<< HEAD
         Module Type is required.
-=======
-        ModuleType is required.
->>>>>>> 09adda8978309406959e04d0eeb27aab797ef30f
       </small>
     </div>
     <div class="p-field">

@@ -68,9 +68,9 @@
         <th pSortableColumn="isActive">
           Position <p-sortIcon field="isActive"></p-sortIcon>
         </th>
-        <th pSortableColumn="isActive">
+        <!-- <th pSortableColumn="isActive">
           Person <p-sortIcon field="isActive"></p-sortIcon>
-        </th>
+        </th> -->
         <th></th>
       </tr>
       <tr>
@@ -84,7 +84,7 @@
         <th>
           <p-columnFilter type="text" field="name"></p-columnFilter>
         </th>
-        <th></th>
+        
         <th></th>
         <th></th>
       </tr>
@@ -98,13 +98,9 @@
         <td>{{ accessgroupassignment.departmentName }}</td>
         <td>{{ accessgroupassignment.name }}</td>
         <td>{{ accessgroupassignment.roleName }}</td>
-        <td></td>
-        <td></td>
-<<<<<<< HEAD
-
-=======
+        <td>{{ accessgroupassignment.positionName }}</td>
         
->>>>>>> 09adda8978309406959e04d0eeb27aab797ef30f
+        
         <!-- <td *ngIf="accessgroupassignment.isActive===true; else elseStatement">
           Yes
         </td>

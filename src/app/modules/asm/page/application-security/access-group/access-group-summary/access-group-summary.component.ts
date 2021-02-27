@@ -49,7 +49,7 @@ export class AccessGroupSummaryComponent implements OnInit {
         this.selectedAccessGroup.forEach((accessGroup) => {
           this.accessGroupService
             .deleteAccessGroup(accessGroup.accessGroupId)
-            .then((data) => this.getAccessGroup());
+            .subscribe((data) => this.getAccessGroup());
         });
 
         this.selectedAccessGroup = null;
@@ -71,7 +71,7 @@ export class AccessGroupSummaryComponent implements OnInit {
       accept: () => {
         this.accessGroupService
           .deleteAccessGroup(accessGroup.accessGroupId)
-          .then((data) => this.getAccessGroup());
+          .subscribe((data) => this.getAccessGroup());
         this.accessGroup = {};
         this.messageService.add({
           severity: 'success',

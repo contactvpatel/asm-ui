@@ -50,13 +50,7 @@ export class AccessGroupDetailComponent implements OnInit, OnDestroy {
     private applicationService: applicationService,
     private accessGroupService: AccessGroupService
   ) {
-<<<<<<< HEAD
     
-=======
-    this.application = [
-      { id: '3FA85F64-5717-4562-B3FC-2C963F66AFA6', name: 'PBR' }
-    ];
->>>>>>> 09adda8978309406959e04d0eeb27aab797ef30f
   }
 
   ngOnInit(): void {
@@ -73,26 +67,15 @@ export class AccessGroupDetailComponent implements OnInit, OnDestroy {
       name: this.accessGroupModel.name,
       description: this.accessGroupModel.description,
       applicationId: this.accessGroupModel.applicationId,
-      departmentId: this.accessGroupModel.departmentId
-    });
+      departmentId: this.accessGroupModel.departmentId,
+      isActive:this.accessGroupModel.isActive.toString()  
+    });    
   }
-<<<<<<< HEAD
-=======
-  private setEditFormData() {
-    this.accessgroupForm.setValue({
-      name: this.accessGroupModel.name,
-      description: this.accessGroupModel.description,
-      applicationId: '3FA85F64-5717-4562-B3FC-2C963F66AFA6',
-      departmentId: this.accessGroupModel.departmentId
-    });
-  }
->>>>>>> 09adda8978309406959e04d0eeb27aab797ef30f
   private subscribeActivatedRoute(): void {
     this.activatedRoute.paramMap.subscribe((params) => {
       const accessGroupId = params.get('id');
       if (accessGroupId) {
         this.GetAccessGroupById(+accessGroupId);
-
         this.config.mode.isEdit = true;
       } else {
         this.config.mode.isEdit = false;
@@ -106,7 +89,8 @@ export class AccessGroupDetailComponent implements OnInit, OnDestroy {
       name: [null, [Validators.required]],
       description: [null],
       applicationId: [null, [Validators.required]],
-      departmentId: [null]
+      departmentId: [null],
+      isActive:['true']
     });
   }
   onCancelClick() {
@@ -115,53 +99,46 @@ export class AccessGroupDetailComponent implements OnInit, OnDestroy {
   get DepartmentId(): any {
     return this.accessgroupForm.get('departmentId');
   }
-<<<<<<< HEAD
   get ApplicationId(): any {
     return this.accessgroupForm.get('applicationId');
   }
-=======
->>>>>>> 09adda8978309406959e04d0eeb27aab797ef30f
   get name(): any {
     return this.accessgroupForm.get('name');
   }
   get description(): any {
     return this.accessgroupForm.get('description');
   }
+  get isActive(): any {
+    return this.accessgroupForm.get('isActive');
+  }
   onFormSubmit() {
     this.submitted = true;
     const c = this.DepartmentId.value;
-
+    console.log(c)
     if (this.accessgroupForm.valid) {
       if (this.config.mode.isEdit) {
         let setAccessGroup = [];
         const departmentId = this.DepartmentId.value;
-
+        console.log(this.isActive.value) 
         const name = this.name.value;
         const description = this.description.value;
-<<<<<<< HEAD
         const applicationId=this.ApplicationId.value;
-=======
->>>>>>> 09adda8978309406959e04d0eeb27aab797ef30f
         setAccessGroup = this.setPermissions(this.accessGroups, setAccessGroup);
         console.log(setAccessGroup);
         const request = {
           accessGroupId: this.accessGroupModel.accessGroupId,
           name: name,
           description: description,
-<<<<<<< HEAD
           applicationId: applicationId,
-=======
-          applicationId: '3FA85F64-5717-4562-B3FC-2C963F66AFA6',
->>>>>>> 09adda8978309406959e04d0eeb27aab797ef30f
           departmentId: departmentId,
           accessGroupModulePermissions: setAccessGroup,
-          isActive: true,
+          isActive: this.isActive.value,
           userId: 0
         };
         console.log(request);
         this.accessGroupService
           .updateAccessGroup(request)
-          .then((data) => this.onCancelClick());
+          .subscribe((data) => this.onCancelClick());
       } else {
         let setAccessGroup = [];
         setAccessGroup = this.setPermissions(this.accessGroups, setAccessGroup);
@@ -169,30 +146,19 @@ export class AccessGroupDetailComponent implements OnInit, OnDestroy {
         console.log(departmentId)
         const name = this.name.value;
         const description = this.description.value;
-<<<<<<< HEAD
         const applicationId=this.ApplicationId.value;
         const request = {
           name: name,
           description: description,
           applicationId: applicationId,
           departmentId: departmentId,
-          accessGroupModulePermissions: setAccessGroup
+          accessGroupModulePermissions: setAccessGroup,
+          isActive:this.isActive.value
         };
 
-=======
-
-        const request = {
-          name: name,
-          description: description,
-          applicationId: '3FA85F64-5717-4562-B3FC-2C963F66AFA6',
-          departmentId: departmentId,
-          accessGroupModulePermissions: setAccessGroup
-        };
-
->>>>>>> 09adda8978309406959e04d0eeb27aab797ef30f
         this.accessGroupService
           .createAccessGroup(request)
-          .then((data) => this.onCancelClick());
+          .subscribe((data) => this.onCancelClick());
       }
     } else {
     }
@@ -219,13 +185,12 @@ export class AccessGroupDetailComponent implements OnInit, OnDestroy {
   }
 
   GetAccessGroupById(id: number) {
-    this.accessGroupService.getAccessGroupById(id).then((data) => {
+    this.accessGroupService.getAccessGroupById(id).subscribe((data) => {
       this.accessGroupModel = data;
       this.setEditFormData();
-      this.moduleService.getModules().then((data) => {
+      this.moduleService.getModulesByApplicationId(this.accessGroupModel.applicationId).subscribe((data) => {
         (this.module = data), this.setmodule();
       });
-<<<<<<< HEAD
     });
   }
   setmodule() {
@@ -291,73 +256,6 @@ export class AccessGroupDetailComponent implements OnInit, OnDestroy {
     });
     return flatDataItems;
   }
-=======
-    });
-  }
-  setmodule() {
-    let accessGroup = [];
-    accessGroup = this.setEditAccessGroup(
-      this.module,
-      this.accessGroupModel.accessGroupModulePermissions,
-      accessGroup
-    );
-    this.accessGroups = new AccessGroup().fromJson(accessGroup, true);
-  }
-  setEditAccessGroup(
-    modules: Module[],
-    accessGroup: any,
-    flatDataItems: any[]
-  ) {
-    modules.forEach((item) => {
-      const permissionFound = accessGroup.find(
-        (a) => a.moduleId == item.moduleId
-      );
-      if (permissionFound) {
-        flatDataItems.push({
-          moduleId: item.moduleId,
-          name: item.name,
-          moduleType: {
-            name: item.moduleType.name,
-            isControlType: item.moduleType.isControlType
-          },
-          parentModule: {
-            name: item.parentModule === null ? '' : item.parentModule.name
-          },
-          accessGroupModulePermissions: {
-            moduleId: permissionFound.moduleId,
-            hasViewAccess: permissionFound.hasViewAccess,
-            hasCreateAccess: permissionFound.hasCreateAccess,
-            hasUpdateAccess: permissionFound.hasUpdateAccess,
-            hasDeleteAccess: permissionFound.hasDeleteAccess,
-            hasAccessRight: permissionFound.hasAccessRight
-          }
-        });
-      } else {
-        flatDataItems.push({
-          moduleId: item.moduleId,
-          name: item.name,
-          moduleType: {
-            name: item.moduleType.name,
-            isControlType: item.moduleType.isControlType
-          },
-          parentModule: {
-            name: item.parentModule === null ? '' : item.parentModule.name
-          },
-          accessGroupModulePermissions: {
-            moduleId: 0,
-            hasViewAccess: false,
-            hasCreateAccess: false,
-            hasUpdateAccess: false,
-            hasDeleteAccess: false,
-            hasAccessRight: false
-          }
-        });
-      }
-      // });
-    });
-    return flatDataItems;
-  }
->>>>>>> 09adda8978309406959e04d0eeb27aab797ef30f
   // get DepartmentId(): any {
   //   return this.accessgroupForm.get('applicationId');
   // }
@@ -366,14 +264,10 @@ export class AccessGroupDetailComponent implements OnInit, OnDestroy {
     if (this.ApplicationId.value === null) {
       applicationId = '00000000-0000-0000-0000-000000000000';
     } else {
-<<<<<<< HEAD
       applicationId = this.ApplicationId.value;
-=======
-      applicationId = '3FA85F64-5717-4562-B3FC-2C963F66AFA6';
->>>>>>> 09adda8978309406959e04d0eeb27aab797ef30f
     }
 
-    this.moduleService.getModulesByApplicationId(applicationId).then((data) => {
+    this.moduleService.getModulesByApplicationId(applicationId).subscribe((data) => {
       this.accessGroups = new AccessGroup().fromJson(data);
       
     });
@@ -381,12 +275,12 @@ export class AccessGroupDetailComponent implements OnInit, OnDestroy {
   GetApplication(){
     this.applicationService
       .getApplication()
-      .then((data) => (this.application = data));
+      .subscribe((data) => (this.application = data));
   }
   departmentList() {
     this.accessGroupService
       .getDepartment()
-      .then((data) => (this.department = data));
+      .subscribe((data) => (this.department = data));
   }
   ngOnDestroy(): void {
     if (this.subscription) {

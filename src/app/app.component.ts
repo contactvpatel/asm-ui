@@ -40,8 +40,8 @@ export class AppComponent implements OnInit {
         this.tokenService.setToken(res.token);
         const decoded = jwt_decode(res.token);
         const obj = {
-          UserId: decoded.uid,
-          UserToken: res.token
+          // UserId: decoded..uid,
+          // UserToken: res.token
         };
         this.commonService
           .post(ApiConstants.SaveUserAuthInfo.SaveUserData, obj)
