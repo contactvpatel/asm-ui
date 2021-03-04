@@ -237,10 +237,7 @@ body {
   width: 1rem;
 }
 //font
-.font
-{
-    font-family: Roboto, Helvetica Neue Light, Helvetica Neue, Helvetica, Arial, Lucida Grande, sans-serif;
-}
+
 .button-div {
   float: right;
   
@@ -296,6 +293,13 @@ input#search-bar{
 }
 .search {
   border-radius: 25px;  
+}
+
+
+// custom css
+.font
+{
+    font-family: Roboto, Helvetica Neue Light, Helvetica Neue, Helvetica, Arial, Lucida Grande, sans-serif;
 }
 .has-error {
   border: 1px solid red;

@@ -9,8 +9,7 @@ import { MessageService } from 'primeng/api';
 @Component({
   selector: 'app-access-group-assignment-summary',
   templateUrl: './access-group-assignment-summary.component.html',
-  styleUrls: ['./access-group-assignment-summary.component.scss'],
-  providers: [ ConfirmationService]
+  styleUrls: ['./access-group-assignment-summary.component.scss'],  
 })
 export class AccessGroupAssignmentSummaryComponent implements OnInit {
 

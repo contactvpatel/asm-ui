@@ -37,6 +37,7 @@
         <p-radioButton
           name="assignmentType"
           value="role"
+          class="font"
           (onClick)="ShowRole()"
           formControlName="assignmentType"
           inputId="role"
@@ -47,12 +48,15 @@
         <p-radioButton
           name="assignmentType"
           value="position"
+          class="font"
           (onClick)="ShowPosition()"
           formControlName="assignmentType"
           inputId="position"
         ></p-radioButton>
         <label for="position">Position</label>
       </div>
+
+      
       <!-- <div class="p-field-radiobutton p-ml-3">
         <p-radioButton
           name="assignmentType"
@@ -66,6 +70,9 @@
 
       <!-- formControlName="assignmentType" -->
     </div>
+    <small class="p-invalid error" *ngIf="submitted && accessgroupAssignmentForm.controls.assignmentType.errors?.required">
+      Role Or Position is required.
+    </small>
   </div>
 </div>
 <div class="p-grid p-fluid">
@@ -157,7 +164,7 @@
       </p-dropdown>
     </span>
     <small class="p-invalid error" *ngIf="submitted && accessgroupAssignmentForm.controls.accessGroupId.errors?.required">
-      AccessGroup is required.
+      Access Group is required.
     </small>
   </div>
   <div class="p-col-12 p-md-6">
@@ -167,12 +174,19 @@
         [filter]="true"
         filterBy="positionName"
         formControlName="positionId"
+        [ngClass]="{
+          'ng-invalid ng-dirty':
+            submitted && accessgroupAssignmentForm.controls.positionId.errors?.required
+        }"
         placeholder="Select Position"
         optionLabel="positionName"
         optionValue="positionId"
         [showClear]="true"
       >
      </p-multiSelect>
+     <small class="p-invalid error" *ngIf="submitted && accessgroupAssignmentForm.controls.positionId.errors?.required">
+      Position is required.
+    </small>
     </span>
   </div>
 </div>
