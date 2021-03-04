@@ -1,124 +1,70 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Product } from '../schema/product';
+import { AccessGroupAPI } from '@app/shared/constants/api.constant';
+import { environment } from '@env/environment';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { AccessGroupModel, Department } from '../schema/access-group';
+import { CommonService } from './common.service';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class AccessGroupService {
-  status: string[] = ['OUTOFSTOCK', 'INSTOCK', 'LOWSTOCK'];
+  url = environment.apiServerUrl;
 
-  productNames: string[] = [
-    'Bamboo Watch',
-    'Black Watch',
-    'Blue Band',
-    'Blue T-Shirt',
-    'Bracelet',
-    'Brown Purse',
-    'Chakra Bracelet',
-    'Galaxy Earrings',
-    'Game Controller',
-    'Gaming Set',
-    'Gold Phone Case',
-    'Green Earbuds',
-    'Green T-Shirt',
-    'Grey T-Shirt',
-    'Headphones',
-    'Light Green T-Shirt',
-    'Lime Band',
-    'Mini Speakers',
-    'Painted Phone Case',
-    'Pink Band',
-    'Pink Purse',
-    'Purple Band',
-    'Purple Gemstone Necklace',
-    'Purple T-Shirt',
-    'Shoes',
-    'Sneakers',
-    'Teal T-Shirt',
-    'Yellow Earbuds',
-    'Yoga Mat',
-    'Yoga Set',
-  ];
+  constructor(private http: HttpClient, private commonService: CommonService) {}
 
-  constructor(private http: HttpClient) {}
-
-  getProductsSmall() {
+  // Make all other api call like below method
+  getAccessGroup(): Observable<AccessGroupModel[]> {
     return this.http
-      .get<any>('assets/products-small.json')
-      .toPromise()
-      .then((res) => <Product[]>res.data)
-      .then((data) => {
-        return data;
-      });
+      .get(this.url + AccessGroupAPI.GetAllAccessGroup)
+      .pipe(map((res: any) => res.data as AccessGroupModel[]));
   }
 
-  getProducts() {
+  getAccessGroupByApplicationIdAndDepartmentId(
+    applicationId: any,
+    departmentId: number
+  ): Observable<AccessGroupModel[]> {
     return this.http
-      .get<any>('assets/products.json')
-      .toPromise()
-      .then((res) => <Product[]>res.data)
-      .then((data) => {
-        return data;
-      });
+      .get(
+        this.url +
+          AccessGroupAPI.GetAllAccessGroup +
+          '/' +
+          applicationId +
+          '/' +
+          departmentId
+      )
+      .pipe(map((res: any) => res.data as AccessGroupModel[]));
   }
 
-  getProductsWithOrdersSmall() {
+  getAccessGroupById(id: number): Observable<AccessGroupModel> {
     return this.http
-      .get<any>('assets/products-orders-small.json')
-      .toPromise()
-      .then((res) => <Product[]>res.data)
-      .then((data) => {
-        return data;
-      });
+      .get(this.url + AccessGroupAPI.GetAllAccessGroup + '/' + id)
+      .pipe(map((res: any) => res.data as AccessGroupModel));
   }
 
-  generatePrduct(): Product {
-    const product: Product = {
-      id: this.generateId(),
-      name: this.generateName(),
-      description: 'Product Description',
-      price: this.generatePrice(),
-      quantity: this.generateQuantity(),
-      category: 'Product Category',
-      inventoryStatus: this.generateStatus(),
-      rating: this.generateRating(),
-    };
-
-    product.image =
-      product.name.toLocaleLowerCase().split(/[ ,]+/).join('-') + '.jpg';
-    return product;
+  getDepartment(): Observable<Department[]> {
+    return this.http
+      .get(this.url + 'departments')
+      .pipe(map((res: any) => res.data as Department[]));
   }
 
-  generateId() {
-    let text = '';
-    let possible =
-      'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-
-    for (var i = 0; i < 5; i++) {
-      text += possible.charAt(Math.floor(Math.random() * possible.length));
-    }
-
-    return text;
+  deleteAccessGroup(accessGroupId: number): Observable<AccessGroupModel> {
+    return this.commonService
+      .delete('access-groups/' + accessGroupId + '/0')
+      .pipe(map((res: any) => res.data as AccessGroupModel));
   }
 
-  generateName() {
-    return this.productNames[Math.floor(Math.random() * Math.floor(30))];
+  createAccessGroup(accessGroup: any): Observable<AccessGroupModel> {
+    return this.commonService
+      .post('access-groups', accessGroup)
+      .pipe(map((res: any) => res.data as AccessGroupModel));
   }
 
-  generatePrice() {
-    return Math.floor(Math.random() * Math.floor(299) + 1);
-  }
-
-  generateQuantity() {
-    return Math.floor(Math.random() * Math.floor(75) + 1);
-  }
-
-  generateStatus() {
-    return this.status[Math.floor(Math.random() * Math.floor(3))];
-  }
-
-  generateRating() {
-    return Math.floor(Math.random() * Math.floor(5) + 1);
+  updateAccessGroup(accessGroup: any): Observable<AccessGroupModel> {
+    return this.commonService
+      .put('access-groups', accessGroup)
+      .pipe(map((res: any) => res.data as AccessGroupModel));
   }
 }

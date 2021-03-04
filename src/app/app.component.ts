@@ -13,9 +13,9 @@ import { environment } from '@env/environment';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
+  styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'asm-ui';
   constructor(
     private primengConfig: PrimeNGConfig,
@@ -26,22 +26,22 @@ export class AppComponent {
     private commonService: CommonService
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     const urlParams = new URLSearchParams(window.location.search);
     const myParam = urlParams.get('auth');
-    let tempuser = localStorage.getItem('authenticationInfo');
+    const tempuser = localStorage.getItem('authenticationInfo');
     if (!myParam && !tempuser) {
       this.route.navigate(['asm/home']);
     }
     this.activatedRoute.queryParams.subscribe((params) => {
-      const auth = params['auth'];
+      const auth = params.auth;
       if (auth) {
-        let res = JSON.parse(decodeURI(auth));
+        const res = JSON.parse(decodeURI(auth));
         this.tokenService.setToken(res.token);
-        var decoded = jwt_decode(res.token);
-        var obj = {
-          UserId: decoded.uid,
-          UserToken: res.token,
+        const decoded = jwt_decode(res.token);
+        const obj = {
+          // UserId: decoded..uid,
+          // UserToken: res.token
         };
         this.commonService
           .post(ApiConstants.SaveUserAuthInfo.SaveUserData, obj)

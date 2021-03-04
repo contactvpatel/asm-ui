@@ -3,17 +3,17 @@ import {
   HttpEvent,
   HttpInterceptor,
   HttpHandler,
-  HttpRequest,
+  HttpRequest
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { environment } from '@env/environment';
 
 /**
- * Prefixes all requests not starting with `http[s]` with `environment.serverUrl`.
+ * Prefixes all requests not starting with `http[s]` with `environment.apiServerUrl`.
  */
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class ApiPrefixInterceptor implements HttpInterceptor {
   intercept(

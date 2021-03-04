@@ -38,7 +38,7 @@ export class AsmComponent implements OnInit {
           {
             label: 'Access Group',
             icon: 'pi pi-fw pi-tag',
-            routerLink: ['/asm/access-group'],
+            routerLink: ['/asm/application-security/access-group'],
           },
           {
             label: 'Access Group Assignment',
@@ -53,11 +53,11 @@ export class AsmComponent implements OnInit {
         items: [
           {
             label: 'Api Endpoint',
-            //routerLink: ['/asm/module'],
+            // routerLink: ['/asm/module'],
           },
           {
             label: 'Api Access',
-            //routerLink: ['/asm/access-group'],
+            // routerLink: ['/asm/access-group'],
           },
         ],
       },

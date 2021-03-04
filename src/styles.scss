@@ -1,8 +1,3 @@
-/* You can add global styles to this file, and also import other style files */
-@import "../node_modules/primeng/resources/themes/mdc-light-indigo/theme.css";
-@import "../node_modules/primeng/resources/primeng.min.css";
-@import "../node_modules/primeicons/primeicons.css";
-@import "../node_modules/primeflex/primeflex.css";
 
 * {
   box-sizing: border-box;
@@ -240,4 +235,77 @@ body {
 .p-button.c-button-link {
   height: 1rem !important;
   width: 1rem;
+}
+//font
+
+.button-div {
+  float: right;
+  
+  padding-top: 20px;
+}
+
+@media (max-width: 360px) {
+  .button-div {
+    padding: 0px !important;
+  }
+}
+.search-container{
+  width: 490px;
+  display: block;
+  margin: 0 auto;
+}
+
+input#search-bar{
+  margin: 0 auto;
+  width: 100%;
+  height: 45px;
+  border-radius: 5px;
+  padding: 0 20px;
+  font-size: 1rem;
+  border: 1px solid #D0CFCE;
+  outline: none;
+  &:focus{
+    border: 1px solid #008ABF;
+    transition: 0.35s ease;
+    color: #008ABF;
+    &::-webkit-input-placeholder{
+      transition: opacity 0.45s ease; 
+      opacity: 0;
+     }
+    &::-moz-placeholder {
+      transition: opacity 0.45s ease; 
+      opacity: 0;
+     }
+    &:-ms-placeholder {
+     transition: opacity 0.45s ease; 
+     opacity: 0;
+     }    
+   }
+ }
+
+.search-icon .fa-search{
+    position: relative;
+    float: right;
+    width: 75px !important;
+    top: -39px;
+    right: -38px;
+    font-size: 30px;
+}
+.search {
+  border-radius: 25px;  
+}
+
+
+// custom css
+.font
+{
+    font-family: Roboto, Helvetica Neue Light, Helvetica Neue, Helvetica, Arial, Lucida Grande, sans-serif;
+}
+.has-error {
+  border: 1px solid red;
+  color: red;
+}
+.error{
+  color :red;
+  font-family: Roboto, Helvetica Neue Light, Helvetica Neue, Helvetica, Arial, Lucida Grande, sans-serif;
 }

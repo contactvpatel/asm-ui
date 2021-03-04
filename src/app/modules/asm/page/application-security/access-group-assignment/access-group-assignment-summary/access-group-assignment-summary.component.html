@@ -5,7 +5,7 @@
       <button
         pButton
         pRipple
-        label="New Access Group"
+        label="New Access Group Assignment"
         icon="pi pi-plus"
         class="p-button-success p-mr-2"
         (click)="openNew()"
@@ -24,25 +24,20 @@
 
   <p-table
     #dt
-    [value]="accessGroups"
+    [value]="accessGroupAssignments"
     [rows]="10"
     [paginator]="true"
-    [globalFilterFields]="[
-      'name',
-      'departmentName',
-       'applicationName',
-      'description'
-    ]"
+    [globalFilterFields]="['name', 'departmentName', 'roleName','applicationName','positionName']"
     [rowsPerPageOptions]="[10, 25, 50]"
     [(selection)]="selectedAccessGroup"
     [rowHover]="true"
-    dataKey="accessGroupId"
+    dataKey="accessGroupAssignmentId"
     currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
     [showCurrentPageReport]="true"
   >
     <ng-template pTemplate="caption">
       <div class="p-d-flex p-ai-center p-jc-between">
-        <h3 class="p-m-0">Manage Access Group</h3>
+        <h3 class="p-m-0">Manage Access Group Assignment</h3>
         <span class="p-input-icon-left">
           <i class="pi pi-search"></i>
           <input
@@ -60,20 +55,23 @@
           <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
         </th>
         <th pSortableColumn="applicationName">
-          Application <p-sortIcon field="applicationName"></p-sortIcon>
+          Application Name <p-sortIcon field="applicationName"></p-sortIcon>
+        </th>
+        <th pSortableColumn="departmentName">
+          Department <p-sortIcon field="departmentName"></p-sortIcon>
         </th>
         <th pSortableColumn="name">
-          Name <p-sortIcon field="name"></p-sortIcon>
-        </th>
-        <th pSortableColumn="description">
-          Description <p-sortIcon field="description"></p-sortIcon>
+          Access Group <p-sortIcon field="name"></p-sortIcon>
         </th>
         <th pSortableColumn="department">
-          Department <p-sortIcon field="department"></p-sortIcon>
+          Role <p-sortIcon field="department"></p-sortIcon>
         </th>
-        <th pSortableColumn="isActive">
-          Active <p-sortIcon field="isActive"></p-sortIcon>
+        <th pSortableColumn="positionName">
+          Position <p-sortIcon field="positionName"></p-sortIcon>
         </th>
+        <!-- <th pSortableColumn="isActive">
+          Person <p-sortIcon field="isActive"></p-sortIcon>
+        </th> -->
         <th></th>
       </tr>
       <tr>
@@ -82,44 +80,43 @@
           <p-columnFilter type="text" field="applicationName"></p-columnFilter>
         </th>
         <th>
+          <p-columnFilter type="text" field="departmentName"></p-columnFilter>
+        </th>
+        <th>
           <p-columnFilter type="text" field="name"></p-columnFilter>
         </th>
         <th>
-          <p-columnFilter type="text" field="description"></p-columnFilter>
+          <p-columnFilter type="text" field="roleName"></p-columnFilter>
         </th>
         <th>
-          <p-columnFilter type="text" field="departmentName"></p-columnFilter>
+          <p-columnFilter type="text" field="positionName"></p-columnFilter>
         </th>
-
-        <th></th>
         <th></th>
       </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-accessGroup>
+    <ng-template pTemplate="body" let-accessgroupassignment>
       <tr>
         <td>
-          <p-tableCheckbox [value]="accessGroup"></p-tableCheckbox>
+          <p-tableCheckbox [value]="accessgroupassignment"></p-tableCheckbox>
         </td>
-        <td>{{ accessGroup.applicationName }}</td>
-        <td>{{ accessGroup.name }}</td>
-        <td>{{ accessGroup.description }}</td>
-        <td>{{ accessGroup.departmentName }}</td>
-        <td *ngIf="accessGroup.isActive === true; else elseStatement">Yes</td>
+        <td>{{ accessgroupassignment.applicationName }}</td>
+        <td>{{ accessgroupassignment.departmentName }}</td>
+        <td>{{ accessgroupassignment.name }}</td>
+        <td>{{ accessgroupassignment.roleName }}</td>
+        <td>{{ accessgroupassignment.positionName }}</td>
+        
+        
+        <!-- <td *ngIf="accessgroupassignment.isActive===true; else elseStatement">
+          Yes
+        </td>
         <ng-template #elseStatement>
-          <td>No</td>
-        </ng-template>
+         <td>No</td> 
+        </ng-template> -->
 
         <td>
           <button
             pButton
-            pRipple
-            icon="pi pi-pencil"
-            class="p-button-rounded p-button-warning p-mr-2"
-            (click)="editAccessGroup(accessGroup)"
-          ></button>
-          <button
-            pButton
-            (click)="deleteAccessGroup(accessGroup)"
+            (click)="deleteAccessGroupAssignment(accessgroupassignment)"
             pRipple
             icon="pi pi-trash"
             class="p-button-rounded p-button-danger"
@@ -130,7 +127,10 @@
     <ng-template pTemplate="summary">
       <div class="p-d-flex p-ai-center p-jc-between">
         In total there are
-        {{ accessGroups ? accessGroups.length : 0 }} AccessGroup.
+        {{
+          accessGroupAssignments ? accessGroupAssignments.length : 0
+        }}
+        accessGroupAssignments.
       </div>
     </ng-template>
   </p-table>

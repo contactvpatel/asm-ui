@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
-import { tap } from 'rxjs/operators';
 import { environment } from '@env/environment';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class CommonService {
   pageLoader = false;
@@ -15,12 +14,7 @@ export class CommonService {
   constructor(private http: HttpClient) {}
 
   public get(url: any) {
-    // return this.http.ge(environment.serverUrl + url);
-    return this.http
-      .get<HttpResponse<Object>>(environment.apiServerUrl + url, {
-        observe: 'response',
-      })
-      .pipe(tap());
+    return this.http.get(environment.apiServerUrl + url);
   }
 
   public post(url: any, data: any) {
@@ -32,25 +26,27 @@ export class CommonService {
   }
 
   public delete(url: any) {
-    return this.http.delete(url);
+    console.log(url);
+    return this.http.delete(environment.apiServerUrl + url);
   }
 
   public get_observe(url: any, param: HttpParams = null): Observable<any> {
     return this.http.get(environment.apiServerUrl + url, {
       observe: 'response',
-      params: param,
+      params: param
     });
   }
 
   public post_observe(url: any, data: any): Observable<any> {
     return this.http.post(environment.apiServerUrl + url, data, {
-      observe: 'response',
+      observe: 'response'
     });
   }
 
   public showLoader() {
     this.pageLoader = true;
   }
+
   public hideLoader() {
     this.pageLoader = false;
   }

@@ -6,7 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
   PerfectScrollbarConfigInterface,
   PerfectScrollbarModule,
-  PERFECT_SCROLLBAR_CONFIG,
+  PERFECT_SCROLLBAR_CONFIG
 } from 'ngx-perfect-scrollbar';
 import { AccordionModule } from 'primeng/accordion';
 import { MenubarModule } from 'primeng/Menubar';
@@ -38,7 +38,6 @@ import { RatingModule } from 'primeng/rating';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { SliderModule } from 'primeng/slider';
-import { NgxUiLoaderModule } from 'ngx-ui-loader';
 
 import { HeaderComponent } from '@app/layout/header/header.component';
 import { FooterComponent } from '@app/layout/footer/footer.component';
@@ -48,8 +47,8 @@ import { HomeComponent } from './page/home/home.component';
 import { ModuleComponent } from './page/application-security/module/module.component';
 import { AccessGroupSummaryComponent } from './page/application-security/access-group/access-group-summary/access-group-summary.component';
 import { AccessGroupDetailComponent } from './page/application-security/access-group/access-group-detail/access-group-detail.component';
-import { AccessGroupAssignmentComponent } from './page/application-security/access-group-assignment/access-group-assignment.component';
-
+import { AccessGroupAssignmentSummaryComponent } from './page/application-security/access-group-assignment/access-group-assignment-summary/access-group-assignment-summary.component';
+import { AccessAssignmentGroupDetailComponent } from './page/application-security/access-group-assignment/access-group-assignment-detail/access-group-assignment-detail.component';
 import { ConfirmationService } from 'primeng/api';
 import { ModuleService } from '@app/data/services/module.service';
 import { AccessGroupService } from '@app/data/services/access-group.service';
@@ -58,9 +57,18 @@ import { AccessGroupAssignmentService } from '@app/data/services/access-group-as
 import { EncryptPipeModule } from '../encrypt/encrypt.pipe.module';
 
 import { AsmService } from './asm.service';
+import { ApplicationSecurityModule } from './page/application-security/application-security.module';
+import { NgxUiLoaderConfig } from 'ngx-ui-loader';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
-  suppressScrollX: false,
+  suppressScrollX: false
+};
+
+export const LoaderConfiguration: NgxUiLoaderConfig = {
+  fgsColor: '#e64a19',
+  pbThickness: 3,
+  hasProgressBar: true,
+  pbColor: '#e64a19'
 };
 
 @NgModule({
@@ -72,7 +80,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     ModuleComponent,
     AccessGroupSummaryComponent,
     AccessGroupDetailComponent,
-    AccessGroupAssignmentComponent,
+    AccessAssignmentGroupDetailComponent,
+    AccessGroupAssignmentSummaryComponent
   ],
   imports: [
     CommonModule,
@@ -106,23 +115,22 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     PickListModule,
     MenuModule,
     RatingModule,
-    NgxUiLoaderModule,
     ProgressSpinnerModule,
     ProgressBarModule,
     SliderModule,
     AsmRoutingModule,
-    EncryptPipeModule,
+    EncryptPipeModule
   ],
   providers: [
     {
       provide: PERFECT_SCROLLBAR_CONFIG,
-      useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,
+      useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
     },
     ConfirmationService,
     AsmService,
     ModuleService,
     AccessGroupService,
-    AccessGroupAssignmentService,
-  ],
+    AccessGroupAssignmentService
+  ]
 })
 export class AsmModule {}

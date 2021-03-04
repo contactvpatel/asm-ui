@@ -9,15 +9,14 @@ import { AppComponent } from './app.component';
 import { SessionTimeoutComponent } from './modules/page/session-timeout/session-timeout.component';
 import { NoAccessComponent } from './modules/page/no-access/no-access.component';
 import { PageNotFoundComponent } from './modules/page/page-not-found/page-not-found.component';
-
-//import { NgxUiLoaderModule } from 'ngx-ui-loader';
-
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CoreModule } from '@app/core/core.module';
 import { ShellModule } from './shared/shell/shell.module';
 import { MessageService } from 'primeng/api';
 import { AsmAuthComponent } from './modules/page/asm-auth/asm-auth.component';
+import { AsmModule } from './modules/asm/asm.module';
+import { NgxUiLoaderModule } from 'ngx-ui-loader';
 
 @NgModule({
   declarations: [
@@ -25,7 +24,7 @@ import { AsmAuthComponent } from './modules/page/asm-auth/asm-auth.component';
     SessionTimeoutComponent,
     NoAccessComponent,
     PageNotFoundComponent,
-    AsmAuthComponent,
+    AsmAuthComponent
   ],
   imports: [
     BrowserModule,
@@ -33,13 +32,14 @@ import { AsmAuthComponent } from './modules/page/asm-auth/asm-auth.component';
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
-    //NgxUiLoaderModule,
     CoreModule,
     ShellModule,
     ToastModule,
+    NgxUiLoaderModule,
+    AsmModule,
     AppRoutingModule,
   ],
   providers: [MessageService],
-  bootstrap: [AppComponent],
+  bootstrap: [AppComponent]
 })
 export class AppModule {}
