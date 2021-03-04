@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AccessGroupModel, Department } from '@app/data/schema/access-group';
-import { Position, Role } from '@app/data/schema/access-group-assgnment';
+import { Position, Role } from '@app/data/schema/access-group-assignment';
 import { AccessGroup, Application, Module } from '@app/data/schema/module';
 import { AccessGroupAssignmentService } from '@app/data/services/access-group-assignment.service';
 import { AccessGroupService } from '@app/data/services/access-group.service';
@@ -63,7 +63,7 @@ export class AccessAssignmentGroupDetailComponent implements OnInit, OnDestroy {
 
   createForm() {
     this.accessgroupAssignmentForm = this.fb.group({
-      assignmentType: [null, [Validators.required]],      
+      assignmentType: [null, [Validators.required]],
       applicationId: [null, [Validators.required]],
       accessGroupId: [null, [Validators.required]],
       departmentId: [null],
@@ -86,7 +86,7 @@ export class AccessAssignmentGroupDetailComponent implements OnInit, OnDestroy {
   }
   onFormSubmit(): void {
     this.submitted = true;
-    console.log(this.accessgroupAssignmentForm)
+    console.log(this.accessgroupAssignmentForm);
     if (this.accessgroupAssignmentForm.valid) {
       let accessgroupassignment = [];
       if (this.RoleId.value.length >= 1) {
@@ -154,12 +154,11 @@ export class AccessAssignmentGroupDetailComponent implements OnInit, OnDestroy {
   }
   GetAccessGroup(): void {
     this.accessGroupList = [];
-    this.accessGroups=[];
-    this.AccessGroupId.value=0;
+    this.accessGroups = [];
+    this.AccessGroupId.value = 0;
     const applicationId = this.ApplicationId.value;
     const departmentId = this.DepartmentId.value;
 
-    
     if (applicationId !== null) {
       if (departmentId == undefined || departmentId == null) {
         this.accessGroupService
@@ -179,9 +178,9 @@ export class AccessAssignmentGroupDetailComponent implements OnInit, OnDestroy {
   }
 
   GetRole(): void {
-    this.role=null;
+    this.role = null;
     let departmentId;
-    console.log(this.DepartmentId.value)
+    console.log(this.DepartmentId.value);
     if (this.DepartmentId.value !== null) {
       departmentId = this.DepartmentId.value;
     } else {
@@ -204,13 +203,17 @@ export class AccessAssignmentGroupDetailComponent implements OnInit, OnDestroy {
     this.showRole = true;
     this.showPerson = false;
     this.accessgroupAssignmentForm.controls['positionId'].setValidators(null);
-    this.accessgroupAssignmentForm.controls['positionId'].updateValueAndValidity();
-    this.accessgroupAssignmentForm.controls['roleId'].setValidators([Validators.required]);
+    this.accessgroupAssignmentForm.controls[
+      'positionId'
+    ].updateValueAndValidity();
+    this.accessgroupAssignmentForm.controls['roleId'].setValidators([
+      Validators.required
+    ]);
     this.accessgroupAssignmentForm.controls['roleId'].updateValueAndValidity();
   }
   ShowPosition(): void {
     this.RoleId.value = null;
-    this.selectedRole = null;    
+    this.selectedRole = null;
     this.selectedRoleList = null;
     this.selectedPosition = null;
     this.showRole = false;
@@ -218,10 +221,16 @@ export class AccessAssignmentGroupDetailComponent implements OnInit, OnDestroy {
     this.showPerson = false;
     this.accessgroupAssignmentForm.controls['roleId'].setValidators(null);
     this.accessgroupAssignmentForm.controls['roleId'].updateValueAndValidity();
-    this.accessgroupAssignmentForm.controls['roleId'].setValidators([Validators.required]);
+    this.accessgroupAssignmentForm.controls['roleId'].setValidators([
+      Validators.required
+    ]);
     this.accessgroupAssignmentForm.controls['roleId'].updateValueAndValidity();
-    this.accessgroupAssignmentForm.controls['positionId'].setValidators([Validators.required]);
-    this.accessgroupAssignmentForm.controls['positionId'].updateValueAndValidity();
+    this.accessgroupAssignmentForm.controls['positionId'].setValidators([
+      Validators.required
+    ]);
+    this.accessgroupAssignmentForm.controls[
+      'positionId'
+    ].updateValueAndValidity();
   }
   GetPosition(): void {
     this.position = [];
