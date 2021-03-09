@@ -1,7 +1,7 @@
 export interface Module {
   moduleId?: number;
   name?: string;
-  applicationName?:string,
+  applicationName?: string;
   code?: string;
   moduleTypeId?: number;
   applicationId?: string;
@@ -17,7 +17,6 @@ export interface Application {
   applicationName: string;
 }
 export interface IsActive {
-  
   isActive: string;
 }
 export interface IsActive {
@@ -120,7 +119,6 @@ export class AccessGroup {
   getAccessGroupModulePermissionsForEditMode(
     data
   ): AccessGroupModulePermissions {
-    console.log(data);
     const accessGroupModulePermissions: AccessGroupModulePermissions = {
       moduleId: data.moduleId,
       hasViewAccess: data.hasViewAccess,

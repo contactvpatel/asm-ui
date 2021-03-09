@@ -39,7 +39,6 @@ export class ModuleService {
   }
 
   createModule(module: any): Observable<Module> {
-    console.log(module);
     return this.commonService
       .post('modules', module)
       .pipe(map((res: any) => res.data as Module));
@@ -52,7 +51,6 @@ export class ModuleService {
   }
 
   deleteModule(module: any): Observable<Module> {
-    console.log(module);
     return this.commonService
       .delete('modules/' + module + '/' + 0)
       .pipe(map((res: any) => res.data as Module));

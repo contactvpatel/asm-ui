@@ -9,25 +9,25 @@ import { SessionTimeoutComponent } from './modules/page/session-timeout/session-
 const routes: Routes = [
   {
     path: '401',
-    component: NoAccessComponent,
+    component: NoAccessComponent
   },
   {
     path: 'signed-out',
-    component: SessionTimeoutComponent,
+    component: SessionTimeoutComponent
   },
   {
     path: '403',
-    component: SessionTimeoutComponent,
+    component: SessionTimeoutComponent
   },
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: '/asm/home',
+    redirectTo: '/asm/home'
   },
   {
     path: ':auth',
     pathMatch: 'full',
-    component: AsmAuthComponent,
+    component: AsmAuthComponent
   },
   // {
   //   path: 'authentication:auth',
@@ -38,18 +38,18 @@ const routes: Routes = [
     path: 'asm',
     canActivate: [PermissionGuard],
     loadChildren: () =>
-      import('./modules/asm/asm.module').then((m) => m.AsmModule),
+      import('./modules/asm/asm.module').then((m) => m.AsmModule)
   },
   {
     path: '**',
-    component: PageNotFoundComponent,
-  },
+    component: PageNotFoundComponent
+  }
 ];
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, { scrollPositionRestoration: 'enabled' }),
+    RouterModule.forRoot(routes, { scrollPositionRestoration: 'enabled' })
   ],
-  exports: [RouterModule],
+  exports: [RouterModule]
 })
 export class AppRoutingModule {}

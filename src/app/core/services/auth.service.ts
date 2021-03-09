@@ -9,7 +9,7 @@ import {
   deviceId,
   clientId,
   clientSecret,
-  applicationId,
+  applicationId
 } from '../../shared/constants/global.constant';
 import { CredentialsService } from '@app/core/services/credential.service';
 import { ApiConstants } from '../../shared/constants/api.constant';
@@ -25,7 +25,7 @@ export interface LoginContext {
  * The login/logout methods should be replaced with proper implementation.
  */
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class AuthenticationService {
   constructor(

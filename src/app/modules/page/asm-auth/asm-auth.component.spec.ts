@@ -11,9 +11,8 @@ describe('AsmAuthComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AsmAuthComponent ]
-    })
-    .compileComponents();
+      declarations: [AsmAuthComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

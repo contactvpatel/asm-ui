@@ -23,14 +23,19 @@
         (onChange)="getAllModule()"
       >
       </p-dropdown>
-      <small class="p-invalid error" *ngIf="submitted && accessgroupForm.controls.applicationId.errors?.required">
+      <small
+        class="p-invalid error"
+        *ngIf="
+          submitted && accessgroupForm.controls.applicationId.errors?.required
+        "
+      >
         Application is required.
       </small>
     </div>
 
     <div class="p-col-12 p-md-6 p-mt-2">
-      <span class="p-float-label ">
-        <span class="p-float-label ">
+      <span class="p-float-label">
+        <span class="p-float-label">
           <input
             id="float-input"
             [ngClass]="{
@@ -41,20 +46,22 @@
             pInputText
             formControlName="name"
           />
-          <label for="float-input" class="p-component"> Name </label>          
+          <label for="float-input" class="p-component"> Name </label>
         </span>
-        <small class="p-invalid error" *ngIf="submitted && accessgroupForm.controls.name.errors?.required">
+        <small
+          class="p-invalid error"
+          *ngIf="submitted && accessgroupForm.controls.name.errors?.required"
+        >
           Name is required.
         </small>
       </span>
     </div>
   </div>
   <div class="p-grid p-fluid">
-    <div class="p-col-12 p-md-6 p-mt-2 ">
+    <div class="p-col-12 p-md-6 p-mt-2">
       <p-dropdown
         [options]="department"
         placeholder="Select Department"
-        
         optionLabel="departmentName"
         optionValue="departmentId"
         [showClear]="true"
@@ -62,7 +69,7 @@
       >
       </p-dropdown>
     </div>
-    <div class="p-col-12 p-md-6 p-mt-2 ">
+    <div class="p-col-12 p-md-6 p-mt-2">
       <span class="p-float-label">
         <span class="p-float-label">
           <input
@@ -103,9 +110,7 @@
         </div>
       </div>
     </div>
-    <div class="p-col-12 p-md-6 p-mt-2 p-mb-2">
-      
-    </div>
+    <div class="p-col-12 p-md-6 p-mt-2 p-mb-2"></div>
   </div>
 </form>
 <p-table

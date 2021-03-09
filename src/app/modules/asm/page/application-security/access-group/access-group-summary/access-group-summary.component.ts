@@ -16,7 +16,7 @@ export class AccessGroupSummaryComponent implements OnInit {
   accessGroup: AccessGroupModel;
 
   selectedAccessGroup: AccessGroupModel[];
-  
+
   submitted: boolean;
 
   constructor(
