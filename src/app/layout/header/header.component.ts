@@ -3,7 +3,7 @@ import {
   OnInit,
   OnDestroy,
   ViewChild,
-  ElementRef,
+  ElementRef
 } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { MenuItem } from 'primeng/api';
@@ -19,7 +19,7 @@ import { ignoreElements } from 'rxjs/operators';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss'],
+  styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   screensize = 1360;
@@ -76,13 +76,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.userMenu = [
       {
         label: 'Profile',
-        icon: 'pi pi-fw pi-id-card',
+        icon: 'pi pi-fw pi-id-card'
       },
       {
         label: 'Logout',
         icon: 'pi pi-fw pi-sign-out',
-        routerLink: ['/signed-out'],
-      },
+        routerLink: ['/signed-out']
+      }
     ];
   }
 

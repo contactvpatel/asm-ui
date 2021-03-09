@@ -27,7 +27,13 @@
     [value]="accessGroupAssignments"
     [rows]="10"
     [paginator]="true"
-    [globalFilterFields]="['name', 'departmentName', 'roleName','applicationName','positionName']"
+    [globalFilterFields]="[
+      'name',
+      'departmentName',
+      'roleName',
+      'applicationName',
+      'positionName'
+    ]"
     [rowsPerPageOptions]="[10, 25, 50]"
     [(selection)]="selectedAccessGroup"
     [rowHover]="true"
@@ -104,8 +110,7 @@
         <td>{{ accessgroupassignment.name }}</td>
         <td>{{ accessgroupassignment.roleName }}</td>
         <td>{{ accessgroupassignment.positionName }}</td>
-        
-        
+
         <!-- <td *ngIf="accessgroupassignment.isActive===true; else elseStatement">
           Yes
         </td>
@@ -127,12 +132,9 @@
     <ng-template pTemplate="summary">
       <div class="p-d-flex p-ai-center p-jc-between">
         In total there are
-        {{
-          accessGroupAssignments ? accessGroupAssignments.length : 0
-        }}
+        {{ accessGroupAssignments ? accessGroupAssignments.length : 0 }}
         accessGroupAssignments.
       </div>
     </ng-template>
   </p-table>
 </div>
-

@@ -86,7 +86,6 @@ export class AccessAssignmentGroupDetailComponent implements OnInit, OnDestroy {
   }
   onFormSubmit(): void {
     this.submitted = true;
-    console.log(this.accessgroupAssignmentForm);
     if (this.accessgroupAssignmentForm.valid) {
       let accessgroupassignment = [];
       if (this.RoleId.value.length >= 1) {
@@ -180,7 +179,6 @@ export class AccessAssignmentGroupDetailComponent implements OnInit, OnDestroy {
   GetRole(): void {
     this.role = null;
     let departmentId;
-    console.log(this.DepartmentId.value);
     if (this.DepartmentId.value !== null) {
       departmentId = this.DepartmentId.value;
     } else {
@@ -234,7 +232,6 @@ export class AccessAssignmentGroupDetailComponent implements OnInit, OnDestroy {
   }
   GetPosition(): void {
     this.position = [];
-    console.log(this.RoleId.value);
     this.accessGroupAssignmentService
       .getPositionByRoleId(this.RoleId.value)
       .subscribe((data) => (this.position = data));
@@ -264,9 +261,7 @@ export class AccessAssignmentGroupDetailComponent implements OnInit, OnDestroy {
   getApplication() {
     this.applicationService
       .getApplication()
-      .subscribe(
-        (data) => ((this.application = data), console.log(this.application))
-      );
+      .subscribe((data) => (this.application = data));
   }
 
   setmodule() {

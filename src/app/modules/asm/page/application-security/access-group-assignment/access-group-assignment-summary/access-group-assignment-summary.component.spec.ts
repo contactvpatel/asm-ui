@@ -11,9 +11,8 @@ describe('AccessGroupSummaryComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AccessGroupAssignmentSummaryComponent ]
-    })
-    .compileComponents();
+      declarations: [AccessGroupAssignmentSummaryComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

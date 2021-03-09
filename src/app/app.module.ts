@@ -37,7 +37,7 @@ import { NgxUiLoaderModule } from 'ngx-ui-loader';
     ToastModule,
     NgxUiLoaderModule,
     AsmModule,
-    AppRoutingModule,
+    AppRoutingModule
   ],
   providers: [MessageService],
   bootstrap: [AppComponent]

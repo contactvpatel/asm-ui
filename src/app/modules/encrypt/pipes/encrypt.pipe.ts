@@ -1,7 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'encrypt',
+  name: 'encrypt'
 })
 export class EncryptPipe implements PipeTransform {
   transform(value: string): string {

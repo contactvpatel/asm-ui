@@ -5,7 +5,7 @@ import {
   HttpInterceptor,
   HttpRequest,
   HttpResponse,
-  HttpErrorResponse,
+  HttpErrorResponse
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -15,7 +15,7 @@ import { TokenService } from '@app/core/services/token.service';
 import { CredentialsService } from '@app/core/services/credential.service';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class TokenInterceptor implements HttpInterceptor {
   constructor(
@@ -37,8 +37,8 @@ export class TokenInterceptor implements HttpInterceptor {
               //PersonId: '621403',
               RequestID: Math.round(new Date().getTime() / 1000).toString(),
               Authorization: `${token}`,
-              Accept: 'application/json',
-            },
+              Accept: 'application/json'
+            }
           });
         }
         return next.handle(request).pipe(

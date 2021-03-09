@@ -95,7 +95,6 @@ export class ModuleComponent implements OnInit {
   }
 
   editModule(module: Module): void {
-    console.log(module.moduleId)
     this.moduleService.getModuleById(module.moduleId).subscribe((data) => {
       this.module = data;
       this.module = {
@@ -104,14 +103,13 @@ export class ModuleComponent implements OnInit {
         moduleId: data.moduleId,
         isActive: data.isActive.toString()
       };
-      this.parentModule=null;
+      this.parentModule = null;
       this.moduleService
         .getModulesByApplicationId(data.applicationId)
-        .subscribe((data) =>this.parentModule=data);
+        .subscribe((data) => (this.parentModule = data));
       this.selectedApplication = data.applicationId;
       this.selectedModuleType = data.moduleType;
       this.selectedparentmodules = data.parentModuleId;
-      console.log(data.parentModuleId)
     });
     this.moduleDialog = true;
   }
@@ -211,7 +209,7 @@ export class ModuleComponent implements OnInit {
     return index;
   }
   ParentModule(): void {
-    this.parentModule=null;
+    this.parentModule = null;
     this.moduleService
       .getModulesByApplicationId(this.selectedApplication)
       .subscribe((data) => (this.parentModule = data));

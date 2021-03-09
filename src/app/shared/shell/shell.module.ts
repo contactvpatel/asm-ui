@@ -6,6 +6,6 @@ import { ShellComponent } from './shell.component';
 
 @NgModule({
   imports: [CommonModule, RouterModule],
-  declarations: [ShellComponent],
+  declarations: [ShellComponent]
 })
 export class ShellModule {}
