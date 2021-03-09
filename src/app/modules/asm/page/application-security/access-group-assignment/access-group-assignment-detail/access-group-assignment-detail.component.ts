@@ -114,8 +114,8 @@ export class AccessAssignmentGroupDetailComponent implements OnInit, OnDestroy {
       flatDataItems.push({
         accessGroupId: accessGroupId.accessGroupId,
         roleId: data,
-        positionId: 0,
-        personId: 0
+        positionId: null,
+        personId: null
       });
     });
     return flatDataItems;

@@ -92,6 +92,6 @@ export class AccessGroupAssignmentSummaryComponent implements OnInit {
   getAccessGroupAssignment(): void {
     this.accessGroupAssignmentService
       .getAccessGroupAssignment()
-      .subscribe((data) => (this.accessGroupAssignments = data,console.log(this.accessGroupAssignments)));
+      .subscribe((data) => (this.accessGroupAssignments = data));
   }
  }
