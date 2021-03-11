@@ -17,16 +17,19 @@ import { MessageService } from 'primeng/api';
 import { AsmAuthComponent } from './modules/page/asm-auth/asm-auth.component';
 import { AsmModule } from './modules/asm/asm.module';
 import { NgxUiLoaderModule } from 'ngx-ui-loader';
-
+import { ProgressBarModule } from 'primeng/progressbar';
+import { SpinnerComponent } from '../app/shared/spinner/spinner.component';
 @NgModule({
   declarations: [
     AppComponent,
     SessionTimeoutComponent,
     NoAccessComponent,
     PageNotFoundComponent,
-    AsmAuthComponent
+    AsmAuthComponent,
+    SpinnerComponent
   ],
   imports: [
+    // ProgressBarModule,
     BrowserModule,
     HttpClientModule,
     BrowserAnimationsModule,
@@ -37,7 +40,7 @@ import { NgxUiLoaderModule } from 'ngx-ui-loader';
     ToastModule,
     NgxUiLoaderModule,
     AsmModule,
-    AppRoutingModule,
+    AppRoutingModule
   ],
   providers: [MessageService],
   bootstrap: [AppComponent]

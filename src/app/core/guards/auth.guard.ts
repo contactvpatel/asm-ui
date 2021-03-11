@@ -5,6 +5,7 @@ import {
   ActivatedRouteSnapshot,
   RouterStateSnapshot,
 } from '@angular/router';
+import { of } from 'rxjs';
 
 import { CredentialsService } from '../services/credential.service';
 
@@ -16,16 +17,19 @@ export class AuthGuard implements CanActivate {
     private router: Router,
     private credentialsService: CredentialsService
   ) {}
-
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
-  ): boolean {
+  ):boolean {
     if (this.credentialsService.isAuthenticated()) {
       return true;
-    }
-    this.router.navigate(['/authentication']);
 
-    return false;
+    }
+    else{
+      this.router.navigate(['/authentication']);
+
+      return false;
+    }
+    
   }
 }

@@ -87,7 +87,12 @@ export class AccessGroup {
 
   private getEditModeAccessData(jsonData): any {
     const accessData = [];
+    console.log(jsonData)
     jsonData.forEach((data) => {
+      if(data.accessGroupModulePermissions.moduleId===0)
+      {
+        data.accessGroupModulePermissions.moduleId=data.moduleId
+      }
       accessData.push({
         moduleId: data.moduleId,
         name: data.name,
@@ -99,7 +104,8 @@ export class AccessGroup {
         description: data.description,
         showCheckbox: data.moduleType.isControlType === false ? true : false
       });
-    });
+      console.log(data)
+    });    
     return accessData;
   }
 
@@ -120,7 +126,7 @@ export class AccessGroup {
   getAccessGroupModulePermissionsForEditMode(
     data
   ): AccessGroupModulePermissions {
-    console.log(data);
+    
     const accessGroupModulePermissions: AccessGroupModulePermissions = {
       moduleId: data.moduleId,
       hasViewAccess: data.hasViewAccess,

@@ -141,6 +141,7 @@ export class AccessGroupDetailComponent implements OnInit, OnDestroy {
           .subscribe((data) => this.onCancelClick());
       } else {
         let setAccessGroup = [];
+        
         setAccessGroup = this.setPermissions(this.accessGroups, setAccessGroup);
         const departmentId = this.DepartmentId.value;
         console.log(departmentId)
@@ -195,12 +196,15 @@ export class AccessGroupDetailComponent implements OnInit, OnDestroy {
   }
   setmodule() {
     let accessGroup = [];
+    
     accessGroup = this.setEditAccessGroup(
       this.module,
       this.accessGroupModel.accessGroupModulePermissions,
       accessGroup
     );
+    
     this.accessGroups = new AccessGroup().fromJson(accessGroup, true);
+    console.log(this.accessGroups)
   }
   setEditAccessGroup(
     modules: Module[],
