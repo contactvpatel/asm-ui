@@ -1,3 +1,8 @@
 <router-outlet></router-outlet>
 <p-toast position="bottom-right" life="5000"></p-toast>
-<ngx-ui-loader></ngx-ui-loader>
+
+<ngx-ui-loader [fgsTemplate]="foregroundSpinner" fgsSize="100" bgsSize="64"></ngx-ui-loader>
+
+<ng-template #foregroundSpinner>
+    <div class="spinner"></div>
+</ng-template>
