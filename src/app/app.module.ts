@@ -38,7 +38,6 @@ import { SpinnerComponent } from '../app/shared/spinner/spinner.component';
     CoreModule,
     ShellModule,
     ToastModule,
-    NgxUiLoaderModule,
     AsmModule,
     AppRoutingModule
   ],

@@ -1,6 +1,8 @@
 <router-outlet><app-spinner></app-spinner></router-outlet>
 <p-toast position="bottom-right" life="5000"></p-toast>
-<!-- <ngx-ui-loader></ngx-ui-loader> -->
-<!-- <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">Navbar</a>
-</nav> -->
+
+<ngx-ui-loader [fgsTemplate]="foregroundSpinner" fgsSize="100" bgsSize="64"></ngx-ui-loader>
+
+<ng-template #foregroundSpinner>
+    <div class="spinner"></div>
+</ng-template>
