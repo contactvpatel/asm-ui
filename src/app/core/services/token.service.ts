@@ -6,7 +6,7 @@ import { Observable, of } from 'rxjs';
 import { CredentialsService } from './credential.service';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class TokenService {
   private tokenValue = null;

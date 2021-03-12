@@ -9,11 +9,9 @@ import { MessageService } from 'primeng/api';
 @Component({
   selector: 'app-access-group-assignment-summary',
   templateUrl: './access-group-assignment-summary.component.html',
-  styleUrls: ['./access-group-assignment-summary.component.scss'],  
+  styleUrls: ['./access-group-assignment-summary.component.scss']
 })
 export class AccessGroupAssignmentSummaryComponent implements OnInit {
-
-
   accessGroupAssignments: AccessGroupModel[];
 
   accessGroupAssignment: AccessGroupModel;
@@ -38,13 +36,15 @@ export class AccessGroupAssignmentSummaryComponent implements OnInit {
 
   deleteSelectedAccessGroup(): void {
     this.confirmationService.confirm({
-      message: 'Are you sure you want to delete the selected accessgroupassignments?',
+      message:
+        'Are you sure you want to delete the selected accessgroupassignments?',
       header: 'Confirm',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
         this.selectedAccessGroup.forEach((accessGroup) => {
-           this.accessGroupAssignmentService.deleteAccessGroupAssignment(
-                              accessGroup.accessGroupAssignmentId).subscribe((data) => (this.getAccessGroupAssignment()));
+          this.accessGroupAssignmentService
+            .deleteAccessGroupAssignment(accessGroup.accessGroupAssignmentId)
+            .subscribe((data) => this.getAccessGroupAssignment());
         });
 
         this.selectedAccessGroup = null;
@@ -58,7 +58,6 @@ export class AccessGroupAssignmentSummaryComponent implements OnInit {
     });
   }
 
-
   deleteAccessGroupAssignment(accessGroupAssignment: AccessGroupModel): void {
     this.confirmationService.confirm({
       message:
@@ -66,8 +65,11 @@ export class AccessGroupAssignmentSummaryComponent implements OnInit {
       header: 'Confirm',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-         this.accessGroupAssignmentService.deleteAccessGroupAssignment(
-                           accessGroupAssignment.accessGroupAssignmentId).subscribe((data) =>(this.getAccessGroupAssignment()));
+        this.accessGroupAssignmentService
+          .deleteAccessGroupAssignment(
+            accessGroupAssignment.accessGroupAssignmentId
+          )
+          .subscribe((data) => this.getAccessGroupAssignment());
         this.accessGroupAssignment = {};
         this.messageService.add({
           severity: 'success',
@@ -94,4 +96,4 @@ export class AccessGroupAssignmentSummaryComponent implements OnInit {
       .getAccessGroupAssignment()
       .subscribe((data) => (this.accessGroupAssignments = data));
   }
- }
+}

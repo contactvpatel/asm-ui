@@ -26,7 +26,6 @@ export class CommonService {
   }
 
   public delete(url: any) {
-    console.log(url);
     return this.http.delete(environment.apiServerUrl + url);
   }
 

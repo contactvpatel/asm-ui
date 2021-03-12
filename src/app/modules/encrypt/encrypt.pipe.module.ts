@@ -3,6 +3,6 @@ import { EncryptPipe } from './pipes/encrypt.pipe';
 
 @NgModule({
   declarations: [EncryptPipe],
-  exports: [EncryptPipe],
+  exports: [EncryptPipe]
 })
 export class EncryptPipeModule {}

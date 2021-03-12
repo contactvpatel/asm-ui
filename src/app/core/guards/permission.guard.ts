@@ -4,14 +4,14 @@ import {
   ActivatedRouteSnapshot,
   RouterStateSnapshot,
   UrlTree,
-  Router,
+  Router
 } from '@angular/router';
 import { Observable } from 'rxjs';
 import { TokenService } from '../services/token.service';
 import { of } from 'rxjs';
 import { delay } from 'rxjs/operators';
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class PermissionGuard implements CanActivate {
   constructor(private router: Router, private tokenService: TokenService) {}

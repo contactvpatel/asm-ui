@@ -5,7 +5,7 @@ import { AsmService } from './asm.service';
 @Component({
   selector: 'app-asm',
   templateUrl: './asm.component.html',
-  styleUrls: ['./asm.component.scss'],
+  styleUrls: ['./asm.component.scss']
 })
 export class AsmComponent implements OnInit {
   sidebarVisibility;
@@ -24,7 +24,7 @@ export class AsmComponent implements OnInit {
       {
         label: 'Home',
         icon: 'pi pi-fw pi-home',
-        routerLink: ['/asm/home'],
+        routerLink: ['/asm/home']
       },
       {
         label: 'Application Security',
@@ -33,34 +33,34 @@ export class AsmComponent implements OnInit {
           {
             label: 'Module',
             icon: 'pi pi-fw pi-microsoft',
-            routerLink: ['/asm/module'],
+            routerLink: ['/asm/module']
           },
           {
             label: 'Access Group',
             icon: 'pi pi-fw pi-tag',
-            routerLink: ['/asm/application-security/access-group'],
+            routerLink: ['/asm/application-security/access-group']
           },
           {
             label: 'Access Group Assignment',
             icon: 'pi pi-fw pi-key',
-            routerLink: ['/asm/access-group-assignment'],
-          },
-        ],
+            routerLink: ['/asm/access-group-assignment']
+          }
+        ]
       },
       {
         label: 'Api Security',
         icon: 'pi pi-fw pi-check-circle',
         items: [
           {
-            label: 'Api Endpoint',
+            label: 'Api Endpoint'
             // routerLink: ['/asm/module'],
           },
           {
-            label: 'Api Access',
+            label: 'Api Access'
             // routerLink: ['/asm/access-group'],
-          },
-        ],
-      },
+          }
+        ]
+      }
     ];
   }
 }

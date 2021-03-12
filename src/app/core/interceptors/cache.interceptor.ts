@@ -4,7 +4,7 @@ import {
   HttpInterceptor,
   HttpHandler,
   HttpRequest,
-  HttpResponse,
+  HttpResponse
 } from '@angular/common/http';
 import { Observable, Subscriber } from 'rxjs';
 import { HttpCacheService } from '../services/http-cache.service';
@@ -14,7 +14,7 @@ import { HttpCacheService } from '../services/http-cache.service';
  * Use ExtendedHttpClient fluent API to configure caching for each request.
  */
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class CacheInterceptor implements HttpInterceptor {
   private forceUpdate = false;

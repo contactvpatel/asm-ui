@@ -131,8 +131,8 @@ export const PositionApi = {
 export const AccessGroupAssignmentApi = {
   GetAccessGroupAssignment: 'access-group-assignments',
   CreateAccessGroupAssignment: 'access-group-assignments',
-  DeleteAccessGroupAssignment:'access-group-assignments/'
+  DeleteAccessGroupAssignment: 'access-group-assignments/'
 };
-export const ApplicationApi={
-  GetApplication:'applications'
-}
+export const ApplicationApi = {
+  GetApplication: 'applications'
+};

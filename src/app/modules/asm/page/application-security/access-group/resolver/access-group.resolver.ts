@@ -23,7 +23,7 @@
 //         const accounts = new AccessGroup();
 //         let acc = [];
 //         try {
-//           acc = response.data;          
+//           acc = response.data;
 //         } catch (error) {
 //           console.log(error);
 //         }

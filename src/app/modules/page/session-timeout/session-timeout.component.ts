@@ -6,7 +6,7 @@ import { environment } from '@env/environment';
 @Component({
   selector: 'app-session-timeout',
   templateUrl: './session-timeout.component.html',
-  styleUrls: ['./session-timeout.component.scss'],
+  styleUrls: ['./session-timeout.component.scss']
 })
 export class SessionTimeoutComponent implements OnInit {
   loginLink: string = environment.ssoLoginUrl;

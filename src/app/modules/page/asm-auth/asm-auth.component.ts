@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-asm-auth',
   templateUrl: './asm-auth.component.html',
-  styleUrls: ['./asm-auth.component.scss'],
+  styleUrls: ['./asm-auth.component.scss']
 })
 export class AsmAuthComponent implements OnInit {
   auth: string;

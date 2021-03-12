@@ -4,7 +4,7 @@ import {
   HttpInterceptor,
   HttpHandler,
   HttpRequest,
-  HttpResponse,
+  HttpResponse
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
@@ -21,7 +21,7 @@ import { AsmService } from '@app/modules/asm/asm.service';
  * Adds a default error handler to all requests.
  */
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class ErrorHandlerInterceptor implements HttpInterceptor {
   constructor(

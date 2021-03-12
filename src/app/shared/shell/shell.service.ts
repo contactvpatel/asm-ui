@@ -19,7 +19,7 @@ export class Shell {
       children: routes,
       //canActivate: [AuthGuard], //temporary commented so as to bypass auth
       // Reuse ShellComponent instance when navigating between child views
-      data: { reuse: true },
+      data: { reuse: true }
     };
   }
 }

@@ -49,9 +49,7 @@ export class AccessGroupDetailComponent implements OnInit, OnDestroy {
     private moduleService: ModuleService,
     private applicationService: applicationService,
     private accessGroupService: AccessGroupService
-  ) {
-    
-  }
+  ) {}
 
   ngOnInit(): void {
     // this.module = this.activatedRoute.snapshot.data.accessGroup;
@@ -68,8 +66,8 @@ export class AccessGroupDetailComponent implements OnInit, OnDestroy {
       description: this.accessGroupModel.description,
       applicationId: this.accessGroupModel.applicationId,
       departmentId: this.accessGroupModel.departmentId,
-      isActive:this.accessGroupModel.isActive.toString()  
-    });    
+      isActive: this.accessGroupModel.isActive.toString()
+    });
   }
   private subscribeActivatedRoute(): void {
     this.activatedRoute.paramMap.subscribe((params) => {
@@ -90,7 +88,7 @@ export class AccessGroupDetailComponent implements OnInit, OnDestroy {
       description: [null],
       applicationId: [null, [Validators.required]],
       departmentId: [null],
-      isActive:['true']
+      isActive: ['true']
     });
   }
   onCancelClick() {
@@ -114,17 +112,14 @@ export class AccessGroupDetailComponent implements OnInit, OnDestroy {
   onFormSubmit() {
     this.submitted = true;
     const c = this.DepartmentId.value;
-    console.log(c)
     if (this.accessgroupForm.valid) {
       if (this.config.mode.isEdit) {
         let setAccessGroup = [];
         const departmentId = this.DepartmentId.value;
-        console.log(this.isActive.value) 
         const name = this.name.value;
         const description = this.description.value;
-        const applicationId=this.ApplicationId.value;
+        const applicationId = this.ApplicationId.value;
         setAccessGroup = this.setPermissions(this.accessGroups, setAccessGroup);
-        console.log(setAccessGroup);
         const request = {
           accessGroupId: this.accessGroupModel.accessGroupId,
           name: name,
@@ -135,7 +130,6 @@ export class AccessGroupDetailComponent implements OnInit, OnDestroy {
           isActive: this.isActive.value,
           userId: 0
         };
-        console.log(request);
         this.accessGroupService
           .updateAccessGroup(request)
           .subscribe((data) => this.onCancelClick());
@@ -144,17 +138,16 @@ export class AccessGroupDetailComponent implements OnInit, OnDestroy {
         
         setAccessGroup = this.setPermissions(this.accessGroups, setAccessGroup);
         const departmentId = this.DepartmentId.value;
-        console.log(departmentId)
         const name = this.name.value;
         const description = this.description.value;
-        const applicationId=this.ApplicationId.value;
+        const applicationId = this.ApplicationId.value;
         const request = {
           name: name,
           description: description,
           applicationId: applicationId,
           departmentId: departmentId,
           accessGroupModulePermissions: setAccessGroup,
-          isActive:this.isActive.value
+          isActive: this.isActive.value
         };
 
         this.accessGroupService
@@ -164,13 +157,7 @@ export class AccessGroupDetailComponent implements OnInit, OnDestroy {
     } else {
     }
   }
-  // this.submitted = true;
-  // if (this.accessgroupForm.valid) {
-  //   console.log("success")
-  // }
-  // else{
-  //   console.log("fail")
-  // }
+
   setPermissions(permission: any[], flatDataItems: any[]) {
     permission.forEach((item) => {
       flatDataItems.push({
@@ -189,9 +176,11 @@ export class AccessGroupDetailComponent implements OnInit, OnDestroy {
     this.accessGroupService.getAccessGroupById(id).subscribe((data) => {
       this.accessGroupModel = data;
       this.setEditFormData();
-      this.moduleService.getModulesByApplicationId(this.accessGroupModel.applicationId).subscribe((data) => {
-        (this.module = data), this.setmodule();
-      });
+      this.moduleService
+        .getModulesByApplicationId(this.accessGroupModel.applicationId)
+        .subscribe((data) => {
+          (this.module = data), this.setmodule();
+        });
     });
   }
   setmodule() {
@@ -271,12 +260,13 @@ export class AccessGroupDetailComponent implements OnInit, OnDestroy {
       applicationId = this.ApplicationId.value;
     }
 
-    this.moduleService.getModulesByApplicationId(applicationId).subscribe((data) => {
-      this.accessGroups = new AccessGroup().fromJson(data);
-      
-    });
+    this.moduleService
+      .getModulesByApplicationId(applicationId)
+      .subscribe((data) => {
+        this.accessGroups = new AccessGroup().fromJson(data);
+      });
   }
-  GetApplication(){
+  GetApplication() {
     this.applicationService
       .getApplication()
       .subscribe((data) => (this.application = data));
