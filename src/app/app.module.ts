@@ -16,9 +16,6 @@ import { ShellModule } from './shared/shell/shell.module';
 import { MessageService } from 'primeng/api';
 import { AsmAuthComponent } from './modules/page/asm-auth/asm-auth.component';
 import { AsmModule } from './modules/asm/asm.module';
-import { NgxUiLoaderModule } from 'ngx-ui-loader';
-import { ProgressBarModule } from 'primeng/progressbar';
-import { SpinnerComponent } from '../app/shared/spinner/spinner.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,7 +23,6 @@ import { SpinnerComponent } from '../app/shared/spinner/spinner.component';
     NoAccessComponent,
     PageNotFoundComponent,
     AsmAuthComponent,
-    SpinnerComponent
   ],
   imports: [
     // ProgressBarModule,
