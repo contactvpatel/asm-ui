@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AccessGroupModel } from '@app/data/schema/access-group';
 import { IsActive } from '@app/data/schema/module';
 import { AccessGroupService } from '@app/data/services/access-group.service';
+import { AppBreadcrumbService } from '@app/layout/app.breadcrumb.service';
 import { ConfirmationService, MessageService } from 'primeng/api';
 
 @Component({
@@ -23,8 +24,15 @@ export class AccessGroupSummaryComponent implements OnInit {
     private accessGroupService: AccessGroupService,
     private messageService: MessageService,
     private confirmationService: ConfirmationService,
+    private breadcrumbService: AppBreadcrumbService,
     private route: Router
-  ) {}
+  ) {
+
+    this.breadcrumbService.setItems([
+      {label: 'Application Security'},
+      { label: 'Summary'}
+  ]);
+  }
 
   ngOnInit(): void {
     this.getAccessGroup();

@@ -17,6 +17,21 @@ import { environment } from '@env/environment';
 })
 export class AppComponent implements OnInit {
   title = 'asm-ui';
+  topbarTheme: string = 'orange';
+
+  menuTheme: string = 'light';
+
+  layoutMode: string = 'light';
+
+  menuMode: string = 'static';
+
+  inlineMenuPosition: string = 'bottom';
+
+  inputStyle: string = 'outlined';
+
+  ripple: boolean = true;
+
+  isRTL: boolean = false;
   constructor(
     private primengConfig: PrimeNGConfig,
     private activatedRoute: ActivatedRoute,

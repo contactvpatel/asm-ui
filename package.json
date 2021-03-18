@@ -23,6 +23,7 @@
     "@angular/router": "~10.2.0",
     "@fullcalendar/core": "^5.5.1",
     "@ngx-rocket/scripts": "^5.0.0",
+    "chart.js": "2.7.3",
     "jwt-decode": "^3.0.0",
     "ngx-perfect-scrollbar": "^10.1.0",
     "ngx-ui-loader": "^10.0.0",

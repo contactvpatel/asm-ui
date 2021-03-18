@@ -39,9 +39,6 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { SliderModule } from 'primeng/slider';
 
-import { HeaderComponent } from '@app/layout/header/header.component';
-import { FooterComponent } from '@app/layout/footer/footer.component';
-
 import { AsmComponent } from './asm.component';
 import { HomeComponent } from './page/home/home.component';
 import { ModuleComponent } from './page/application-security/module/module.component';
@@ -73,8 +70,6 @@ export const LoaderConfiguration: NgxUiLoaderConfig = {
 
 @NgModule({
   declarations: [
-    HeaderComponent,
-    FooterComponent,
     AsmComponent,
     HomeComponent,
     ModuleComponent,

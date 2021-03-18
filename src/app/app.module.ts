@@ -16,13 +16,21 @@ import { ShellModule } from './shared/shell/shell.module';
 import { MessageService } from 'primeng/api';
 import { AsmAuthComponent } from './modules/page/asm-auth/asm-auth.component';
 import { AsmModule } from './modules/asm/asm.module';
+import { MenuService } from './layout/app.menu.service';
+import { NgxUiLoaderConfig, NgxUiLoaderHttpModule, NgxUiLoaderModule } from 'ngx-ui-loader';
+import { LayoutModule } from './layout/layout.module';
+
+const ngxUiLoaderConfig: NgxUiLoaderConfig = {
+  hasProgressBar: false,
+  overlayColor: 'rgba(0, 0, 0, 0.5)'
+};
 @NgModule({
   declarations: [
     AppComponent,
     SessionTimeoutComponent,
     NoAccessComponent,
     PageNotFoundComponent,
-    AsmAuthComponent,
+    AsmAuthComponent
   ],
   imports: [
     // ProgressBarModule,
@@ -32,12 +40,15 @@ import { AsmModule } from './modules/asm/asm.module';
     FormsModule,
     ReactiveFormsModule,
     CoreModule,
+    LayoutModule,
     ShellModule,
     ToastModule,
     AsmModule,
+    NgxUiLoaderModule.forRoot(ngxUiLoaderConfig),
+    NgxUiLoaderHttpModule.forRoot({showForeground: true}),
     AppRoutingModule
   ],
-  providers: [MessageService],
+  providers: [MessageService, MenuService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
