@@ -5,16 +5,15 @@ import { AppComponent } from '../app.component';
     selector: 'app-footer',
     template: `
         <div class="layout-footer p-d-flex p-ai-center p-p-4 p-shadow-2">
-            <img
+            <!-- <img
                 id="footer-logo"
                 [src]="
-                    'assets/layout/images/footer-' +
-                    (app.layoutMode === 'light' ? 'ultima' : 'ultima-dark') +
-                    '.svg'
+                    'assets/layout/images/logo-ultima.svg'
                 "
+                
                 alt="ultima-footer-logo"
-            />
-            <button
+            /> -->
+            <!-- <button
                 pButton
                 pRipple
                 type="button"
@@ -40,7 +39,7 @@ import { AppComponent } from '../app.component';
                 icon="pi pi-twitter fs-large"
                 class="p-button-rounded p-button-text p-button-plain"
                 [ngClass]="{ 'p-mr-2': !app.isRTL, 'p-ml-2': app.isRTL }"
-            ></button>
+            ></button> -->
         </div>
     `
 })

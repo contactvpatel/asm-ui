@@ -1,7 +1,8 @@
 <div class="layout-topbar p-shadow-4">
     <div class="layout-topbar-left">
         <a class="layout-topbar-logo" routerLink="/">
-            <img id="app-logo" src="assets/layout/images/logo-light.svg" alt="ultima-layout" style="height: 2.25rem">
+            <!-- <img id="app-logo" src="assets/layout/images/favicon.png" alt="ultima-layout" style="height: 2.25rem"> -->
+            <h1 id="app-logo" style="font-family: Helvetica Verdana; color:white;height: 1.50rem;">ASM</h1>
         </a>
 
         <a class="layout-menu-button p-shadow-6" (click)="appMain.onMenuButtonClick($event)" pRipple>
@@ -15,15 +16,14 @@
 
     <div class="layout-topbar-right" [ngClass]="{'layout-topbar-mobile-active': appMain.mobileTopbarActive}">
         <div class="layout-topbar-actions-left">
-            <p-megaMenu [model]="model" styleClass="layout-megamenu"></p-megaMenu>
+            <!-- <p-megaMenu [model]="model" styleClass="layout-megamenu"></p-megaMenu> -->
         </div>
         <div class="layout-topbar-actions-right">
             <ul class="layout-topbar-items">
-                <li class="layout-topbar-item layout-search-item">
+                <!-- <li class="layout-topbar-item layout-search-item">
                     <a class="layout-topbar-action rounded-circle" (click)="appMain.onTopbarItemClick($event, 'search')" pRipple>
                         <i class="pi pi-search fs-large"></i>
                     </a>
-
                     <div class="layout-search-panel p-inputgroup" [@topbarActionPanelAnimation]="'visible'" *ngIf="appMain.search" (@topbarActionPanelAnimation.done)="onSearchAnimationEnd($event)">
                         <span class="p-inputgroup-addon"><i class="pi pi-search"></i></span>
                         <input #searchInput type="text" pInputText placeholder="Search" (click)="appMain.searchClick = true;" (keydown)="appMain.onSearchKeydown($event)">
@@ -31,8 +31,8 @@
                             <button pButton pRipple type="button" icon="pi pi-times" class="p-button-rounded p-button-text p-button-plain" (click)="appMain.searchClick = false;"></button>
                         </span>
                     </div>
-                </li>
-                <li class="layout-topbar-item notifications">
+                </li> -->
+                <!-- <li class="layout-topbar-item notifications">
                     <a class="layout-topbar-action rounded-circle" (click)="appMain.onTopbarItemClick($event, 'notifications')" pRipple>
                         <span class="p-overlay-badge">
                             <i class="pi pi-bell fs-large"></i>
@@ -93,8 +93,8 @@
                             </div>
                         </li>
                     </ul>
-                </li>
-                <li class="layout-topbar-item app">
+                </li> -->
+                <!-- <li class="layout-topbar-item app">
                     <a class="layout-topbar-action rounded-circle" (click)="appMain.onTopbarItemClick($event, 'apps')" pRipple>
                         <i class="pi pi-table fs-large"></i>
                     </a>
@@ -139,10 +139,10 @@
                             </div>
                         </div>
                     </div>
-                </li>
+                </li> -->
                 <li class="layout-topbar-item">
                     <a class="layout-topbar-action p-d-flex p-dir-row p-jc-center p-ai-center p-px-2 rounded-circle" (click)="appMain.onTopbarItemClick($event, 'profile')" pRipple>
-                        <img src="assets/demo/images/avatar/amyelsner.png" alt="avatar" style="width: 32px; height: 32px;">
+                        <img src="assets/demo/images/avatar/stephenshaw.png" alt="avatar" style="width: 32px; height: 32px;">
                     </a>
 
                     <ul class="layout-topbar-action-panel p-shadow-6" [@topbarActionPanelAnimation]="'visible'" *ngIf="appMain.activeTopbarItem === 'profile'">
