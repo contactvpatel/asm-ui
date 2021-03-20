@@ -1,21 +1,16 @@
-import { Injectable } from '@angular/core';
 import {
   HttpEvent,
-  HttpInterceptor,
-  HttpHandler,
+  HttpHandler, HttpInterceptor,
   HttpRequest,
   HttpResponse
 } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { AsmService } from '@app/modules/asm/asm.service';
+import { environment } from '@env/environment';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-
-import { environment } from '@env/environment';
-
-import { Router } from '@angular/router';
-
-import { NgxUiLoaderService } from 'ngx-ui-loader';
-import { CommonService } from '@app/data/services/common.service';
-import { AsmService } from '@app/modules/asm/asm.service';
 
 /**
  * Adds a default error handler to all requests.

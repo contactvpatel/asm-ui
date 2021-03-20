@@ -6,11 +6,12 @@ import { Position, Role } from '@app/data/schema/access-group-assignment';
 import { AccessGroup, Application, Module } from '@app/data/schema/module';
 import { AccessGroupAssignmentService } from '@app/data/services/access-group-assignment.service';
 import { AccessGroupService } from '@app/data/services/access-group.service';
-import { applicationService } from '@app/data/services/application.service';
+import { ApplicationService } from '@app/data/services/application.service';
 import { ModuleService } from '@app/data/services/module.service';
 import { EncryptPipe } from '@app/modules/encrypt/pipes/encrypt.pipe';
 import { ConfirmationService } from 'primeng/api';
 import { Subscription } from 'rxjs';
+import { AppBreadcrumbService } from '@app/layout/app.breadcrumb.service';
 
 @Component({
   selector: 'app-access-group-assignment-detail',
@@ -46,11 +47,19 @@ export class AccessAssignmentGroupDetailComponent implements OnInit, OnDestroy {
     private router: Router,
     private confirmationService: ConfirmationService,
     private moduleService: ModuleService,
-    private applicationService: applicationService,
+    private applicationService: ApplicationService,
     private accessGroupAssignmentService: AccessGroupAssignmentService,
     private accessGroupService: AccessGroupService,
-    private fb: FormBuilder
-  ) {}
+    private fb: FormBuilder,
+    private breadcrumbService: AppBreadcrumbService
+  ) {
+
+    this.breadcrumbService.setItems([
+      {label: 'Access Group Assignment', routerLink: ['/asm/application-security/access-group-assignment']},
+      {label: 'Detail'}
+    ]);
+
+  }
 
   /****************Lifecycle methods**************/
   ngOnInit(): void {
@@ -82,7 +91,7 @@ export class AccessAssignmentGroupDetailComponent implements OnInit, OnDestroy {
 
   /***********************Public method *****************/
   onCancelClick(): void {
-    this.router.navigate(['asm/access-group-assignment']);
+    this.router.navigate(['asm/application-security/access-group-assignment']);
   }
   onFormSubmit(): void {
     this.submitted = true;

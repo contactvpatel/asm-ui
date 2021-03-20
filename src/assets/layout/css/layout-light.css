@@ -825,7 +825,7 @@ body .p-overlay-badge .p-badge {
   top: 4rem;
   right: 0;
   z-index: 1000;
-  min-width: 25rem;
+  min-width: 15rem;
   padding: 1rem 0;
   transform-origin: top;
 }
@@ -2024,7 +2024,7 @@ body .p-overlay-badge .p-badge {
   background-color: #FB8C00;
 }
 .layout-topbar-orange .layout-topbar a {
-  color: #212121;
+  color: #fff;
 }
 .layout-topbar-orange .layout-topbar a:hover {
   background-color: rgba(0, 0, 0, 0.12);
@@ -4362,6 +4362,7 @@ body a {
   background: transparent;
   border: 0 none;
   border-radius: 0;
+  line-height: 1.75rem;
 }
 .layout-breadcrumb-container .layout-breadcrumb-buttons .p-button {
   width: 2.5rem;

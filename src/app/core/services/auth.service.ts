@@ -1,18 +1,15 @@
-import { map } from 'rxjs/operators';
-import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-
 import { HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { CredentialsService } from '@app/core/services/credential.service';
 import { HttpService } from '@app/core/services/http.service';
 import { TokenService } from '@app/core/services/token.service';
-import {
-  deviceId,
-  clientId,
-  clientSecret,
-  applicationId
-} from '../../shared/constants/global.constant';
-import { CredentialsService } from '@app/core/services/credential.service';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { ApiConstants } from '../../shared/constants/api.constant';
+import {
+  applicationId, clientId,
+  clientSecret, deviceId
+} from '../../shared/constants/global.constant';
 
 export interface LoginContext {
   userName: string;

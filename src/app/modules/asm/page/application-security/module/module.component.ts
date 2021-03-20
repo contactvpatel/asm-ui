@@ -1,16 +1,14 @@
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {
   Application,
-  IsActive,
   Module,
   ModuleType
 } from '@app/data/schema/module';
+import { ApplicationService } from '@app/data/services/application.service';
 import { ModuleService } from '@app/data/services/module.service';
-import { applicationService } from '@app/data/services/application.service';
-import { ConfirmationService } from 'primeng/api';
-import { MessageService } from 'primeng/api';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AppBreadcrumbService } from '@app/layout/app.breadcrumb.service';
+import { ConfirmationService, MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-module',
@@ -32,11 +30,18 @@ export class ModuleComponent implements OnInit {
   parentModule: Module[];
   constructor(
     private moduleService: ModuleService,
-    private applicationService: applicationService,
+    private applicationService: ApplicationService,
     private messageService: MessageService,
     private confirmationService: ConfirmationService,
-    private fb: FormBuilder
-  ) {}
+    private fb: FormBuilder,
+    private breadcrumbService: AppBreadcrumbService
+  ) {
+
+    this.breadcrumbService.setItems([
+      {label: 'Module'}
+    ]);
+
+  }
 
   ngOnInit(): void {
     this.getAllModule();

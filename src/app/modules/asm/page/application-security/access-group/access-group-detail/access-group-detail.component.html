@@ -1,196 +1,143 @@
 <div class="card">
   <div *ngIf="config.mode.isEdit === false">
-    <h2 class="font">Access Group Create</h2>
+    <h2 class="font">Create Access Group</h2>
   </div>
   <div *ngIf="config.mode.isEdit === true">
-    <h2 class="font">Access Group Edit</h2>
+    <h2 class="font">Edit Access Group</h2>
   </div>
-</div>
-<form [formGroup]="accessgroupForm">
-  <div class="p-grid p-fluid">
-    <div class="p-col-12 p-md-6 p-mt-2">
-      <p-dropdown
-        [options]="application"
-        [ngClass]="{
-          'ng-invalid ng-dirty':
-            submitted && accessgroupForm.controls.applicationId.errors?.required
-        }"
-        placeholder="Select Application"
-        optionLabel="applicationName"
-        [showClear]="true"
-        formControlName="applicationId"
-        optionValue="applicationId"
-        (onChange)="getAllModule()"
-      >
-      </p-dropdown>
-      <small
-        class="p-invalid error"
-        *ngIf="
-          submitted && accessgroupForm.controls.applicationId.errors?.required
-        "
-      >
-        Application is required.
-      </small>
-    </div>
-
-    <div class="p-col-12 p-md-6 p-mt-2">
-      <span class="p-float-label">
-        <span class="p-float-label">
-          <input
-            id="float-input"
-            [ngClass]="{
-              'ng-invalid ng-dirty':
-                submitted && accessgroupForm.controls.name.errors?.required
-            }"
-            type="text"
-            pInputText
-            formControlName="name"
-          />
-          <label for="float-input" class="p-component"> Name </label>
-        </span>
+  <form [formGroup]="accessgroupForm">
+    <div class="p-grid p-fluid">
+      <div class="p-col-12 p-md-6 p-mt-2">
+        <p-dropdown
+          [options]="application"
+          [ngClass]="{
+            'ng-invalid ng-dirty':
+              submitted && accessgroupForm.controls.applicationId.errors?.required
+          }"
+          placeholder="Select Application"
+          optionLabel="applicationName"
+          [showClear]="true"
+          formControlName="applicationId"
+          optionValue="applicationId"
+          (onChange)="getAllModule()"
+        >
+        </p-dropdown>
         <small
           class="p-invalid error"
-          *ngIf="submitted && accessgroupForm.controls.name.errors?.required"
+          *ngIf="
+            submitted && accessgroupForm.controls.applicationId.errors?.required
+          "
         >
-          Name is required.
+          Application is required.
         </small>
-      </span>
-    </div>
-  </div>
-  <div class="p-grid p-fluid">
-    <div class="p-col-12 p-md-6 p-mt-2">
-      <p-dropdown
-        [options]="department"
-        placeholder="Select Department"
-        optionLabel="departmentName"
-        optionValue="departmentId"
-        [showClear]="true"
-        formControlName="departmentId"
-      >
-      </p-dropdown>
-    </div>
-    <div class="p-col-12 p-md-6 p-mt-2">
-      <span class="p-float-label">
+      </div>
+      <div class="p-col-12 p-md-6 p-mt-2">
         <span class="p-float-label">
-          <input
-            id="float-input"
-            type="text"
-            pInputText
-            formControlName="description"
-          />
-
-          <label for="float-input" class="p-component"> Description </label>
+          <span class="p-float-label">
+            <input
+              id="float-input"
+              [ngClass]="{
+                'ng-invalid ng-dirty':
+                  submitted && accessgroupForm.controls.name.errors?.required
+              }"
+              type="text"
+              pInputText
+              formControlName="name"
+            />
+            <label for="float-input" class="p-component"> Name </label>
+          </span>
+          <small
+            class="p-invalid error"
+            *ngIf="submitted && accessgroupForm.controls.name.errors?.required"
+          >
+            Name is required.
+          </small>
         </span>
-      </span>
+      </div>
     </div>
-  </div>
-  <div class="p-grid p-fluid">
-    <div class="p-col-12 p-md-6 p-mt-2 p-mb-2">
-      <div class="p-field">
-        <label for="moduleType" class="font">Active</label>
-        <div class="p-field-radiobutton">
+    <div class="p-grid p-fluid">
+      <div class="p-col-12 p-md-6 p-mt-3">
+        <p-dropdown
+          [options]="department"
+          placeholder="Select Department"
+          optionLabel="departmentName"
+          optionValue="departmentId"
+          [showClear]="true"
+          formControlName="departmentId"
+        >
+        </p-dropdown>
+      </div>
+      <div class="p-col-12 p-md-6 p-mt-3">
+        <span class="p-float-label">
+          <span class="p-float-label">
+            <input
+              id="float-input"
+              type="text"
+              pInputText
+              formControlName="description"
+            />
+
+            <label for="float-input" class="p-component"> Description </label>
+          </span>
+        </span>
+      </div>
+    </div>
+    <div class="p-grid p-fluid">
+      <div class="p-col-12 p-md-12 p-mt-3">
+        <div class="p-field">
+          <label for="moduleType" class="font">Active</label>
           <div class="p-field-radiobutton">
-            <p-radioButton
-              name="isActive"
-              value="true"
-              class="font"
-              formControlName="isActive"
-              inputId="op1"
-            ></p-radioButton>
-            <label class="font" for="true">Yes</label>
-          </div>
-          <div class="p-field-radiobutton p-ml-3">
-            <p-radioButton
-              name="isActive"
-              value="false"
-              class="font"
-              formControlName="isActive"
-              inputId="op2"
-            ></p-radioButton>
-            <label for="false" class="font">No</label>
+            <div class="p-field-radiobutton">
+              <p-radioButton
+                name="isActive"
+                value="true"
+                class="font"
+                formControlName="isActive"
+                inputId="op1"
+              ></p-radioButton>
+              <label class="font" for="true">Yes</label>
+            </div>
+            <div class="p-field-radiobutton p-ml-3">
+              <p-radioButton
+                name="isActive"
+                value="false"
+                class="font"
+                formControlName="isActive"
+                inputId="op2"
+              ></p-radioButton>
+              <label for="false" class="font">No</label>
+            </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="p-col-12 p-md-6 p-mt-2 p-mb-2"></div>
-  </div>
-</form>
-<p-table
-  #dt
-  [value]="accessGroups"
-  [globalFilterFields]="['name']"
-  [rowHover]="true"
->
-  <ng-template pTemplate="header">
-    <tr>
-      <th pSortableColumn="application">
-        Module Type <p-sortIcon field="application"></p-sortIcon>
-      </th>
-      <th pSortableColumn="department">
-        Parent Module <p-sortIcon field="department"></p-sortIcon>
-      </th>
-      <th pSortableColumn="name">
-        Module <p-sortIcon field="name"></p-sortIcon>
-      </th>
-      <th pSortableColumn="role">View</th>
-      <th pSortableColumn="position">Create</th>
-      <th pSortableColumn="person">Edit</th>
-      <th pSortableColumn="lastUpdate">Delete</th>
-      <th pSortableColumn="lastUpdate">Access</th>
-    </tr>
-  </ng-template>
-  <ng-template pTemplate="body" let-accessGroup let-index>
-    <tr *ngIf="accessGroup.showCheckbox; else elseBlock">
-      <td>{{ accessGroup.moduleType.name }}</td>
-      <td *ngIf="accessGroup.parentModule !== null; else elseBlock">
-        {{ accessGroup.parentModule.name }}
-      </td>
-      <ng-template #elseBlock>
-        <td></td>
-      </ng-template>
-      <td>{{ accessGroup.name }}</td>
-      <td>
-        <div class="p-field-checkbox">
-          <p-checkbox
-            [(ngModel)]="accessGroup.accessGroupModulePermissions.hasViewAccess"
-            binary="true"
-          ></p-checkbox>
-        </div>
-      </td>
-      <td>
-        <div class="p-field-checkbox">
-          <p-checkbox
-            [(ngModel)]="
-              accessGroup.accessGroupModulePermissions.hasCreateAccess
-            "
-            binary="true"
-          ></p-checkbox>
-        </div>
-      </td>
-      <td>
-        <div class="p-field-checkbox">
-          <p-checkbox
-            [(ngModel)]="
-              accessGroup.accessGroupModulePermissions.hasUpdateAccess
-            "
-            binary="Create"
-          ></p-checkbox>
-        </div>
-      </td>
-      <td>
-        <div class="p-field-checkbox">
-          <p-checkbox
-            [(ngModel)]="
-              accessGroup.accessGroupModulePermissions.hasDeleteAccess
-            "
-            binary="Delete"
-          ></p-checkbox>
-        </div>
-      </td>
-      <td></td>
-    </tr>
-    <ng-template #elseBlock>
+  </form>
+  <p-table
+    #dt
+    [value]="accessGroups"
+    [globalFilterFields]="['name']"
+    [rowHover]="true"
+  >
+    <ng-template pTemplate="header">
       <tr>
+        <th pSortableColumn="application">
+          Module Type <p-sortIcon field="application"></p-sortIcon>
+        </th>
+        <th pSortableColumn="department">
+          Parent Module <p-sortIcon field="department"></p-sortIcon>
+        </th>
+        <th pSortableColumn="name">
+          Module <p-sortIcon field="name"></p-sortIcon>
+        </th>
+        <th pSortableColumn="role">View</th>
+        <th pSortableColumn="position">Create</th>
+        <th pSortableColumn="person">Edit</th>
+        <th pSortableColumn="lastUpdate">Delete</th>
+        <th pSortableColumn="lastUpdate">Access</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-accessGroup let-index>
+      <tr *ngIf="accessGroup.showCheckbox; else elseBlock">
         <td>{{ accessGroup.moduleType.name }}</td>
         <td *ngIf="accessGroup.parentModule !== null; else elseBlock">
           {{ accessGroup.parentModule.name }}
@@ -199,43 +146,92 @@
           <td></td>
         </ng-template>
         <td>{{ accessGroup.name }}</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
         <td>
-          <div class="p-field-radiobutton">
-            <div class="p-field-radiobutton">
-              <p-radioButton
-                name="isActive"
-                [value]="true"
-                [(ngModel)]="
-                  accessGroup.accessGroupModulePermissions.hasAccessRight
-                "
-                inputId="true"
-              ></p-radioButton>
-              <label for="true">Yes</label>
-            </div>
-            <div class="p-field-radiobutton p-ml-3">
-              <p-radioButton
-                name="isActive"
-                [value]="false"
-                [(ngModel)]="
-                  accessGroup.accessGroupModulePermissions.hasAccessRight
-                "
-                inputId="false"
-              ></p-radioButton>
-              <label for="false">No</label>
-            </div>
+          <div class="p-field-checkbox">
+            <p-checkbox
+              [(ngModel)]="accessGroup.accessGroupModulePermissions.hasViewAccess"
+              binary="true"
+            ></p-checkbox>
           </div>
         </td>
+        <td>
+          <div class="p-field-checkbox">
+            <p-checkbox
+              [(ngModel)]="
+                accessGroup.accessGroupModulePermissions.hasCreateAccess
+              "
+              binary="true"
+            ></p-checkbox>
+          </div>
+        </td>
+        <td>
+          <div class="p-field-checkbox">
+            <p-checkbox
+              [(ngModel)]="
+                accessGroup.accessGroupModulePermissions.hasUpdateAccess
+              "
+              binary="Create"
+            ></p-checkbox>
+          </div>
+        </td>
+        <td>
+          <div class="p-field-checkbox">
+            <p-checkbox
+              [(ngModel)]="
+                accessGroup.accessGroupModulePermissions.hasDeleteAccess
+              "
+              binary="Delete"
+            ></p-checkbox>
+          </div>
+        </td>
+        <td></td>
       </tr>
+      <ng-template #elseBlock>
+        <tr>
+          <td>{{ accessGroup.moduleType.name }}</td>
+          <td *ngIf="accessGroup.parentModule !== null; else elseBlock">
+            {{ accessGroup.parentModule.name }}
+          </td>
+          <ng-template #elseBlock>
+            <td></td>
+          </ng-template>
+          <td>{{ accessGroup.name }}</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>
+            <div class="p-field-radiobutton">
+              <div class="p-field-radiobutton">
+                <p-radioButton
+                  name="isActive"
+                  [value]="true"
+                  [(ngModel)]="
+                    accessGroup.accessGroupModulePermissions.hasAccessRight
+                  "
+                  inputId="true"
+                ></p-radioButton>
+                <label for="true">Yes</label>
+              </div>
+              <div class="p-field-radiobutton p-ml-3">
+                <p-radioButton
+                  name="isActive"
+                  [value]="false"
+                  [(ngModel)]="
+                    accessGroup.accessGroupModulePermissions.hasAccessRight
+                  "
+                  inputId="false"
+                ></p-radioButton>
+                <label for="false">No</label>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </ng-template>
     </ng-template>
-  </ng-template>
-
-  <ng-template pTemplate="summary">
-    <div class="button-div">
-      <button
+  </p-table>
+  <div class="p-col-12">
+    <button
         pButton
         type="button"
         (click)="onFormSubmit()"
@@ -249,6 +245,6 @@
         label="Cancel"
         class="p-button-danger p-ml-3"
       ></button>
-    </div>
-  </ng-template>
-</p-table>
+  </div>
+</div>
+

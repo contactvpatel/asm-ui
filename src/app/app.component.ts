@@ -1,15 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { PrimeNGConfig } from 'primeng/api';
-import jwt_decode from 'jwt-decode';
-
-import { TokenService } from '@app/core/services/token.service';
 import { CredentialsService } from '@app/core/services/credential.service';
+import { TokenService } from '@app/core/services/token.service';
 import { CommonService } from '@app/data/services/common.service';
-
 import { ApiConstants } from '@app/shared/constants/api.constant';
+import jwt_decode from 'jwt-decode';
+import { PrimeNGConfig } from 'primeng/api';
 
-import { environment } from '@env/environment';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -27,7 +24,7 @@ export class AppComponent implements OnInit {
 
   inlineMenuPosition: string = 'bottom';
 
-  inputStyle: string = 'outlined';
+  inputStyle: string = 'filled';
 
   ripple: boolean = true;
 

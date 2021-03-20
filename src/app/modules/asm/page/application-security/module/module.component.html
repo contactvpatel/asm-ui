@@ -1,5 +1,5 @@
 <div class="card">
-  <p-toolbar styleClass="p-mb-4">
+  <p-toolbar>
     <ng-template pTemplate="right">
       <button
         pButton
@@ -12,7 +12,7 @@
       <button
         pButton
         pRipple
-        [label]="Delete"
+        label="Delete"
         icon="pi pi-trash"
         class="p-button-danger"
         (click)="deleteSelectedmodules()"
@@ -147,7 +147,7 @@
     </ng-template>
     <ng-template pTemplate="summary">
       <div class="p-d-flex p-ai-center p-jc-between">
-        In total there are {{ modules ? modules.length : 0 }} Module.
+        Total {{ modules ? modules.length : 0 }} Module.
       </div>
     </ng-template>
   </p-table>

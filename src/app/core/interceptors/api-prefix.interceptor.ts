@@ -1,13 +1,11 @@
-import { Injectable } from '@angular/core';
 import {
   HttpEvent,
-  HttpInterceptor,
-  HttpHandler,
+  HttpHandler, HttpInterceptor,
   HttpRequest
 } from '@angular/common/http';
-import { Observable } from 'rxjs';
-
+import { Injectable } from '@angular/core';
 import { environment } from '@env/environment';
+import { Observable } from 'rxjs';
 
 /**
  * Prefixes all requests not starting with `http[s]` with `environment.apiServerUrl`.

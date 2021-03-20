@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AccessGroupModel } from '@app/data/schema/access-group';
-import { IsActive } from '@app/data/schema/module';
 import { AccessGroupService } from '@app/data/services/access-group.service';
 import { AppBreadcrumbService } from '@app/layout/app.breadcrumb.service';
 import { ConfirmationService, MessageService } from 'primeng/api';
@@ -29,9 +28,10 @@ export class AccessGroupSummaryComponent implements OnInit {
   ) {
 
     this.breadcrumbService.setItems([
-      {label: 'Application Security'},
+      {label: 'Access Group', routerLink: ['/asm/application-security/access-group']},
       { label: 'Summary'}
-  ]);
+    ]);
+
   }
 
   ngOnInit(): void {
@@ -43,9 +43,7 @@ export class AccessGroupSummaryComponent implements OnInit {
   }
 
   editAccessGroup(access: any): void {
-    this.route.navigate([
-      '/asm/application-security/access-group/edit/' + access.accessGroupId
-    ]);
+    this.route.navigate(['/asm/application-security/access-group/edit/' + access.accessGroupId]);
   }
 
   deleteSelectedAccessGroup(): void {

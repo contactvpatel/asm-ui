@@ -1,11 +1,11 @@
 <p-confirmDialog [style]="{ width: '450px' }"></p-confirmDialog>
 <div class="card">
-  <p-toolbar styleClass="p-mb-4">
+  <p-toolbar>
     <ng-template pTemplate="right">
       <button
         pButton
         pRipple
-        label="New Access Group"
+        label="Add Access Group"
         icon="pi pi-plus"
         class="p-button-success p-mr-2"
         (click)="openNew()"
@@ -13,7 +13,7 @@
       <button
         pButton
         pRipple
-        [label]="Delete"
+        label="Delete"
         icon="pi pi-trash"
         class="p-button-danger"
         (click)="deleteSelectedAccessGroup()"
@@ -129,8 +129,7 @@
     </ng-template>
     <ng-template pTemplate="summary">
       <div class="p-d-flex p-ai-center p-jc-between">
-        In total there are
-        {{ accessGroups ? accessGroups.length : 0 }} AccessGroup.
+        Total {{ accessGroups ? accessGroups.length : 0 }} Access Group.
       </div>
     </ng-template>
   </p-table>

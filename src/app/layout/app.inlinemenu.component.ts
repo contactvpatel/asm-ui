@@ -1,13 +1,10 @@
-import { Component, Input } from '@angular/core';
 import {
-    trigger,
-    state,
-    transition,
-    style,
-    animate
+  animate, state,
+  style, transition, trigger
 } from '@angular/animations';
-import { AppMainComponent } from './app.main.component';
+import { Component, Input } from '@angular/core';
 import { AppComponent } from '../app.component';
+import { AppMainComponent } from './app.main.component';
 
 @Component({
     selector: 'app-inline-menu',

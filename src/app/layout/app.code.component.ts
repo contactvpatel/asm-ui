@@ -1,5 +1,5 @@
-import { Component, ElementRef, AfterViewInit, Input, NgModule, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { AfterViewInit, Component, ElementRef, Input, NgModule, ViewChild } from '@angular/core';
 
 @Component({
     selector: 'app-code',

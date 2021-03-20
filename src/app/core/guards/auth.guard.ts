@@ -1,12 +1,8 @@
 import { Injectable } from '@angular/core';
 import {
-  Router,
-  CanActivate,
-  ActivatedRouteSnapshot,
+  ActivatedRouteSnapshot, CanActivate, Router,
   RouterStateSnapshot
 } from '@angular/router';
-import { of } from 'rxjs';
-
 import { CredentialsService } from '../services/credential.service';
 
 @Injectable({
@@ -30,6 +26,6 @@ export class AuthGuard implements CanActivate {
 
       return false;
     }
-    
+
   }
 }

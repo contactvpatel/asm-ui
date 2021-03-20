@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { PermissionGuard } from './core/guards/permission.guard';
 import { AppMainComponent } from './layout/app.main.component';
 import { AsmAuthComponent } from './modules/page/asm-auth/asm-auth.component';

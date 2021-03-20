@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AppComponent } from '../app.component';
 import { AppMainComponent } from './app.main.component';
 
@@ -296,10 +296,10 @@ export class AppConfigComponent implements OnInit {
         const appLogoLink: HTMLImageElement = document.getElementById('app-logo') as HTMLImageElement;
 
         if (theme.name == 'white' || theme.name == 'yellow' || theme.name == 'amber'  || theme.name == 'orange' || theme.name == 'lime') {
-            appLogoLink.src = 'assets/layout/images/logo-dark.svg';
+            appLogoLink.src = 'assets/layout/images/logo.png';
         }
         else {
-            appLogoLink.src = 'assets/layout/images/logo-light.svg';
+            appLogoLink.src = 'assets/layout/images/logo.png';
         }
     }
 

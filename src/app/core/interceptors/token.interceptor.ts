@@ -1,18 +1,16 @@
-import { Router } from '@angular/router';
 import {
-  HttpEvent,
+  HttpErrorResponse, HttpEvent,
   HttpHandler,
   HttpInterceptor,
   HttpRequest,
-  HttpResponse,
-  HttpErrorResponse
+  HttpResponse
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { mergeMap, map, switchMap, tap } from 'rxjs/operators';
-
-import { TokenService } from '@app/core/services/token.service';
+import { Router } from '@angular/router';
 import { CredentialsService } from '@app/core/services/credential.service';
+import { TokenService } from '@app/core/services/token.service';
+import { Observable } from 'rxjs';
+import { mergeMap, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'

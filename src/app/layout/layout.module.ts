@@ -16,7 +16,6 @@ import { CalendarModule } from 'primeng/calendar';
 import { CardModule } from 'primeng/card';
 import { CarouselModule } from 'primeng/carousel';
 import { CascadeSelectModule } from 'primeng/cascadeselect';
-import { ChartModule } from 'primeng/chart';
 import { CheckboxModule } from 'primeng/checkbox';
 import { ChipModule } from 'primeng/chip';
 import { ChipsModule } from 'primeng/chips';
@@ -84,7 +83,6 @@ import { TooltipModule } from 'primeng/tooltip';
 import { TreeModule } from 'primeng/tree';
 import { TreeTableModule } from 'primeng/treetable';
 import { VirtualScrollerModule } from 'primeng/virtualscroller';
-
 import { AppRoutingModule } from '../app-routing.module';
 import { AppBreadcrumbComponent } from './app.breadcrumb.component';
 import { AppBreadcrumbService } from './app.breadcrumb.service';
@@ -117,7 +115,6 @@ import { AppTopBarComponent } from './app.topbar.component';
     CardModule,
     CarouselModule,
     CascadeSelectModule,
-    ChartModule,
     CheckboxModule,
     ChipModule,
     ChipsModule,

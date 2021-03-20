@@ -203,7 +203,7 @@ body {
 
 .p-toolbar {
   background: transparent;
-  padding: 24px;
+  padding: 10px 0 5px 10px;
 }
 
 .p-dropdown,
@@ -231,7 +231,6 @@ body {
   border-color: transparent;
 }
 
-//apply by pradip
 .p-button.c-button-link {
   height: 1rem !important;
   width: 1rem;
@@ -240,8 +239,6 @@ body {
 
 .button-div {
   float: right;
-  
-  padding-top: 20px;
 }
 
 @media (max-width: 360px) {
@@ -269,17 +266,17 @@ input#search-bar{
     transition: 0.35s ease;
     color: #008ABF;
     &::-webkit-input-placeholder{
-      transition: opacity 0.45s ease; 
+      transition: opacity 0.45s ease;
       opacity: 0;
      }
     &::-moz-placeholder {
-      transition: opacity 0.45s ease; 
+      transition: opacity 0.45s ease;
       opacity: 0;
      }
     &:-ms-placeholder {
-     transition: opacity 0.45s ease; 
+     transition: opacity 0.45s ease;
      opacity: 0;
-     }    
+     }
    }
  }
 
@@ -292,7 +289,7 @@ input#search-bar{
     font-size: 30px;
 }
 .search {
-  border-radius: 25px;  
+  border-radius: 25px;
 }
 
 
@@ -302,10 +299,10 @@ input#search-bar{
     font-family: Roboto, Helvetica Neue Light, Helvetica Neue, Helvetica, Arial, Lucida Grande, sans-serif;
 }
 .has-error {
-  border: 1px solid red;
-  color: red;
+  border: 1px solid #B00020;
+  color: #B00020;
 }
 .error{
-  color :red;
+  color :#B00020;
   font-family: Roboto, Helvetica Neue Light, Helvetica Neue, Helvetica, Arial, Lucida Grande, sans-serif;
 }
