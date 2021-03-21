@@ -7,9 +7,10 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ApiConstants } from '../../shared/constants/api.constant';
 import {
-  applicationId, clientId,
-  clientSecret, deviceId
+  applicationId,
+  deviceId
 } from '../../shared/constants/global.constant';
+import { environment } from '@env/environment';
 
 export interface LoginContext {
   userName: string;
@@ -34,8 +35,8 @@ export class AuthenticationService {
   requestToken(): Observable<any> {
     let httpHeader = new HttpHeaders();
     httpHeader = httpHeader.set('Device-ID', deviceId);
-    httpHeader = httpHeader.set('Client-ID', clientId);
-    httpHeader = httpHeader.set('Client-Secret', clientSecret);
+    httpHeader = httpHeader.set('Client-ID', environment.ssoClientId);
+    httpHeader = httpHeader.set('Client-Secret', environment.ssoClientSecret);
     httpHeader = httpHeader.set('Application-ID', applicationId);
     return this.httpService
       .post(
@@ -52,12 +53,6 @@ export class AuthenticationService {
   }
 
   login(context: LoginContext): Observable<any> {
-    // let httpHeader = new HttpHeaders()
-    // httpHeader = httpHeader.set("Device-ID", deviceId);
-    // httpHeader = httpHeader.set("Client-ID", clientId);
-    // httpHeader = httpHeader.set("Client-Secret", clientSecret);
-    // httpHeader = httpHeader.set("Application-ID", applicationId);
-    // return this.httpService.post(ApiConstants.Auth.login, context, { headers: httpHeader }).pipe(
     return this.httpService.post(ApiConstants.Auth.login, context).pipe(
       map((res: any) => {
         this.tokenService.setToken(res.token);

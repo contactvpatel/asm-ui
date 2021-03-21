@@ -5,12 +5,9 @@
 
 export const deviceId = '000-000-0000';
 export const applicationId = 'ASDFGHG-3050-4D9C-A124-85332A34E7DD';
-export const clientId = 'BAB84BB7-FAB3-4A1C-B6FD-7125C9E63500';
-export const clientSecret = 'A4EC943A-CFCC-4142-8857-E0C294ED8842';
 export const headerTitle = 'ASM';
 export const footerCompanyName = 'ASM';
 export const itemsPerPage = 50;
-// export const forgotPasswordRedirectLink = 'http://192.168.2.201:4200/auth/reset-password';
 export const regExp = {
   emailRegEx: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/, // valid email id
   passwordRegEx: /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@#$-_\.*]).{8,}$/, // allow a-z,A-Z,0-9 and @#$.-_ only

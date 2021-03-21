@@ -1,6 +1,7 @@
 import {
   HttpEvent,
-  HttpHandler, HttpInterceptor,
+  HttpHandler,
+  HttpInterceptor,
   HttpRequest,
   HttpResponse
 } from '@angular/common/http';
@@ -53,7 +54,7 @@ export class ErrorHandlerInterceptor implements HttpInterceptor {
       //-this.ngxService.stop();
       this.asmService.hideLoader();
       // window.location.href = environment.SSOURL + 'Home/SignIn?client_id=' + clientId + '&client_key=' + clientSecret + '&redirect_uri=' + window.location.origin + '/application/';
-      this.router.navigate(['/signed-out']);
+      this.router.navigate(['/signedout']);
       //this.router.navigate(['/403']);
       //this.router.navigate(['/auth/login'], { replaceUrl: true });
     }

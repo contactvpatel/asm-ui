@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthenticationService } from '@app/core/services/auth.service';
 import { CredentialsService } from '@app/core/services/credential.service';
-import { clientId, clientSecret } from '@app/shared/constants/global.constant';
 import { environment } from '@env/environment';
 
 @Component({
@@ -10,9 +10,12 @@ import { environment } from '@env/environment';
 })
 export class SessionTimeoutComponent implements OnInit {
   loginLink: string = environment.ssoLoginUrl;
-  clientId: string = clientId;
-  clientSecret: string = clientSecret;
-  constructor(private credentialsService: CredentialsService) {
+  clientId: string = environment.ssoClientId;
+  clientSecret: string = environment.ssoClientSecret;
+  constructor(
+    private credentialsService: CredentialsService,
+    private authenticationService: AuthenticationService
+  ) {
     this.credentialsService.removeCredentials();
   }
 

@@ -1,4 +1,3 @@
-import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -196,11 +195,6 @@ import { AppTopBarComponent } from './app.topbar.component';
     AppTopBarComponent,
     AppFooterComponent
   ],
-  providers: [
-    { provide: LocationStrategy, useClass: HashLocationStrategy },
-
-    MenuService,
-    AppBreadcrumbService
-  ]
+  providers: [MenuService, AppBreadcrumbService]
 })
 export class LayoutModule {}

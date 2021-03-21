@@ -1,5 +1,6 @@
 import {
-  HttpErrorResponse, HttpEvent,
+  HttpErrorResponse,
+  HttpEvent,
   HttpHandler,
   HttpInterceptor,
   HttpRequest,
@@ -52,7 +53,7 @@ export class TokenInterceptor implements HttpInterceptor {
                 if (error.status === 401) {
                   alert('Token Expired. Redirecting to login page');
                   this.credentialsService.setCredentials();
-                  this.router.navigate(['/login'], { replaceUrl: true });
+                  this.router.navigate(['/signedout'], { replaceUrl: true });
                 }
               }
             }

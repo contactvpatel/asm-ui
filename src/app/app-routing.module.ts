@@ -13,14 +13,17 @@ const routes: Routes = [
     component: NoAccessComponent
   },
   {
-    path: 'signed-out',
+    path: 'signedout',
     component: SessionTimeoutComponent
   },
   {
     path: '403',
     component: SessionTimeoutComponent
   },
-
+  {
+    path: 'authentication',
+    component: AsmAuthComponent
+  },
   {
     path: '',
     component: AppMainComponent,
@@ -33,12 +36,6 @@ const routes: Routes = [
       }
     ]
   },
-  {
-    path: ':auth',
-    pathMatch: 'full',
-    component: AsmAuthComponent
-  },
-
   {
     path: '**',
     component: PageNotFoundComponent
