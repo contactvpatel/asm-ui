@@ -8,8 +8,9 @@ import {
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AsmService } from '@app/modules/asm/asm.service';
+import { msgTitle, msgType } from '@app/shared/constants/global.constant';
 import { environment } from '@env/environment';
-import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { MessageService } from 'primeng/api';
 import { Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
@@ -21,9 +22,9 @@ import { catchError, map } from 'rxjs/operators';
 })
 export class ErrorHandlerInterceptor implements HttpInterceptor {
   constructor(
-    private ngxService: NgxUiLoaderService,
     public router: Router,
-    private asmService: AsmService // private authenticationService: AuthenticationService,
+    private asmService: AsmService,
+    private messageService: MessageService
   ) {}
 
   intercept(
@@ -31,13 +32,23 @@ export class ErrorHandlerInterceptor implements HttpInterceptor {
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
     this.asmService.showLoader();
-    //-this.ngxService.start();
 
     return next.handle(request).pipe(
       map((event: HttpEvent<any>) => {
         if (event instanceof HttpResponse) {
-          //-this.ngxService.stop();
-          this.asmService.hideLoader();
+          if (event.body?.succeeded === false) {
+            let listofMessages = [];
+            let toastMessage = '';
+            event.body.errors?.forEach((error) => {
+              listofMessages.push(error.message);
+            });
+            toastMessage = listofMessages.join('\n');
+            this.messageService.add({
+              severity: msgType.error,
+              summary: msgTitle.error,
+              detail: toastMessage
+            });
+          }
         }
         return event;
       }),
@@ -47,26 +58,37 @@ export class ErrorHandlerInterceptor implements HttpInterceptor {
 
   // Customize the default error handler here if needed
   private errorHandler(response: any): Observable<HttpEvent<any>> {
-    //log.error('Request error 1', response);
     if (response.status == 403) {
       localStorage.clear();
       // this.authenticationService.logout()
-      //-this.ngxService.stop();
       this.asmService.hideLoader();
       // window.location.href = environment.SSOURL + 'Home/SignIn?client_id=' + clientId + '&client_key=' + clientSecret + '&redirect_uri=' + window.location.origin + '/application/';
       this.router.navigate(['/signedout']);
-      //this.router.navigate(['/403']);
       //this.router.navigate(['/auth/login'], { replaceUrl: true });
     }
 
     if (!environment.production) {
       // Do something with the error
       //log.error('Request error', response);
-      //-this.ngxService.stop();
       this.asmService.hideLoader();
     }
-    //-this.ngxService.stop();
-    this.asmService.hideLoader();
+
+    if (response.status == 0) {
+      // navigate if api not working
+    } else {
+      let listofMessages = [];
+      let toastMessage = '';
+      response.error?.errors?.forEach((error) => {
+        listofMessages.push(error.message);
+      });
+      toastMessage = listofMessages.join('\n');
+      this.messageService.add({
+        severity: msgType.error,
+        summary: msgTitle.error,
+        detail: toastMessage
+      });
+    }
+
     throw response;
   }
 }

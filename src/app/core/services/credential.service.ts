@@ -1,11 +1,7 @@
 import { Injectable } from '@angular/core';
-
-export interface Credentials {
-  // Customize received credentials here
-  username: string;
-  token: any;
-  authenticationInfo: any;
-}
+import { AuthenticationInfo } from '@app/data/schema/authentication-info';
+import { Credentials } from '@app/data/schema/credentials';
+import { environment } from '@env/environment';
 
 const credentialsKey = 'credentials';
 
@@ -18,12 +14,16 @@ const credentialsKey = 'credentials';
 })
 export class CredentialsService {
   private credentialValue: Credentials | null = null;
-  domain: string;
+  key: string;
   constructor() {
-    this.domain = document.domain + '_';
+    this.key =
+      document.domain +
+      '_' +
+      environment.applicationName +
+      '_' +
+      credentialsKey;
     const savedCredentials =
-      sessionStorage.getItem(this.domain + credentialsKey) ||
-      localStorage.getItem(this.domain + credentialsKey);
+      sessionStorage.getItem(this.key) || localStorage.getItem(this.key);
     if (savedCredentials) {
       this.credentialValue = JSON.parse(savedCredentials);
     }
@@ -35,11 +35,10 @@ export class CredentialsService {
    */
   isAuthenticated(): boolean {
     const savedCredentials =
-      sessionStorage.getItem(this.domain + credentialsKey) ||
-      localStorage.getItem(this.domain + credentialsKey);
+      sessionStorage.getItem(this.key) || localStorage.getItem(this.key);
     if (savedCredentials) {
-      const credentialValue = JSON.parse(savedCredentials);
-      return !!credentialValue;
+      this.credentialValue = JSON.parse(savedCredentials);
+      return !!this.credentialValue;
     }
     false;
   }
@@ -53,6 +52,17 @@ export class CredentialsService {
   }
 
   /**
+   * Gets the auth info.
+   * @return The user credentials or null if the auth info not found.
+   */
+  get authinfo(): AuthenticationInfo | null {
+    let authenticationInfo: AuthenticationInfo = JSON.parse(
+      this.credentialValue.authenticationInfo
+    );
+    return authenticationInfo;
+  }
+
+  /**
    * Sets the user credentials.
    * The credentials may be persisted across sessions by setting the `remember` parameter to true.
    * Otherwise, the credentials are only persisted for the current session.
@@ -63,18 +73,16 @@ export class CredentialsService {
     this.credentialValue = credentials || null;
     if (credentials) {
       const storage = remember ? localStorage : sessionStorage;
-      storage.setItem(
-        this.domain + credentialsKey,
-        JSON.stringify(credentials)
-      );
+      storage.setItem(this.key, JSON.stringify(credentials));
     } else {
-      sessionStorage.removeItem(this.domain + credentialsKey);
-      localStorage.removeItem(this.domain + credentialsKey);
+      sessionStorage.removeItem(this.key);
+      localStorage.removeItem(this.key);
     }
   }
 
   removeCredentials() {
-    sessionStorage.removeItem(this.domain + credentialsKey);
-    localStorage.removeItem(this.domain + credentialsKey);
+    sessionStorage.removeItem(this.key);
+    localStorage.removeItem(this.key);
+    localStorage.removeItem('asm_authenticationInfo');
   }
 }

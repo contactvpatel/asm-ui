@@ -1,12 +1,13 @@
 import {
   HttpEvent,
-  HttpHandler, HttpInterceptor,
+  HttpHandler,
+  HttpInterceptor,
   HttpRequest,
   HttpResponse
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { HttpCacheService } from '@app/core/services/http-cache.service';
 import { Observable, Subscriber } from 'rxjs';
-import { HttpCacheService } from '../services/http-cache.service';
 
 /**
  * Caches HTTP requests.

@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import {
-  ActivatedRouteSnapshot, CanActivate,
-  Router, RouterStateSnapshot,
+  ActivatedRouteSnapshot,
+  CanActivate,
+  Router,
+  RouterStateSnapshot,
   UrlTree
 } from '@angular/router';
-import { Observable, of } from 'rxjs';
-import { delay } from 'rxjs/operators';
-import { TokenService } from '../services/token.service';
+import { TokenService } from '@app/core/services/token.service';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -21,13 +22,11 @@ export class PermissionGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    let token = JSON.parse(this.tokenService.getUserData());
-    if (token && token.Roles == 'User') {
-      this.router.navigate(['/401']);
-      return of(true).pipe(delay(5000));;
-
+    let token = this.tokenService.getToken;
+    if (token) {
+      return true;
     }
-
-    return true;
+    this.router.navigate(['/401']);
+    return false;
   }
 }

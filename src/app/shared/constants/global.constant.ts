@@ -4,7 +4,6 @@
  */
 
 export const deviceId = '000-000-0000';
-export const applicationId = 'ASDFGHG-3050-4D9C-A124-85332A34E7DD';
 export const headerTitle = 'ASM';
 export const footerCompanyName = 'ASM';
 export const itemsPerPage = 50;

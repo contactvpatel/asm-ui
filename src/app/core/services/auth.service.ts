@@ -3,14 +3,11 @@ import { Injectable } from '@angular/core';
 import { CredentialsService } from '@app/core/services/credential.service';
 import { HttpService } from '@app/core/services/http.service';
 import { TokenService } from '@app/core/services/token.service';
+import { UserAuthApi } from '@app/shared/constants/api.constant';
+import { deviceId } from '@app/shared/constants/global.constant';
+import { environment } from '@env/environment';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { ApiConstants } from '../../shared/constants/api.constant';
-import {
-  applicationId,
-  deviceId
-} from '../../shared/constants/global.constant';
-import { environment } from '@env/environment';
 
 export interface LoginContext {
   userName: string;
@@ -37,10 +34,10 @@ export class AuthenticationService {
     httpHeader = httpHeader.set('Device-ID', deviceId);
     httpHeader = httpHeader.set('Client-ID', environment.ssoClientId);
     httpHeader = httpHeader.set('Client-Secret', environment.ssoClientSecret);
-    httpHeader = httpHeader.set('Application-ID', applicationId);
+    httpHeader = httpHeader.set('Application-ID', environment.applicationId);
     return this.httpService
       .post(
-        ApiConstants.Auth.requestToken,
+        environment.ssoApiUrl + UserAuthApi.RequestToken,
         { resourceUri: '' },
         { headers: httpHeader }
       )
@@ -53,13 +50,15 @@ export class AuthenticationService {
   }
 
   login(context: LoginContext): Observable<any> {
-    return this.httpService.post(ApiConstants.Auth.login, context).pipe(
-      map((res: any) => {
-        this.tokenService.setToken(res.token);
-        this.credentialsService.setCredentials(res, context.rememberDevice);
-        return res;
-      })
-    );
+    return this.httpService
+      .post(environment.ssoApiUrl + UserAuthApi.Login, context)
+      .pipe(
+        map((res: any) => {
+          this.tokenService.setToken(res.token);
+          this.credentialsService.setCredentials(res, context.rememberDevice);
+          return res;
+        })
+      );
   }
 
   /**
@@ -67,13 +66,13 @@ export class AuthenticationService {
    * @return True if the user was logged out successfully.
    */
   logout(): Observable<boolean> {
-    // Customize credentials invalidation here
-    return this.httpService.post(ApiConstants.Auth.logout, {}).pipe(
-      map((res: any) => {
-        this.credentialsService.setCredentials();
-        return res;
-      })
-    );
-    // return of(true);
+    return this.httpService
+      .post(environment.ssoApiUrl + UserAuthApi.Logout, {})
+      .pipe(
+        map((res: any) => {
+          this.credentialsService.setCredentials();
+          return res;
+        })
+      );
   }
 }

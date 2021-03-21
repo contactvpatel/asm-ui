@@ -1,12 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  Validators
-} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AccessGroupModel, Department } from '@app/data/schema/access-group';
-import { AccessGroup, Application, Module } from '@app/data/schema/module';
+import { CredentialsService } from '@app/core';
+import { AccessGroup, AccessGroupModel } from '@app/data/schema/access-group';
+import { Application } from '@app/data/schema/application';
+import { Department } from '@app/data/schema/department';
+import { Module } from '@app/data/schema/module';
 import { AccessGroupService } from '@app/data/services/access-group.service';
 import { ApplicationService } from '@app/data/services/application.service';
 import { ModuleService } from '@app/data/services/module.service';
@@ -49,18 +48,18 @@ export class AccessGroupDetailComponent implements OnInit, OnDestroy {
     private applicationService: ApplicationService,
     private accessGroupService: AccessGroupService,
     private breadcrumbService: AppBreadcrumbService,
+    private credentialsService: CredentialsService
   ) {
-
     this.breadcrumbService.setItems([
-      {label: 'Access Group', routerLink: ['/asm/application-security/access-group']},
-      { label: 'Detail'}
+      {
+        label: 'Access Group',
+        routerLink: ['/asm/application-security/access-group']
+      },
+      { label: 'Detail' }
     ]);
-
   }
 
   ngOnInit(): void {
-    // this.module = this.activatedRoute.snapshot.data.accessGroup;
-
     this.accessGroup = {} as AccessGroup;
     this.createForm();
     this.departmentList();
@@ -98,27 +97,33 @@ export class AccessGroupDetailComponent implements OnInit, OnDestroy {
       isActive: ['true']
     });
   }
+
   onCancelClick() {
     this.router.navigate(['asm/application-security/access-group']);
   }
+
   get DepartmentId(): any {
     return this.accessgroupForm.get('departmentId');
   }
+
   get ApplicationId(): any {
     return this.accessgroupForm.get('applicationId');
   }
+
   get name(): any {
     return this.accessgroupForm.get('name');
   }
+
   get description(): any {
     return this.accessgroupForm.get('description');
   }
+
   get isActive(): any {
     return this.accessgroupForm.get('isActive');
   }
+
   onFormSubmit() {
     this.submitted = true;
-    const c = this.DepartmentId.value;
     if (this.accessgroupForm.valid) {
       if (this.config.mode.isEdit) {
         let setAccessGroup = [];
@@ -135,7 +140,7 @@ export class AccessGroupDetailComponent implements OnInit, OnDestroy {
           departmentId: departmentId,
           accessGroupModulePermissions: setAccessGroup,
           isActive: this.isActive.value,
-          userId: 0
+          userId: this.credentialsService.authinfo.PersonIdentifer
         };
         this.accessGroupService
           .updateAccessGroup(request)
@@ -190,6 +195,7 @@ export class AccessGroupDetailComponent implements OnInit, OnDestroy {
         });
     });
   }
+
   setmodule() {
     let accessGroup = [];
 
@@ -200,8 +206,8 @@ export class AccessGroupDetailComponent implements OnInit, OnDestroy {
     );
 
     this.accessGroups = new AccessGroup().fromJson(accessGroup, true);
-    console.log(this.accessGroups)
   }
+
   setEditAccessGroup(
     modules: Module[],
     accessGroup: any,

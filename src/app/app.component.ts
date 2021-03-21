@@ -1,12 +1,12 @@
+import { HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CredentialsService } from '@app/core/services/credential.service';
+import { HttpService } from '@app/core/services/http.service';
 import { TokenService } from '@app/core/services/token.service';
-import { CommonService } from '@app/data/services/common.service';
-import { ApiConstants } from '@app/shared/constants/api.constant';
-import jwt_decode from 'jwt-decode';
 import { environment } from '@env/environment';
 import { PrimeNGConfig } from 'primeng/api';
+import { AuthenticationInfo } from './data/schema/authentication-info';
 
 @Component({
   selector: 'app-root',
@@ -28,41 +28,39 @@ export class AppComponent implements OnInit {
     private primengConfig: PrimeNGConfig,
     private activatedRoute: ActivatedRoute,
     private tokenService: TokenService,
+    private httpService: HttpService,
     private credentialsService: CredentialsService,
-    private router: Router,
-    private commonService: CommonService
+    private router: Router
   ) {}
 
   ngOnInit() {
     const urlParams = new URLSearchParams(window.location.search);
     if (environment.ssoEnabled) {
       const myParam = urlParams.get('auth');
-      let tempuser = localStorage.getItem('authenticationInfo');
+      let tempuser = localStorage.getItem('asm_authenticationInfo');
       if (!myParam && !tempuser) {
-        this.router.navigate(['signedout']);
+        this.router.navigate(['asm/home']);
       }
       this.activatedRoute.queryParams.subscribe((params) => {
         const auth = params['auth'];
         if (auth) {
           let res = JSON.parse(decodeURI(auth));
           this.tokenService.setToken(res.token);
-          var decoded = jwt_decode(res.token);
-          var obj = {
-            UserId: decoded.uid,
-            UserToken: res.token
-          };
-          this.commonService
-            .post(ApiConstants.SaveUserAuthInfo.SaveUserData, obj)
-            .subscribe(() => {
-              this.credentialsService.setCredentials(res, true);
-              localStorage.setItem(
-                'authenticationInfo',
-                res.authenticationInfo
-              );
-              this.router.navigate(['asm/home']);
+          this.credentialsService.setCredentials(res, true);
+          localStorage.setItem(
+            'asm_authenticationInfo',
+            res.authenticationInfo
+          );
+          /*
+          this.httpService
+            .get(environment.clientIpUrl, {
+              headers: { 'Access-Control-Allow-Origin': '*' }
+            })
+            .subscribe((res: any) => {
+              localStorage.setItem('clientIp', res.ip);
             });
-        } else {
-          this.router.navigate(['signedout']);
+          */
+          this.router.navigate(['asm/home']);
         }
       });
     } else {

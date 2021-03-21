@@ -1,7 +1,8 @@
 import {
   HttpClient,
   HttpEvent,
-  HttpHandler, HttpInterceptor,
+  HttpHandler,
+  HttpInterceptor,
   HttpRequest
 } from '@angular/common/http';
 import {
@@ -12,11 +13,11 @@ import {
   Optional,
   Type
 } from '@angular/core';
+import { ApiPrefixInterceptor } from '@app/core/interceptors/api-prefix.interceptor';
+import { CacheInterceptor } from '@app/core/interceptors/cache.interceptor';
+import { ErrorHandlerInterceptor } from '@app/core/interceptors/error-handler.interceptor';
+import { TokenInterceptor } from '@app/core/interceptors/token.interceptor';
 import { Observable } from 'rxjs';
-import { ApiPrefixInterceptor } from '../interceptors/api-prefix.interceptor';
-import { CacheInterceptor } from '../interceptors/cache.interceptor';
-import { ErrorHandlerInterceptor } from '../interceptors/error-handler.interceptor';
-import { TokenInterceptor } from '../interceptors/token.interceptor';
 
 // HttpClient is declared in a re-exported module, so we have to extend the original module to make it work properly
 // (see https://github.com/Microsoft/TypeScript/issues/13897)

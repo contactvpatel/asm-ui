@@ -1,4 +1,6 @@
-import { Injectable, Injector } from '@angular/core';
+import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthenticationInfo } from '@app/data/schema/authentication-info';
 import { of } from 'rxjs';
 import { CredentialsService } from './credential.service';
 
@@ -7,7 +9,7 @@ import { CredentialsService } from './credential.service';
 })
 export class TokenService {
   private tokenValue = null;
-  authenticationInfo: any = null;
+  authenticationInfo: AuthenticationInfo = null;
 
   get token() {
     return this.tokenValue;
@@ -17,14 +19,13 @@ export class TokenService {
     this.tokenValue = token;
   }
 
-  // To avoid circular dependency we have used httpclient instead of httservice
   constructor(
-    private injector: Injector,
+    public router: Router,
     private credentialsService: CredentialsService
   ) {}
 
   getToken() {
-    if (this.credentialsService.isAuthenticated) {
+    if (this.credentialsService.isAuthenticated()) {
       if (this.token) {
         return of(this.token);
       } else {
