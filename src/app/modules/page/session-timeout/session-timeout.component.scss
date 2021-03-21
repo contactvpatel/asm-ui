@@ -3,6 +3,15 @@
   text-align: center;
   min-height: calc(100vh - 237px);
 }
+.pagenot-found-logo-img {
+  vertical-align: sub;
+}
+.pagenot-found-logo-text {
+  display: inline-block;
+  font-size: 50px;
+  padding-left: 5px;
+  color: #282828;
+}
 .pagenot-found h1 {
   font-size: 7.1428571429rem;
   line-height: 1;
@@ -41,11 +50,11 @@
   text-align: center;
 }
 .btn-primary {
-  background: #ff931f;
+  background: rgba(33, 150, 243, 0.68);
 }
 .btn-primary:hover,
 .btn-primary:focus {
-  background: #cf6e06;
+  background: rgba(33, 150, 243, 0.92);
   color: #ffffff;
 }
 .btn-secondary {

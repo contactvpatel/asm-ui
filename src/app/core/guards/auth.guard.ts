@@ -5,7 +5,7 @@ import {
   Router,
   RouterStateSnapshot
 } from '@angular/router';
-import { CredentialsService } from '../services/credential.service';
+import { CredentialsService } from '@app/core/services/credential.service';
 
 @Injectable({
   providedIn: 'root'
@@ -21,9 +21,8 @@ export class AuthGuard implements CanActivate {
   ): boolean {
     if (this.credentialsService.isAuthenticated()) {
       return true;
-    } else {
-      this.router.navigate(['/authentication']);
-      return false;
     }
+    this.router.navigate(['/authentication']);
+    return false;
   }
 }

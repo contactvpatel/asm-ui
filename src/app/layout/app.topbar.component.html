@@ -1,45 +1,69 @@
 <div class="layout-topbar p-shadow-4">
-    <div class="layout-topbar-left">
-        <a class="layout-topbar-logo" title="Application Security Module" routerLink="/asm/home">
-            <img src="assets/layout/images/app-logo.png" alt="Application Security">
-            <h1 class="app-logo" style="margin-top: 15px;">ASM</h1>
-        </a>
+  <div class="layout-topbar-left">
+    <a
+      class="layout-topbar-logo"
+      title="Application Security Module"
+      routerLink="/asm/home"
+    >
+      <img src="assets/layout/images/app-logo.png" alt="Application Security" />
+      <h1 class="app-logo" style="margin-top: 15px">ASM</h1>
+    </a>
 
-        <a class="layout-menu-button p-shadow-6" (click)="appMain.onMenuButtonClick($event)" pRipple>
-            <i class="pi pi-chevron-right"></i>
-        </a>
+    <a
+      class="layout-menu-button p-shadow-6"
+      (click)="appMain.onMenuButtonClick($event)"
+      pRipple
+    >
+      <i class="pi pi-chevron-right"></i>
+    </a>
 
-        <a class="layout-topbar-mobile-button" (click)="appMain.onTopbarMobileButtonClick($event)" pRipple>
-            <i class="pi pi-ellipsis-v fs-large"></i>
-        </a>
+    <a
+      class="layout-topbar-mobile-button"
+      (click)="appMain.onTopbarMobileButtonClick($event)"
+      pRipple
+    >
+      <i class="pi pi-ellipsis-v fs-large"></i>
+    </a>
+  </div>
+
+  <div
+    class="layout-topbar-right"
+    [ngClass]="{ 'layout-topbar-mobile-active': appMain.mobileTopbarActive }"
+  >
+    <div class="layout-topbar-actions-left">
+      <!-- <p-megaMenu [model]="model" styleClass="layout-megamenu"></p-megaMenu> -->
     </div>
-
-    <div class="layout-topbar-right" [ngClass]="{'layout-topbar-mobile-active': appMain.mobileTopbarActive}">
-        <div class="layout-topbar-actions-left">
-            <!-- <p-megaMenu [model]="model" styleClass="layout-megamenu"></p-megaMenu> -->
-        </div>
-        <div class="layout-topbar-actions-right">
-            <ul class="layout-topbar-items">
-              <li class="layout-topbar-item">
-                <a class="layout-topbar-action p-d-flex p-dir-row p-jc-center p-ai-center p-px-2 rounded-circle" (click)="appMain.onTopbarItemClick($event, 'profile')" pRipple>
-                  <i class="pi pi-user" style="font-size: 1.5rem"></i>
-                </a>
-                <ul class="layout-topbar-action-panel p-shadow-6" [@topbarActionPanelAnimation]="'visible'" *ngIf="appMain.activeTopbarItem === 'profile'">
-                    <li class="layout-topbar-action-item">
-                        <a class="p-d-flex p-flex-row p-ai-center" pRipple>
-                            <i class="pi pi-info-circle" [ngClass]="{'p-mr-2': !app.isRTL, 'p-ml-2': app.isRTL}"></i>
-                            <span>Profile</span>
-                        </a>
-                    </li>
-                    <li class="layout-topbar-action-item">
-                        <a class="p-d-flex p-flex-row p-ai-center" pRipple>
-                            <i class="pi pi-sign-out" [ngClass]="{'p-mr-2': !app.isRTL, 'p-ml-2': app.isRTL}"></i>
-                            <span>Logout</span>
-                        </a>
-                    </li>
-                </ul>
-              </li>
-            </ul>
-        </div>
+    <div class="layout-topbar-actions-right">
+      <ul class="layout-topbar-items">
+        <li class="layout-topbar-item">
+          <a
+            class="layout-topbar-action p-d-flex p-dir-row p-jc-center p-ai-center p-px-2 rounded-circle"
+            (click)="appMain.onTopbarItemClick($event, 'profile')"
+            pRipple
+          >
+            <i class="pi pi-user" style="font-size: 1.5rem"></i>
+          </a>
+          <ul
+            class="layout-topbar-action-panel p-shadow-6"
+            [@topbarActionPanelAnimation]="'visible'"
+            *ngIf="appMain.activeTopbarItem === 'profile'"
+          >
+            <li class="layout-topbar-action-item">
+              <a
+                [routerLink]="['/signedout']"
+                class="p-d-flex p-flex-row p-ai-center"
+                pRipple
+              >
+                <i
+                  class="pi pi-sign-out"
+                  [ngClass]="{ 'p-mr-2': !app.isRTL, 'p-ml-2': app.isRTL }"
+                ></i>
+                <span>Logout</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ul>
     </div>
+  </div>
 </div>

@@ -16,7 +16,10 @@ export class SessionTimeoutComponent implements OnInit {
     private credentialsService: CredentialsService,
     private authenticationService: AuthenticationService
   ) {
-    this.credentialsService.removeCredentials();
+    if (this.credentialsService.isAuthenticated()) {
+      this.credentialsService.removeCredentials();
+      this.authenticationService.logout();
+    }
   }
 
   ngOnInit() {}

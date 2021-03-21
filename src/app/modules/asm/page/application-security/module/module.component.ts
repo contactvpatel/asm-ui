@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import {
-  Application,
-  Module,
-  ModuleType
-} from '@app/data/schema/module';
+import { Application } from '@app/data/schema/application';
+import { Module } from '@app/data/schema/module';
+import { ModuleType } from '@app/data/schema/module-type';
 import { ApplicationService } from '@app/data/services/application.service';
 import { ModuleService } from '@app/data/services/module.service';
 import { AppBreadcrumbService } from '@app/layout/app.breadcrumb.service';
@@ -36,11 +34,7 @@ export class ModuleComponent implements OnInit {
     private fb: FormBuilder,
     private breadcrumbService: AppBreadcrumbService
   ) {
-
-    this.breadcrumbService.setItems([
-      {label: 'Module'}
-    ]);
-
+    this.breadcrumbService.setItems([{ label: 'Module' }]);
   }
 
   ngOnInit(): void {

@@ -1,17 +1,20 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AccessGroupModel, Department } from '@app/data/schema/access-group';
-import { Position, Role } from '@app/data/schema/access-group-assignment';
-import { AccessGroup, Application, Module } from '@app/data/schema/module';
+import { AccessGroup, AccessGroupModel } from '@app/data/schema/access-group';
+import { Application } from '@app/data/schema/application';
+import { Department } from '@app/data/schema/department';
+import { Module } from '@app/data/schema/module';
+import { Position } from '@app/data/schema/position';
+import { Role } from '@app/data/schema/role';
 import { AccessGroupAssignmentService } from '@app/data/services/access-group-assignment.service';
 import { AccessGroupService } from '@app/data/services/access-group.service';
 import { ApplicationService } from '@app/data/services/application.service';
 import { ModuleService } from '@app/data/services/module.service';
+import { AppBreadcrumbService } from '@app/layout/app.breadcrumb.service';
 import { EncryptPipe } from '@app/modules/encrypt/pipes/encrypt.pipe';
 import { ConfirmationService } from 'primeng/api';
 import { Subscription } from 'rxjs';
-import { AppBreadcrumbService } from '@app/layout/app.breadcrumb.service';
 
 @Component({
   selector: 'app-access-group-assignment-detail',
@@ -53,12 +56,13 @@ export class AccessAssignmentGroupDetailComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private breadcrumbService: AppBreadcrumbService
   ) {
-
     this.breadcrumbService.setItems([
-      {label: 'Access Group Assignment', routerLink: ['/asm/application-security/access-group-assignment']},
-      {label: 'Detail'}
+      {
+        label: 'Access Group Assignment',
+        routerLink: ['/asm/application-security/access-group-assignment']
+      },
+      { label: 'Detail' }
     ]);
-
   }
 
   /****************Lifecycle methods**************/

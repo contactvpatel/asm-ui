@@ -1,7 +1,7 @@
-import { Routes, Route } from '@angular/router';
-import { AuthGuard } from '../../core/guards/auth.guard';
-
-import { ShellComponent } from './shell.component';
+import { Route, Routes } from '@angular/router';
+import { AuthGuard } from '@app/core/guards/auth.guard';
+import { ShellComponent } from '@app/shared/shell/shell.component';
+import { environment } from '@env/environment';
 
 /**
  * Provides helper methods to create routes.
@@ -17,7 +17,7 @@ export class Shell {
       path: '',
       component: ShellComponent,
       children: routes,
-      //canActivate: [AuthGuard], //temporary commented so as to bypass auth
+      canActivate: environment.ssoEnabled ? [AuthGuard] : [],
       // Reuse ShellComponent instance when navigating between child views
       data: { reuse: true }
     };

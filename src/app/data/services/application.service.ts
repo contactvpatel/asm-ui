@@ -1,11 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Application } from '@app/data/schema/application';
+import { CommonService } from '@app/data/services/common.service';
+import { ApplicationApi } from '@app/shared/constants/api.constant';
 import { environment } from '@env/environment';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { ApplicationApi } from '../../shared/constants/api.constant';
-import { Application } from '../schema/module';
-import { CommonService } from '../services/common.service';
 
 @Injectable({
   providedIn: 'root'

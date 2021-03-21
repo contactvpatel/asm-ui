@@ -1,11 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { AccessGroupAPI } from '@app/shared/constants/api.constant';
+import { AccessGroupModel } from '@app/data/schema/access-group';
+import { Department } from '@app/data/schema/department';
+import { CommonService } from '@app/data/services/common.service';
+import { AccessGroupApi } from '@app/shared/constants/api.constant';
 import { environment } from '@env/environment';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { AccessGroupModel, Department } from '../schema/access-group';
-import { CommonService } from './common.service';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,7 @@ export class AccessGroupService {
   // Make all other api call like below method
   getAccessGroup(): Observable<AccessGroupModel[]> {
     return this.http
-      .get(this.url + AccessGroupAPI.GetAllAccessGroup)
+      .get(this.url + AccessGroupApi.GetAllAccessGroup)
       .pipe(map((res: any) => res.data as AccessGroupModel[]));
   }
 
@@ -29,7 +30,7 @@ export class AccessGroupService {
     return this.http
       .get(
         this.url +
-          AccessGroupAPI.GetAllAccessGroup +
+          AccessGroupApi.GetAllAccessGroup +
           '/' +
           applicationId +
           '/' +
@@ -40,7 +41,7 @@ export class AccessGroupService {
 
   getAccessGroupById(id: number): Observable<AccessGroupModel> {
     return this.http
-      .get(this.url + AccessGroupAPI.GetAllAccessGroup + '/' + id)
+      .get(this.url + AccessGroupApi.GetAllAccessGroup + '/' + id)
       .pipe(map((res: any) => res.data as AccessGroupModel));
   }
 

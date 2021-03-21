@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { PermissionGuard } from './core/guards/permission.guard';
-import { AppMainComponent } from './layout/app.main.component';
+import { PermissionGuard } from '@app/core/guards/permission.guard';
+import { AppMainComponent } from '@app/layout/app.main.component';
 import { AsmAuthComponent } from './modules/page/asm-auth/asm-auth.component';
 import { NoAccessComponent } from './modules/page/no-access/no-access.component';
 import { PageNotFoundComponent } from './modules/page/page-not-found/page-not-found.component';
