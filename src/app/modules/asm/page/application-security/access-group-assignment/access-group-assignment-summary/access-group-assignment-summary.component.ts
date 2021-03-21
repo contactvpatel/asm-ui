@@ -1,10 +1,9 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AccessGroupModel } from '@app/data/schema/access-group';
-
 import { AccessGroupAssignmentService } from '@app/data/services/access-group-assignment.service';
-import { ConfirmationService } from 'primeng/api';
-import { MessageService } from 'primeng/api';
+import { AppBreadcrumbService } from '@app/layout/app.breadcrumb.service';
+import { ConfirmationService, MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-access-group-assignment-summary',
@@ -24,14 +23,22 @@ export class AccessGroupAssignmentSummaryComponent implements OnInit {
     private accessGroupAssignmentService: AccessGroupAssignmentService,
     private messageService: MessageService,
     private confirmationService: ConfirmationService,
-    private route: Router
-  ) {}
+    private route: Router,
+    private breadcrumbService: AppBreadcrumbService
+  ) {
+
+    this.breadcrumbService.setItems([
+      {label: 'Access Group Assignment', routerLink: ['/asm/application-security/access-group-assignment']},
+      {label: 'Summary'}
+    ]);
+
+  }
 
   ngOnInit(): void {
     this.getAccessGroupAssignment();
   }
   openNew(): void {
-    this.route.navigate(['/asm/access-group-assignment/0']);
+    this.route.navigate(['/asm/application-security/access-group-assignment/0']);
   }
 
   deleteSelectedAccessGroup(): void {

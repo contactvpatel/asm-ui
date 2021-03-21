@@ -1,18 +1,17 @@
-import { Router } from '@angular/router';
 import {
+  HttpErrorResponse,
   HttpEvent,
   HttpHandler,
   HttpInterceptor,
   HttpRequest,
-  HttpResponse,
-  HttpErrorResponse
+  HttpResponse
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { mergeMap, map, switchMap, tap } from 'rxjs/operators';
-
-import { TokenService } from '@app/core/services/token.service';
+import { Router } from '@angular/router';
 import { CredentialsService } from '@app/core/services/credential.service';
+import { TokenService } from '@app/core/services/token.service';
+import { Observable } from 'rxjs';
+import { mergeMap, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -54,7 +53,7 @@ export class TokenInterceptor implements HttpInterceptor {
                 if (error.status === 401) {
                   alert('Token Expired. Redirecting to login page');
                   this.credentialsService.setCredentials();
-                  this.router.navigate(['/login'], { replaceUrl: true });
+                  this.router.navigate(['/signedout'], { replaceUrl: true });
                 }
               }
             }

@@ -1,21 +1,17 @@
-import { Injectable } from '@angular/core';
 import {
   HttpEvent,
-  HttpInterceptor,
   HttpHandler,
+  HttpInterceptor,
   HttpRequest,
   HttpResponse
 } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { AsmService } from '@app/modules/asm/asm.service';
+import { environment } from '@env/environment';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-
-import { environment } from '@env/environment';
-
-import { Router } from '@angular/router';
-
-import { NgxUiLoaderService } from 'ngx-ui-loader';
-import { CommonService } from '@app/data/services/common.service';
-import { AsmService } from '@app/modules/asm/asm.service';
 
 /**
  * Adds a default error handler to all requests.
@@ -58,7 +54,7 @@ export class ErrorHandlerInterceptor implements HttpInterceptor {
       //-this.ngxService.stop();
       this.asmService.hideLoader();
       // window.location.href = environment.SSOURL + 'Home/SignIn?client_id=' + clientId + '&client_key=' + clientSecret + '&redirect_uri=' + window.location.origin + '/application/';
-      this.router.navigate(['/signed-out']);
+      this.router.navigate(['/signedout']);
       //this.router.navigate(['/403']);
       //this.router.navigate(['/auth/login'], { replaceUrl: true });
     }

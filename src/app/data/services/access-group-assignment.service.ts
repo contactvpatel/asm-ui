@@ -1,16 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {
-  RoleApi,
   AccessGroupAssignmentApi,
-  PositionApi
+  PositionApi, RoleApi
 } from '@app/shared/constants/api.constant';
 import { environment } from '@env/environment';
-import { Role, Position } from '../schema/access-group-assignment';
-import { CommonService } from './common.service';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AccessGroupModel } from '../schema/access-group';
+import { Position, Role } from '../schema/access-group-assignment';
+import { CommonService } from './common.service';
+
 @Injectable({
   providedIn: 'root'
 })

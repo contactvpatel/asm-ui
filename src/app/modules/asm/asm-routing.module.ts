@@ -1,12 +1,10 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { Shell } from '@app/shared/shell/shell.service';
 import { AsmComponent } from './asm.component';
-import { ModuleComponent } from './page/application-security/module/module.component';
-import { AccessGroupSummaryComponent } from './page/application-security/access-group/access-group-summary/access-group-summary.component';
-import { AccessGroupDetailComponent } from './page/application-security/access-group/access-group-detail/access-group-detail.component';
 import { AccessAssignmentGroupDetailComponent } from './page/application-security/access-group-assignment/access-group-assignment-detail/access-group-assignment-detail.component';
 import { AccessGroupAssignmentSummaryComponent } from './page/application-security/access-group-assignment/access-group-assignment-summary/access-group-assignment-summary.component';
+import { ModuleComponent } from './page/application-security/module/module.component';
 import { HomeComponent } from './page/home/home.component';
 
 const routes: Routes = [
@@ -28,15 +26,15 @@ const routes: Routes = [
             ).then((m) => m.ApplicationSecurityModule)
         },
         {
-          path: 'module',
+          path: 'application-security/module',
           component: ModuleComponent
         },
         {
-          path: 'access-group-assignment',
+          path: 'application-security/access-group-assignment',
           component: AccessGroupAssignmentSummaryComponent
         },
         {
-          path: 'access-group-assignment/:id',
+          path: 'application-security/access-group-assignment/:id',
           component: AccessAssignmentGroupDetailComponent
         }
       ]

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { clientId, clientSecret } from '@app/shared/constants/global.constant';
 import { environment } from '@env/environment';
 
 @Component({
@@ -9,8 +8,8 @@ import { environment } from '@env/environment';
 })
 export class NoAccessComponent implements OnInit {
   loginLink: string = environment.ssoLoginUrl;
-  clientId: string = clientId;
-  clientSecret: string = clientSecret;
+  clientId: string = environment.ssoClientId;
+  clientSecret: string = environment.ssoClientSecret;
   constructor() {}
 
   ngOnInit() {}

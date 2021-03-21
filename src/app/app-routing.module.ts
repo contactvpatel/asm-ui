@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { PermissionGuard } from './core/guards/permission.guard';
+import { AppMainComponent } from './layout/app.main.component';
 import { AsmAuthComponent } from './modules/page/asm-auth/asm-auth.component';
 import { NoAccessComponent } from './modules/page/no-access/no-access.component';
 import { PageNotFoundComponent } from './modules/page/page-not-found/page-not-found.component';
@@ -12,7 +13,7 @@ const routes: Routes = [
     component: NoAccessComponent
   },
   {
-    path: 'signed-out',
+    path: 'signedout',
     component: SessionTimeoutComponent
   },
   {
@@ -20,25 +21,20 @@ const routes: Routes = [
     component: SessionTimeoutComponent
   },
   {
-    path: '',
-    pathMatch: 'full',
-    redirectTo: '/asm/home'
-  },
-  {
-    path: ':auth',
-    pathMatch: 'full',
+    path: 'authentication',
     component: AsmAuthComponent
   },
-  // {
-  //   path: 'authentication:auth',
-  //   pathMatch: 'full',
-  //   component: AsmAuthComponent,
-  // },
   {
-    path: 'asm',
-    canActivate: [PermissionGuard],
-    loadChildren: () =>
-      import('./modules/asm/asm.module').then((m) => m.AsmModule)
+    path: '',
+    component: AppMainComponent,
+    children: [
+      {
+        path: 'asm',
+        canActivate: [PermissionGuard],
+        loadChildren: () =>
+          import('./modules/asm/asm.module').then((m) => m.AsmModule)
+      }
+    ]
   },
   {
     path: '**',

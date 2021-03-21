@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { RouteReuseStrategy, RouterModule } from '@angular/router';
-
 import { HttpService } from '@app/core/services/http.service';
 import { RouteReusableStrategy } from './route-reusable-strategy';
 

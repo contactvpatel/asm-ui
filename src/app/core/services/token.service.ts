@@ -1,8 +1,5 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable, Injector } from '@angular/core';
-
-import { Observable, of } from 'rxjs';
-
+import { of } from 'rxjs';
 import { CredentialsService } from './credential.service';
 
 @Injectable({

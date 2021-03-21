@@ -1,6 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
-import { RouteReusableStrategy } from '../route-reusable-strategy';
 
 export interface Credentials {
   // Customize received credentials here

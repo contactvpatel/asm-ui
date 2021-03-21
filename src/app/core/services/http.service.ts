@@ -1,4 +1,10 @@
 import {
+  HttpClient,
+  HttpEvent,
+  HttpHandler, HttpInterceptor,
+  HttpRequest
+} from '@angular/common/http';
+import {
   Inject,
   Injectable,
   InjectionToken,
@@ -6,18 +12,11 @@ import {
   Optional,
   Type
 } from '@angular/core';
-import {
-  HttpClient,
-  HttpEvent,
-  HttpInterceptor,
-  HttpHandler,
-  HttpRequest
-} from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { TokenInterceptor } from '../interceptors/token.interceptor';
 import { ApiPrefixInterceptor } from '../interceptors/api-prefix.interceptor';
 import { CacheInterceptor } from '../interceptors/cache.interceptor';
 import { ErrorHandlerInterceptor } from '../interceptors/error-handler.interceptor';
+import { TokenInterceptor } from '../interceptors/token.interceptor';
 
 // HttpClient is declared in a re-exported module, so we have to extend the original module to make it work properly
 // (see https://github.com/Microsoft/TypeScript/issues/13897)

@@ -8,7 +8,21 @@
     "buildDev": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "prettier": "prettier --write \"./{src,e2e}/**/*.{ts,html,scss}\"",
+    "prettier:check": "prettier --list-different \"./{src,e2e}/**/*.{ts,js,html,scss}\""
+  },
+  "prettier": {
+    "trailingComma": "none",
+    "overrides": [
+      {
+        "files": "*.scss",
+        "options": {
+          "singleQuote": false
+        }
+      }
+    ],
+    "singleQuote": true
   },
   "private": true,
   "dependencies": {
@@ -23,6 +37,7 @@
     "@angular/router": "~10.2.0",
     "@fullcalendar/core": "^5.5.1",
     "@ngx-rocket/scripts": "^5.0.0",
+    "chart.js": "2.7.3",
     "jwt-decode": "^3.0.0",
     "ngx-perfect-scrollbar": "^10.1.0",
     "ngx-ui-loader": "^10.0.0",
@@ -52,13 +67,10 @@
     "karma-coverage-istanbul-reporter": "~3.0.2",
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "^1.5.0",
-    "prettier": "2.2.1",
+    "prettier": "^2.2.1",
     "protractor": "~7.0.0",
     "ts-node": "~8.3.0",
     "tslint": "~6.1.0",
     "typescript": "~4.0.2"
-  },
-  "prettier": {
-    "trailingComma": "none"
   }
 }

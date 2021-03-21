@@ -1,19 +1,18 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { AccessGroupModel, Department } from '@app/data/schema/access-group';
-import { Utils } from '@app/shared/utils/util';
-import { ConfirmationService, MenuItem } from 'primeng/api';
-import { Subscription } from 'rxjs';
-import { AccessGroupService } from '@app/data/services/access-group.service';
-import { AccessGroup, Application, Module } from '@app/data/schema/module';
-import { ModuleService } from '@app/data/services/module.service';
-import { applicationService } from '@app/data/services/application.service';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
   FormBuilder,
-  FormControl,
   FormGroup,
   Validators
 } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AccessGroupModel, Department } from '@app/data/schema/access-group';
+import { AccessGroup, Application, Module } from '@app/data/schema/module';
+import { AccessGroupService } from '@app/data/services/access-group.service';
+import { ApplicationService } from '@app/data/services/application.service';
+import { ModuleService } from '@app/data/services/module.service';
+import { AppBreadcrumbService } from '@app/layout/app.breadcrumb.service';
+import { ConfirmationService } from 'primeng/api';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-access-group-detail',
@@ -47,9 +46,17 @@ export class AccessGroupDetailComponent implements OnInit, OnDestroy {
     private router: Router,
     private confirmationService: ConfirmationService,
     private moduleService: ModuleService,
-    private applicationService: applicationService,
-    private accessGroupService: AccessGroupService
-  ) {}
+    private applicationService: ApplicationService,
+    private accessGroupService: AccessGroupService,
+    private breadcrumbService: AppBreadcrumbService,
+  ) {
+
+    this.breadcrumbService.setItems([
+      {label: 'Access Group', routerLink: ['/asm/application-security/access-group']},
+      { label: 'Detail'}
+    ]);
+
+  }
 
   ngOnInit(): void {
     // this.module = this.activatedRoute.snapshot.data.accessGroup;
@@ -135,6 +142,7 @@ export class AccessGroupDetailComponent implements OnInit, OnDestroy {
           .subscribe((data) => this.onCancelClick());
       } else {
         let setAccessGroup = [];
+
         setAccessGroup = this.setPermissions(this.accessGroups, setAccessGroup);
         const departmentId = this.DepartmentId.value;
         const name = this.name.value;
@@ -184,12 +192,15 @@ export class AccessGroupDetailComponent implements OnInit, OnDestroy {
   }
   setmodule() {
     let accessGroup = [];
+
     accessGroup = this.setEditAccessGroup(
       this.module,
       this.accessGroupModel.accessGroupModulePermissions,
       accessGroup
     );
+
     this.accessGroups = new AccessGroup().fromJson(accessGroup, true);
+    console.log(this.accessGroups)
   }
   setEditAccessGroup(
     modules: Module[],

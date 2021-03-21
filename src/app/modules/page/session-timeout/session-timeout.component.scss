@@ -1,0 +1,67 @@
+.pagenot-found {
+  padding: 150px 0 130px;
+  text-align: center;
+  min-height: calc(100vh - 237px);
+}
+.pagenot-found h1 {
+  font-size: 7.1428571429rem;
+  line-height: 1;
+  font-weight: 700;
+  color: #272727;
+  text-align: center;
+}
+.pagenot-found p {
+  font-size: 2.1428571429rem;
+  line-height: 1.2;
+  font-weight: 400;
+  color: #282828;
+  padding: 4px 0 30px;
+}
+.pagenot-found .btn {
+  color: #ffffff;
+}
+.pagenot-found .btn:hover {
+  color: #ffffff;
+}
+.btn {
+  height: 38px;
+  min-width: 100px;
+  background: transparent;
+  padding: 0 21px 0 21px;
+  font-size: 1.0714285714rem;
+  line-height: 2.5333333333;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #ffffff;
+  display: inline-block;
+  vertical-align: top;
+  width: auto;
+  cursor: pointer;
+  position: relative;
+  text-align: center;
+}
+.btn-primary {
+  background: #ff931f;
+}
+.btn-primary:hover,
+.btn-primary:focus {
+  background: #cf6e06;
+  color: #ffffff;
+}
+.btn-secondary {
+  background: #484747;
+}
+.btn-secondary:hover,
+.btn-secondary:focus {
+  background: #272727;
+  color: #ffffff;
+}
+.form-control,
+.custom-select,
+.btn,
+.btn:focus {
+  border: none;
+  -webkit-appearance: none;
+  border-radius: 0;
+  box-shadow: none;
+}

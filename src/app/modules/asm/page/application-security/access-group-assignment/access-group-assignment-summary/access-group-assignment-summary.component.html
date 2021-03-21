@@ -1,11 +1,11 @@
 <p-confirmDialog [style]="{ width: '450px' }"></p-confirmDialog>
 <div class="card">
-  <p-toolbar styleClass="p-mb-4">
+  <p-toolbar>
     <ng-template pTemplate="right">
       <button
         pButton
         pRipple
-        label="New Access Group Assignment"
+        label="Add Access Group Assignment"
         icon="pi pi-plus"
         class="p-button-success p-mr-2"
         (click)="openNew()"
@@ -13,7 +13,7 @@
       <button
         pButton
         pRipple
-        [label]="Delete"
+        label="Delete"
         icon="pi pi-trash"
         class="p-button-danger"
         (click)="deleteSelectedAccessGroup()"
@@ -40,6 +40,7 @@
     dataKey="accessGroupAssignmentId"
     currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
     [showCurrentPageReport]="true"
+    [resizableColumns]="true"
   >
     <ng-template pTemplate="caption">
       <div class="p-d-flex p-ai-center p-jc-between">
@@ -55,47 +56,41 @@
         </span>
       </div>
     </ng-template>
+    <ng-template pTemplate="colgroup">
+      <colgroup>
+        <col style="width:3%">
+        <col style="width:11%">
+        <col style="width:18%">
+        <col style="width:23%">
+        <col style="width:20%">
+        <col style="width:20%">
+        <col style="width:5%">
+      </colgroup>
+    </ng-template>
     <ng-template pTemplate="header">
       <tr>
         <th style="width: 3rem">
           <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
         </th>
         <th pSortableColumn="applicationName">
-          Application Name <p-sortIcon field="applicationName"></p-sortIcon>
+          Application <p-sortIcon field="applicationName"></p-sortIcon>
+          <p-columnFilter type="text" field="applicationName" display="menu"></p-columnFilter>
         </th>
         <th pSortableColumn="departmentName">
           Department <p-sortIcon field="departmentName"></p-sortIcon>
+          <p-columnFilter type="text" field="departmentName" display="menu"></p-columnFilter>
         </th>
         <th pSortableColumn="name">
           Access Group <p-sortIcon field="name"></p-sortIcon>
+          <p-columnFilter type="text" field="name" display="menu"></p-columnFilter>
         </th>
-        <th pSortableColumn="department">
-          Role <p-sortIcon field="department"></p-sortIcon>
+        <th pSortableColumn="roleName">
+          Role <p-sortIcon field="roleName"></p-sortIcon>
+          <p-columnFilter type="text" field="roleName" display="menu"></p-columnFilter>
         </th>
         <th pSortableColumn="positionName">
           Position <p-sortIcon field="positionName"></p-sortIcon>
-        </th>
-        <!-- <th pSortableColumn="isActive">
-          Person <p-sortIcon field="isActive"></p-sortIcon>
-        </th> -->
-        <th></th>
-      </tr>
-      <tr>
-        <th></th>
-        <th>
-          <p-columnFilter type="text" field="applicationName"></p-columnFilter>
-        </th>
-        <th>
-          <p-columnFilter type="text" field="departmentName"></p-columnFilter>
-        </th>
-        <th>
-          <p-columnFilter type="text" field="name"></p-columnFilter>
-        </th>
-        <th>
-          <p-columnFilter type="text" field="roleName"></p-columnFilter>
-        </th>
-        <th>
-          <p-columnFilter type="text" field="positionName"></p-columnFilter>
+          <p-columnFilter type="text" field="positionName" display="menu"></p-columnFilter>
         </th>
         <th></th>
       </tr>
@@ -110,14 +105,6 @@
         <td>{{ accessgroupassignment.name }}</td>
         <td>{{ accessgroupassignment.roleName }}</td>
         <td>{{ accessgroupassignment.positionName }}</td>
-
-        <!-- <td *ngIf="accessgroupassignment.isActive===true; else elseStatement">
-          Yes
-        </td>
-        <ng-template #elseStatement>
-         <td>No</td> 
-        </ng-template> -->
-
         <td>
           <button
             pButton
@@ -131,9 +118,7 @@
     </ng-template>
     <ng-template pTemplate="summary">
       <div class="p-d-flex p-ai-center p-jc-between">
-        In total there are
-        {{ accessGroupAssignments ? accessGroupAssignments.length : 0 }}
-        accessGroupAssignments.
+        Total {{ accessGroupAssignments ? accessGroupAssignments.length : 0 }} Access Group Assignment.
       </div>
     </ng-template>
   </p-table>

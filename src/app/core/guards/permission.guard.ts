@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
 import {
-  CanActivate,
-  ActivatedRouteSnapshot,
-  RouterStateSnapshot,
-  UrlTree,
-  Router
+  ActivatedRouteSnapshot, CanActivate,
+  Router, RouterStateSnapshot,
+  UrlTree
 } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { delay } from 'rxjs/operators';
 import { TokenService } from '../services/token.service';
 
 @Injectable({
@@ -25,7 +24,8 @@ export class PermissionGuard implements CanActivate {
     let token = JSON.parse(this.tokenService.getUserData());
     if (token && token.Roles == 'User') {
       this.router.navigate(['/401']);
-      return false;
+      return of(true).pipe(delay(5000));;
+
     }
 
     return true;
