@@ -14,7 +14,7 @@ import { PrimeNGConfig } from 'primeng/api';
 })
 export class AppComponent implements OnInit {
   title = 'asm-ui';
-  topbarTheme: string = 'orange';
+  topbarTheme: string = 'lightblue';
 
   menuTheme: string = 'light';
 

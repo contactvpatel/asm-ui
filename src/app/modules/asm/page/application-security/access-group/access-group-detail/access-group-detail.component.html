@@ -117,14 +117,27 @@
     [value]="accessGroups"
     [globalFilterFields]="['name']"
     [rowHover]="true"
+    [resizableColumns]="true"
   >
+    <ng-template pTemplate="colgroup">
+      <colgroup>
+        <col style="width:15%">
+        <col style="width:20%">
+        <col style="width:25%">
+        <col style="width:7%">
+        <col style="width:7%">
+        <col style="width:7%">
+        <col style="width:7%">
+        <col style="width:12%">
+      </colgroup>
+    </ng-template>
     <ng-template pTemplate="header">
       <tr>
-        <th pSortableColumn="application">
-          Module Type <p-sortIcon field="application"></p-sortIcon>
+        <th pSortableColumn="moduleType.name">
+          Module Type <p-sortIcon field="moduleType.name"></p-sortIcon>
         </th>
-        <th pSortableColumn="department">
-          Parent Module <p-sortIcon field="department"></p-sortIcon>
+        <th pSortableColumn="parentModule.name">
+          Parent Module <p-sortIcon field="parentModule.name"></p-sortIcon>
         </th>
         <th pSortableColumn="name">
           Module <p-sortIcon field="name"></p-sortIcon>
@@ -147,42 +160,20 @@
         </ng-template>
         <td>{{ accessGroup.name }}</td>
         <td>
-          <div class="p-field-checkbox">
-            <p-checkbox
-              [(ngModel)]="accessGroup.accessGroupModulePermissions.hasViewAccess"
-              binary="true"
-            ></p-checkbox>
-          </div>
+          <p-checkbox [(ngModel)]="accessGroup.accessGroupModulePermissions.hasViewAccess" binary="true">
+          </p-checkbox>
         </td>
         <td>
-          <div class="p-field-checkbox">
-            <p-checkbox
-              [(ngModel)]="
-                accessGroup.accessGroupModulePermissions.hasCreateAccess
-              "
-              binary="true"
-            ></p-checkbox>
-          </div>
+          <p-checkbox [(ngModel)]="accessGroup.accessGroupModulePermissions.hasCreateAccess" binary="true">
+          </p-checkbox>
         </td>
         <td>
-          <div class="p-field-checkbox">
-            <p-checkbox
-              [(ngModel)]="
-                accessGroup.accessGroupModulePermissions.hasUpdateAccess
-              "
-              binary="Create"
-            ></p-checkbox>
-          </div>
+          <p-checkbox [(ngModel)]="accessGroup.accessGroupModulePermissions.hasUpdateAccess" binary="true">
+          </p-checkbox>
         </td>
         <td>
-          <div class="p-field-checkbox">
-            <p-checkbox
-              [(ngModel)]="
-                accessGroup.accessGroupModulePermissions.hasDeleteAccess
-              "
-              binary="Delete"
-            ></p-checkbox>
-          </div>
+          <p-checkbox [(ngModel)]="accessGroup.accessGroupModulePermissions.hasDeleteAccess" binary="true">
+          </p-checkbox>
         </td>
         <td></td>
       </tr>
@@ -201,8 +192,8 @@
           <td></td>
           <td></td>
           <td>
-            <div class="p-field-radiobutton">
-              <div class="p-field-radiobutton">
+            <div class="p-field-radiobutton" style="margin-bottom: 0;">
+              <div class="p-field-radiobutton" style="margin-bottom: 0;">
                 <p-radioButton
                   name="isActive"
                   [value]="true"
@@ -213,7 +204,7 @@
                 ></p-radioButton>
                 <label for="true">Yes</label>
               </div>
-              <div class="p-field-radiobutton p-ml-3">
+              <div class="p-field-radiobutton p-ml-3" style="margin-bottom: 0;">
                 <p-radioButton
                   name="isActive"
                   [value]="false"

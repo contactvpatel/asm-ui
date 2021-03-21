@@ -40,6 +40,7 @@
     dataKey="moduleId"
     currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
     [showCurrentPageReport]="true"
+    [resizableColumns]="true"
   >
     <ng-template pTemplate="caption">
       <div class="p-d-flex p-ai-center p-jc-between">
@@ -55,55 +56,46 @@
         </span>
       </div>
     </ng-template>
+    <ng-template pTemplate="colgroup">
+      <colgroup>
+        <col style="width:3%">
+        <col style="width:11%">
+        <col style="width:25%">
+        <col style="width:12%">
+        <col style="width:14%">
+        <col style="width:20%">
+        <col style="width:7%">
+        <col style="width:8%">
+      </colgroup>
+    </ng-template>
     <ng-template pTemplate="header">
       <tr>
-        <th style="width: 3rem">
+        <th>
           <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
         </th>
         <th pSortableColumn="applicationName">
           Application <p-sortIcon field="applicationName"></p-sortIcon>
+          <p-columnFilter type="text" field="applicationName" display="menu"></p-columnFilter>
         </th>
         <th pSortableColumn="name">
           Name <p-sortIcon field="name"></p-sortIcon>
+          <p-columnFilter type="text" field="name" display="menu"></p-columnFilter>
         </th>
         <th pSortableColumn="code">
           Code <p-sortIcon field="code"></p-sortIcon>
+          <p-columnFilter type="text" field="code" display="menu"></p-columnFilter>
         </th>
         <th pSortableColumn="moduleType.name">
           Type <p-sortIcon field="moduleType.name"></p-sortIcon>
+          <p-columnFilter type="text" field="moduleType.name" display="menu"></p-columnFilter>
         </th>
         <th pSortableColumn="parentModule.name">
           Parent Module <p-sortIcon field="parentModule.name"></p-sortIcon>
+          <p-columnFilter type="text" field="parentModule.name" display="menu"></p-columnFilter>
         </th>
         <th pSortableColumn="isActive">
-          Active <p-sortIcon field="active"></p-sortIcon>
+          Active <p-sortIcon field="isActive"></p-sortIcon>
         </th>
-        <!-- <th pSortableColumn="lastUpdate">
-          LastUpdate <p-sortIcon field="lastUpdate"></p-sortIcon>
-        </th> -->
-        <th></th>
-      </tr>
-      <tr>
-        <th></th>
-        <th>
-          <p-columnFilter type="text" field="applicationName"></p-columnFilter>
-        </th>
-        <th>
-          <p-columnFilter type="text" field="name"></p-columnFilter>
-        </th>
-        <th>
-          <p-columnFilter type="text" field="code"></p-columnFilter>
-        </th>
-        <th>
-          <p-columnFilter type="text" field="moduleType.name"></p-columnFilter>
-        </th>
-        <th>
-          <p-columnFilter
-            type="text"
-            field="parentModule.name"
-          ></p-columnFilter>
-        </th>
-        <th></th>
         <th></th>
       </tr>
     </ng-template>
@@ -126,7 +118,6 @@
         <ng-template #elseStatement>
           <td>No</td>
         </ng-template>
-        <!-- <td>{{ product.lastUpdated | date : 'dd-MM-yyyy' }}</td> -->
         <td>
           <button
             pButton

@@ -207,23 +207,36 @@
     [value]="accessGroups"
     [globalFilterFields]="['name']"
     [rowHover]="true"
+    [resizableColumns]="true"
   >
+    <ng-template pTemplate="colgroup">
+      <colgroup>
+        <col style="width:15%">
+        <col style="width:25%">
+        <col style="width:30%">
+        <col style="width:6%">
+        <col style="width:6%">
+        <col style="width:6%">
+        <col style="width:6%">
+        <col style="width:6%">
+      </colgroup>
+    </ng-template>
     <ng-template pTemplate="header">
       <tr>
-        <th pSortableColumn="application">
-          Module Type <p-sortIcon field="application"></p-sortIcon>
+        <th pSortableColumn="moduleType.name">
+          Module Type <p-sortIcon field="moduleType.name"></p-sortIcon>
         </th>
-        <th pSortableColumn="department">
-          Parent Module <p-sortIcon field="department"></p-sortIcon>
+        <th pSortableColumn="parentModule.name">
+          Parent Module <p-sortIcon field="parentModule.name"></p-sortIcon>
         </th>
         <th pSortableColumn="name">
           Module <p-sortIcon field="name"></p-sortIcon>
         </th>
-        <th pSortableColumn="role">View</th>
-        <th pSortableColumn="position">Create</th>
-        <th pSortableColumn="person">Edit</th>
-        <th pSortableColumn="lastUpdate">Delete</th>
-        <th pSortableColumn="lastUpdate">Access</th>
+        <th>View</th>
+        <th>Create</th>
+        <th>Edit</th>
+        <th>Delete</th>
+        <th>Access</th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-accessGroup let-index>

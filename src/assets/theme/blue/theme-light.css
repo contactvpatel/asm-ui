@@ -1503,8 +1503,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   border-radius: 2rem;
 }
 .p-button.p-button-icon-only {
-  width: 2.75rem;
-  padding: 0.643rem;
+  width: 2.25rem;
 }
 .p-button.p-button-icon-only .p-button-icon-left,
 .p-button.p-button-icon-only .p-button-icon-right {
@@ -1512,7 +1511,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
 }
 .p-button.p-button-icon-only.p-button-rounded {
   border-radius: 50%;
-  height: 2.75rem;
+  height: 2.25rem;
 }
 .p-button.p-button-sm {
   font-size: 0.875rem;
