@@ -143,8 +143,8 @@ export class ModuleComponent implements OnInit {
     this.submitted = true;
 
     if (
-      this.module.name.trim() &&
-      this.module.code.trim() &&
+      this.module.name?.trim() &&
+      this.module.code?.trim() &&
       this.selectedModuleType.moduleTypeId !== null &&
       this.selectedApplication.trim()
     ) {
