@@ -24,8 +24,8 @@ export class AsmAuthComponent implements OnInit {
     const urlParams = new URLSearchParams(window.location.search);
     if (environment.ssoEnabled) {
       const myParam = urlParams.get('auth');
-      if (!myParam) {
-        this.router.navigate(['signedout']);
+      if (!myParam && !this.credentialsService.credentials) {
+        this.router.navigate(['asm/home']);
       }
       this.activatedRoute.queryParams.subscribe((params) => {
         const auth = params['auth'];
@@ -33,10 +33,6 @@ export class AsmAuthComponent implements OnInit {
           let res = JSON.parse(decodeURI(auth));
           this.tokenService.setToken(res.token);
           this.credentialsService.setCredentials(res, true);
-          localStorage.setItem(
-            'asm_authenticationInfo',
-            res.authenticationInfo
-          );
           /*
           this.httpService
             .get(environment.clientIpUrl, {

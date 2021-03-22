@@ -37,8 +37,7 @@ export class AppComponent implements OnInit {
     const urlParams = new URLSearchParams(window.location.search);
     if (environment.ssoEnabled) {
       const myParam = urlParams.get('auth');
-      let tempuser = localStorage.getItem('asm_authenticationInfo');
-      if (!myParam && !tempuser) {
+      if (!myParam && !this.credentialsService.credentials) {
         this.router.navigate(['asm/home']);
       }
       this.activatedRoute.queryParams.subscribe((params) => {
@@ -47,10 +46,6 @@ export class AppComponent implements OnInit {
           let res = JSON.parse(decodeURI(auth));
           this.tokenService.setToken(res.token);
           this.credentialsService.setCredentials(res, true);
-          localStorage.setItem(
-            'asm_authenticationInfo',
-            res.authenticationInfo
-          );
           /*
           this.httpService
             .get(environment.clientIpUrl, {

@@ -26,25 +26,28 @@ export class AccessGroupAssignmentSummaryComponent implements OnInit {
     private route: Router,
     private breadcrumbService: AppBreadcrumbService
   ) {
-
     this.breadcrumbService.setItems([
-      {label: 'Access Group Assignment', routerLink: ['/asm/application-security/access-group-assignment']},
-      {label: 'Summary'}
+      {
+        label: 'Access Group Assignment',
+        routerLink: ['/asm/application-security/access-group-assignment']
+      },
+      { label: 'Summary' }
     ]);
-
   }
 
   ngOnInit(): void {
     this.getAccessGroupAssignment();
   }
   openNew(): void {
-    this.route.navigate(['/asm/application-security/access-group-assignment/0']);
+    this.route.navigate([
+      '/asm/application-security/access-group-assignment/0'
+    ]);
   }
 
   deleteSelectedAccessGroup(): void {
     this.confirmationService.confirm({
       message:
-        'Are you sure you want to delete the selected accessgroupassignments?',
+        'Are you sure you want to delete the selected Access Group Assignment(s)?',
       header: 'Confirm',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
@@ -58,7 +61,7 @@ export class AccessGroupAssignmentSummaryComponent implements OnInit {
         this.messageService.add({
           severity: 'success',
           summary: 'Successful',
-          detail: 'AccessGroupAssignments Deleted',
+          detail: 'Access Group Assignment(s) are deleted',
           life: 3000
         });
       }
@@ -81,7 +84,7 @@ export class AccessGroupAssignmentSummaryComponent implements OnInit {
         this.messageService.add({
           severity: 'success',
           summary: 'Successful',
-          detail: 'AccessGroupAssignment Deleted',
+          detail: 'Access Group Assignment is deleted',
           life: 3000
         });
       }

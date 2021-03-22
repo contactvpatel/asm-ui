@@ -70,7 +70,7 @@ export class ModuleComponent implements OnInit {
   }
   deleteSelectedmodules(): void {
     this.confirmationService.confirm({
-      message: 'Are you sure you want to delete the selected modules?',
+      message: 'Are you sure you want to delete the selected Module(s)?',
       header: 'Confirm',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
@@ -86,7 +86,7 @@ export class ModuleComponent implements OnInit {
         this.messageService.add({
           severity: 'success',
           summary: 'Successful',
-          detail: 'modules Deleted',
+          detail: 'Module(s) are deleted',
           life: 3000
         });
       }
@@ -127,7 +127,7 @@ export class ModuleComponent implements OnInit {
         this.messageService.add({
           severity: 'success',
           summary: 'Successful',
-          detail: 'Module Deleted',
+          detail: 'Module is deleted',
           life: 3000
         });
       }
@@ -168,7 +168,7 @@ export class ModuleComponent implements OnInit {
         this.messageService.add({
           severity: 'success',
           summary: 'Successful',
-          detail: 'Module Updated',
+          detail: 'Module is updated',
           life: 3000
         });
       } else {
@@ -185,7 +185,7 @@ export class ModuleComponent implements OnInit {
         this.messageService.add({
           severity: 'success',
           summary: 'Successful',
-          detail: 'Module Created',
+          detail: 'Module is created',
           life: 3000
         });
       }

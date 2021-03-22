@@ -132,7 +132,7 @@ import { AppMainComponent } from './app.main.component';
             </div>
         </p-sidebar>
 
-        <p-button type="button" (click)="configActive = true" icon="pi pi-cog" *ngIf="!configActive" styleClass="layout-config-button"></p-button>
+        <p-button type="button" (click)="configActive = true" icon="pi pi-cog" *ngIf="false" styleClass="layout-config-button"></p-button>
     `
 })
 export class AppConfigComponent implements OnInit {
