@@ -826,7 +826,6 @@ body .p-overlay-badge .p-badge {
   right: 0;
   z-index: 1000;
   min-width: 15rem;
-  padding: 1rem 0;
   transform-origin: top;
 }
 .layout-topbar .layout-topbar-right .layout-topbar-actions-right .layout-topbar-items .layout-topbar-item .layout-topbar-action-panel .layout-topbar-action-item {

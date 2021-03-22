@@ -83,6 +83,5 @@ export class CredentialsService {
   removeCredentials() {
     sessionStorage.removeItem(this.key);
     localStorage.removeItem(this.key);
-    localStorage.removeItem('asm_authenticationInfo');
   }
 }

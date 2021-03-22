@@ -26,12 +26,13 @@ export class AccessGroupSummaryComponent implements OnInit {
     private breadcrumbService: AppBreadcrumbService,
     private route: Router
   ) {
-
     this.breadcrumbService.setItems([
-      {label: 'Access Group', routerLink: ['/asm/application-security/access-group']},
-      { label: 'Summary'}
+      {
+        label: 'Access Group',
+        routerLink: ['/asm/application-security/access-group']
+      },
+      { label: 'Summary' }
     ]);
-
   }
 
   ngOnInit(): void {
@@ -43,12 +44,14 @@ export class AccessGroupSummaryComponent implements OnInit {
   }
 
   editAccessGroup(access: any): void {
-    this.route.navigate(['/asm/application-security/access-group/edit/' + access.accessGroupId]);
+    this.route.navigate([
+      '/asm/application-security/access-group/edit/' + access.accessGroupId
+    ]);
   }
 
   deleteSelectedAccessGroup(): void {
     this.confirmationService.confirm({
-      message: 'Are you sure you want to delete the selected accessgroups?',
+      message: 'Are you sure you want to delete the selected Access Group(s)?',
       header: 'Confirm',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
@@ -62,7 +65,7 @@ export class AccessGroupSummaryComponent implements OnInit {
         this.messageService.add({
           severity: 'success',
           summary: 'Successful',
-          detail: 'AccessGroups Deleted',
+          detail: 'Access Group(s) are deleted',
           life: 3000
         });
       }
@@ -82,7 +85,7 @@ export class AccessGroupSummaryComponent implements OnInit {
         this.messageService.add({
           severity: 'success',
           summary: 'Successful',
-          detail: 'AccessGroup Deleted',
+          detail: 'Access Group is deleted',
           life: 3000
         });
       }
