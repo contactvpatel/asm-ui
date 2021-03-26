@@ -29,7 +29,7 @@ export class AccessGroupSummaryComponent implements OnInit {
     this.breadcrumbService.setItems([
       {
         label: 'Access Group',
-        routerLink: ['/asm/application-security/access-group']
+        routerLink: ['/application-security/access-group']
       },
       { label: 'Summary' }
     ]);
@@ -40,12 +40,12 @@ export class AccessGroupSummaryComponent implements OnInit {
   }
 
   openNew(): void {
-    this.route.navigate(['/asm/application-security/access-group/create']);
+    this.route.navigate(['/application-security/access-group/create']);
   }
 
   editAccessGroup(access: any): void {
     this.route.navigate([
-      '/asm/application-security/access-group/edit/' + access.accessGroupId
+      '/application-security/access-group/edit/' + access.accessGroupId
     ]);
   }
 
