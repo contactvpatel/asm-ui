@@ -28,7 +28,7 @@ export class AppMenuComponent implements OnInit {
           {
             label: 'Home',
             icon: 'pi pi-fw pi-home',
-            routerLink: ['/asm/home']
+            routerLink: ['/home']
           }
         ]
       },
@@ -39,31 +39,31 @@ export class AppMenuComponent implements OnInit {
           {
             label: 'Module',
             icon: 'pi pi-fw pi-microsoft',
-            routerLink: ['/asm/application-security/module']
+            routerLink: ['/application-security/module']
           },
           {
             label: 'Access Group',
             icon: 'pi pi-fw pi-key',
-            routerLink: ['/asm/application-security/access-group']
+            routerLink: ['/application-security/access-group']
           },
           {
             label: 'Access Group Assignment',
             icon: 'pi pi-fw pi-check-square',
-            routerLink: ['/asm/application-security/access-group-assignment']
+            routerLink: ['/application-security/access-group-assignment']
           }
         ]
-      },
+      }
       /*{
         label: 'Api Security',
         icon: 'pi pi-fw pi-check-circle',
         items: [
           {
             label: 'Api Endpoint'
-            routerLink: ['/asm/api-endpoint'],
+            routerLink: ['/api-endpoint'],
           },
           {
             label: 'Api Access'
-            routerLink: ['/asm/api-access'],
+            routerLink: ['/api-access'],
           }
         ]
       }*/

@@ -59,7 +59,7 @@ export class AccessAssignmentGroupDetailComponent implements OnInit, OnDestroy {
     this.breadcrumbService.setItems([
       {
         label: 'Access Group Assignment',
-        routerLink: ['/asm/application-security/access-group-assignment']
+        routerLink: ['/application-security/access-group-assignment']
       },
       { label: 'Detail' }
     ]);
@@ -95,7 +95,7 @@ export class AccessAssignmentGroupDetailComponent implements OnInit, OnDestroy {
 
   /***********************Public method *****************/
   onCancelClick(): void {
-    this.router.navigate(['asm/application-security/access-group-assignment']);
+    this.router.navigate(['/application-security/access-group-assignment']);
   }
   onFormSubmit(): void {
     this.submitted = true;

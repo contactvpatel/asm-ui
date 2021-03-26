@@ -29,7 +29,7 @@ export class AccessGroupAssignmentSummaryComponent implements OnInit {
     this.breadcrumbService.setItems([
       {
         label: 'Access Group Assignment',
-        routerLink: ['/asm/application-security/access-group-assignment']
+        routerLink: ['/application-security/access-group-assignment']
       },
       { label: 'Summary' }
     ]);
@@ -39,9 +39,7 @@ export class AccessGroupAssignmentSummaryComponent implements OnInit {
     this.getAccessGroupAssignment();
   }
   openNew(): void {
-    this.route.navigate([
-      '/asm/application-security/access-group-assignment/0'
-    ]);
+    this.route.navigate(['/application-security/access-group-assignment/0']);
   }
 
   deleteSelectedAccessGroup(): void {

@@ -29,7 +29,7 @@ const routes: Routes = [
     component: AppMainComponent,
     children: [
       {
-        path: 'asm',
+        path: '',
         canActivate: [PermissionGuard],
         loadChildren: () =>
           import('./modules/asm/asm.module').then((m) => m.AsmModule)
@@ -44,7 +44,10 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, { scrollPositionRestoration: 'enabled', relativeLinkResolution: 'legacy' })
+    RouterModule.forRoot(routes, {
+      scrollPositionRestoration: 'enabled',
+      relativeLinkResolution: 'legacy'
+    })
   ],
   exports: [RouterModule]
 })

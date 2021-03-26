@@ -53,7 +53,7 @@ export class AccessGroupDetailComponent implements OnInit, OnDestroy {
     this.breadcrumbService.setItems([
       {
         label: 'Access Group',
-        routerLink: ['/asm/application-security/access-group']
+        routerLink: ['/application-security/access-group']
       },
       { label: 'Detail' }
     ]);
@@ -99,7 +99,7 @@ export class AccessGroupDetailComponent implements OnInit, OnDestroy {
   }
 
   onCancelClick() {
-    this.router.navigate(['asm/application-security/access-group']);
+    this.router.navigate(['/application-security/access-group']);
   }
 
   get DepartmentId(): any {

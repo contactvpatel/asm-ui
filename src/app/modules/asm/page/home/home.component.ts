@@ -8,15 +8,12 @@ import { AppBreadcrumbService } from '@app/layout/app.breadcrumb.service';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  constructor(public router: Router, private breadcrumbService: AppBreadcrumbService) {
-
-    this.breadcrumbService.setItems([
-      {label: 'Home'}
-    ]);
-
+  constructor(
+    public router: Router,
+    private breadcrumbService: AppBreadcrumbService
+  ) {
+    this.breadcrumbService.setItems([{ label: 'Home' }]);
   }
 
-  ngOnInit(): void {
-    this.router.navigate(['asm/home']);
-  }
+  ngOnInit(): void {}
 }

@@ -38,7 +38,7 @@ export class AppComponent implements OnInit {
     if (environment.ssoEnabled) {
       const myParam = urlParams.get('auth');
       if (!myParam && !this.credentialsService.credentials) {
-        this.router.navigate(['asm/home']);
+        this.router.navigate(['/home']);
       }
       this.activatedRoute.queryParams.subscribe((params) => {
         const auth = params['auth'];
@@ -55,11 +55,11 @@ export class AppComponent implements OnInit {
               localStorage.setItem('clientIp', res.ip);
             });
           */
-          this.router.navigate(['asm/home']);
+          this.router.navigate(['/home']);
         }
       });
     } else {
-      this.router.navigate(['asm/home']);
+      this.router.navigate(['/home']);
     }
     this.primengConfig.ripple = true;
   }

@@ -4,28 +4,27 @@ import { Subscription } from 'rxjs';
 import { AppBreadcrumbService } from './app.breadcrumb.service';
 
 @Component({
-    selector: 'app-breadcrumb',
-    templateUrl: './app.breadcrumb.component.html'
+  selector: 'app-breadcrumb',
+  templateUrl: './app.breadcrumb.component.html'
 })
 export class AppBreadcrumbComponent implements OnDestroy {
+  subscription: Subscription;
 
-    subscription: Subscription;
+  items: MenuItem[];
 
-    items: MenuItem[];
+  home: MenuItem;
 
-    home: MenuItem;
+  constructor(public breadcrumbService: AppBreadcrumbService) {
+    this.subscription = breadcrumbService.itemsHandler.subscribe((response) => {
+      this.items = response;
+    });
 
-    constructor(public breadcrumbService: AppBreadcrumbService) {
-        this.subscription = breadcrumbService.itemsHandler.subscribe(response => {
-            this.items = response;
-        });
+    this.home = { icon: 'pi pi-home', routerLink: '/home' };
+  }
 
-        this.home = { icon: 'pi pi-home', routerLink: '/asm/home' };
+  ngOnDestroy() {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
     }
-
-    ngOnDestroy() {
-        if (this.subscription) {
-            this.subscription.unsubscribe();
-        }
-    }
+  }
 }
