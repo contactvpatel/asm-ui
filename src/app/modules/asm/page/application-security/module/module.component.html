@@ -171,12 +171,13 @@
   [modal]="true"
   styleClass="p-fluid"
 >
-  <div class="p-field">
+  <div class="p-field p-float-label">
     <!-- <label for="application">Application</label> -->
     <p-dropdown
+      inputId="application"
+      [autoDisplayFirst]="false"
       [options]="application"
       [(ngModel)]="selectedApplication"
-      placeholder="Select Application"
       optionLabel="applicationName"
       optionValue="applicationId"
       [showClear]="true"
@@ -186,6 +187,7 @@
       (onChange)="ParentModule()"
     >
     </p-dropdown>
+    <label for="name">Select Application <RequiredFiled></RequiredFiled></label>
     <small class="p-invalid error" *ngIf="submitted && !selectedApplication">
       Application is required.
     </small>
@@ -203,7 +205,7 @@
             'ng-invalid ng-dirty': submitted && !module.name
           }"
         />
-        <label for="name"> Name </label>
+        <label for="name">Name <RequiredFiled></RequiredFiled></label>
       </span>
       <small class="p-invalid error" *ngIf="submitted && !module.name"
         >Name is required.</small
@@ -221,38 +223,46 @@
           }"
           required
         />
-        <label for="code"> Code </label>
+        <label for="code"> Code <RequiredFiled></RequiredFiled></label>
       </span>
       <small class="p-invalid error" *ngIf="submitted && !module.code">
         Code is required.
       </small>
     </div>
-    <div class="p-field">
+    <div class="p-field p-float-label">
       <p-dropdown
+        inputId="moduleType"
+        [autoDisplayFirst]="false"
         [options]="moduleType"
         [(ngModel)]="selectedModuleType"
         [ngClass]="{
           'ng-invalid ng-dirty': submitted && !selectedModuleType
         }"
-        placeholder="Select Module Type"
         optionLabel="name"
         [showClear]="true"
       >
       </p-dropdown>
+      <label for="application" class="p-component"
+        >Select Module Type <RequiredFiled></RequiredFiled>
+      </label>
       <small class="p-invalid error" *ngIf="submitted && !selectedModuleType">
         Module Type is required.
       </small>
     </div>
-    <div class="p-field">
+    <div class="p-field p-float-label">
       <p-dropdown
+        inputId="parentModule"
+        [autoDisplayFirst]="false"
         [options]="parentModule"
         [(ngModel)]="selectedparentmodules"
-        placeholder="Select Parent Module"
         optionLabel="name"
         optionValue="moduleId"
         [showClear]="true"
       >
       </p-dropdown>
+      <label for="parentModule" class="p-component"
+        >Select ParentModule 
+      </label>
     </div>
     <div class="p-field">
       <label for="moduleType">Active</label>

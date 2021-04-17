@@ -1,28 +1,34 @@
 <div class="card">
-  <div *ngIf="config.mode.isEdit === false">
+  <div *ngIf="config.mode.isEdit === false; else titelElse">
     <h2 class="font">Create Access Group</h2>
   </div>
-  <div *ngIf="config.mode.isEdit === true">
+  <ng-template #titelElse>
     <h2 class="font">Edit Access Group</h2>
-  </div>
+  </ng-template>
   <form [formGroup]="accessgroupForm">
     <div class="p-grid p-fluid">
       <div class="p-col-12 p-md-6 p-mt-2">
-        <p-dropdown
-          [options]="application"
-          [ngClass]="{
-            'ng-invalid ng-dirty':
-              submitted &&
-              accessgroupForm.controls.applicationId.errors?.required
-          }"
-          placeholder="Select Application"
-          optionLabel="applicationName"
-          [showClear]="true"
-          formControlName="applicationId"
-          optionValue="applicationId"
-          (onChange)="getAllModule()"
-        >
-        </p-dropdown>
+        <span class="p-float-label">
+          <p-dropdown
+            [options]="application"
+            optionLabel="applicationName"
+            optionValue="applicationId"
+            inputId="application"
+            [autoDisplayFirst]="false"
+            formControlName="applicationId"
+            (onChange)="getAllModule()"
+            [showClear]="true"
+            [ngClass]="{
+              'ng-invalid ng-dirty':
+                submitted &&
+                accessgroupForm.controls.applicationId.errors?.required
+            }"
+          >
+          </p-dropdown>
+          <label for="application" class="p-component"
+            >Select Application <RequiredFiled></RequiredFiled>
+          </label>
+        </span>
         <small
           class="p-invalid error"
           *ngIf="
@@ -34,51 +40,53 @@
       </div>
       <div class="p-col-12 p-md-6 p-mt-2">
         <span class="p-float-label">
-          <span class="p-float-label">
-            <input
-              id="name"
-              [ngClass]="{
-                'ng-invalid ng-dirty':
-                  submitted && accessgroupForm.controls.name.errors?.required
-              }"
-              type="text"
-              pInputText
-              formControlName="name"
-            />
-            <label for="name" class="p-component"> Name </label>
-          </span>
-          <small
-            class="p-invalid error"
-            *ngIf="submitted && accessgroupForm.controls.name.errors?.required"
-          >
-            Name is required.
-          </small>
+          <input
+            id="name"
+            type="text"
+            pInputText
+            formControlName="name"
+            [ngClass]="{
+              'ng-invalid ng-dirty':
+                submitted && accessgroupForm.controls.name.errors?.required
+            }"
+          />
+          <label for="name" class="p-component">
+            Name <RequiredFiled></RequiredFiled>
+          </label>
         </span>
+        <small
+          class="p-invalid error"
+          *ngIf="submitted && accessgroupForm.controls.name.errors?.required"
+        >
+          Name is required.
+        </small>
       </div>
     </div>
     <div class="p-grid p-fluid">
       <div class="p-col-12 p-md-6 p-mt-3">
-        <p-dropdown
-          [options]="department"
-          placeholder="Select Department"
-          optionLabel="departmentName"
-          optionValue="departmentId"
-          [showClear]="true"
-          formControlName="departmentId"
-        >
-        </p-dropdown>
+        <span class="p-float-label">
+          <p-dropdown
+            inputId="department"
+            [options]="department"
+            optionLabel="departmentName"
+            optionValue="departmentId"
+            [autoDisplayFirst]="false"
+            [showClear]="true"
+            formControlName="departmentId"
+          >
+          </p-dropdown>
+          <label for="department" class="p-component">Select Department </label>
+        </span>
       </div>
       <div class="p-col-12 p-md-6 p-mt-3">
         <span class="p-float-label">
-          <span class="p-float-label">
-            <input
-              id="description"
-              type="text"
-              pInputText
-              formControlName="description"
-            />
-            <label for="description" class="p-component"> Description </label>
-          </span>
+          <input
+            id="description"
+            type="text"
+            pInputText
+            formControlName="description"
+          />
+          <label for="description" class="p-component"> Description </label>
         </span>
       </div>
     </div>
@@ -115,7 +123,6 @@
   <p-table
     #dt
     [value]="accessGroups"
-    [globalFilterFields]="['name']"
     [rowHover]="true"
     [resizableColumns]="true"
   >
@@ -132,42 +139,109 @@
       </colgroup>
     </ng-template>
     <ng-template pTemplate="header">
-      <tr>
-        <th pSortableColumn="moduleType.name">
+      <tr >
+        <th style="text-align: center" pSortableColumn="moduleType.name">
           Module Type <p-sortIcon field="moduleType.name"></p-sortIcon>
         </th>
-        <th pSortableColumn="parentModule.name">
+        <th style="text-align: center" pSortableColumn="parentModule.name">
           Parent Module <p-sortIcon field="parentModule.name"></p-sortIcon>
         </th>
-        <th pSortableColumn="name">
+        <th style="text-align: center" pSortableColumn="name">
           Module <p-sortIcon field="name"></p-sortIcon>
         </th>
-        <th pSortableColumn="role">View</th>
-        <th pSortableColumn="position">Create</th>
-        <th pSortableColumn="person">Edit</th>
-        <th pSortableColumn="lastUpdate">Delete</th>
-        <th pSortableColumn="lastUpdate">Access</th>
+        <th style="text-align: center">
+          View<br />
+          <p-checkbox
+            [(ngModel)]="config.header.checkBox.hasViewAccess"
+            ngClass="p-mt-2"
+            [hidden]="!config.mode.moduleExists"
+            (onChange)="selectParentCheckBox('hasViewAccess', $event)"
+          ></p-checkbox>
+        </th>
+        <th style="text-align: center">
+          Create <br />
+          <p-checkbox
+            [(ngModel)]="config.header.checkBox.hasCreateAccess"
+            ngClass="p-mt-2"
+            [hidden]="!config.mode.moduleExists"
+            (onChange)="selectParentCheckBox('hasCreateAccess', $event)"
+          ></p-checkbox>
+        </th>
+        <th style="text-align: center">
+          Edit<br />
+          <p-checkbox
+            [(ngModel)]="config.header.checkBox.hasUpdateAccess"
+            ngClass="p-mt-2"
+            [hidden]="!config.mode.moduleExists"
+            (onChange)="selectParentCheckBox('hasUpdateAccess', $event)"
+          ></p-checkbox>
+        </th>
+        <th style="text-align: center">
+          Delete<br />
+          <p-checkbox
+            [(ngModel)]="config.header.checkBox.hasDeleteAccess"
+            ngClass="p-mt-2"
+            [hidden]="!config.mode.moduleExists"
+            (onChange)="selectParentCheckBox('hasDeleteAccess', $event)"
+          ></p-checkbox>
+        </th>
+        <th style="text-align: center">
+          Access<br />
+          <div class="p-field-radiobutton p-mb-0">
+            <div class="p-field-radiobutton p-mb-0">
+              <p-radioButton
+                ngClass="p-mt-2"
+                name="isActive"
+                value="true"
+                [hidden]="!config.mode.moduleExists"
+                [(ngModel)]="config.header.radio.active"
+                (onFocus)="selectParentCheckBox('hasAccessRight')"
+              ></p-radioButton>
+              <label
+                class="p-mt-2"
+                [hidden]="!config.mode.moduleExists"
+                for="true"
+                >Yes</label
+              >
+            </div>
+            <div class="p-field-radiobutton p-ml-3 p-mb-0">
+              <p-radioButton
+                ngClass="p-mt-2"
+                name="isActive"
+                value="false"
+                (onFocus)="selectParentCheckBox('hasAccessRight')"
+                [hidden]="!config.mode.moduleExists"
+                [(ngModel)]="config.header.radio.active"
+              ></p-radioButton>
+              <label
+                class="p-mt-2"
+                [hidden]="!config.mode.moduleExists"
+                for="false"
+                >No</label
+              >
+            </div>
+          </div>
+        </th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-accessGroup let-index>
-      <tr *ngIf="accessGroup.showCheckbox; else elseBlock">
-        <td>{{ accessGroup.moduleType.name }}</td>
-        <td *ngIf="accessGroup.parentModule !== null; else elseBlock">
-          {{ accessGroup.parentModule.name }}
+      <tr>
+        <td style="text-align: center">{{ accessGroup.moduleType.name }}</td>
+        <td style="text-align: center">
+          {{ accessGroup?.parentModule?.name }}
         </td>
-        <ng-template #elseBlock>
-          <td></td>
-        </ng-template>
-        <td>{{ accessGroup.name }}</td>
-        <td>
+        <td style="text-align: center">{{ accessGroup.name }}</td>
+        <td style="text-align: center">
           <p-checkbox
+            [hidden]="!accessGroup.showCheckbox"
             [(ngModel)]="accessGroup.accessGroupModulePermissions.hasViewAccess"
             binary="true"
           >
           </p-checkbox>
         </td>
-        <td>
+        <td style="text-align: center">
           <p-checkbox
+            [hidden]="!accessGroup.showCheckbox"
             [(ngModel)]="
               accessGroup.accessGroupModulePermissions.hasCreateAccess
             "
@@ -175,8 +249,9 @@
           >
           </p-checkbox>
         </td>
-        <td>
+        <td style="text-align: center">
           <p-checkbox
+            [hidden]="!accessGroup.showCheckbox"
             [(ngModel)]="
               accessGroup.accessGroupModulePermissions.hasUpdateAccess
             "
@@ -184,8 +259,9 @@
           >
           </p-checkbox>
         </td>
-        <td>
+        <td style="text-align: center">
           <p-checkbox
+            [hidden]="!accessGroup.showCheckbox"
             [(ngModel)]="
               accessGroup.accessGroupModulePermissions.hasDeleteAccess
             "
@@ -193,50 +269,35 @@
           >
           </p-checkbox>
         </td>
-        <td></td>
-      </tr>
-      <ng-template #elseBlock>
-        <tr>
-          <td>{{ accessGroup.moduleType.name }}</td>
-          <td *ngIf="accessGroup.parentModule !== null; else elseBlock">
-            {{ accessGroup.parentModule.name }}
-          </td>
-          <ng-template #elseBlock>
-            <td></td>
-          </ng-template>
-          <td>{{ accessGroup.name }}</td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td>
+        <td style="text-align: center">
+          <div class="p-field-radiobutton" style="margin-bottom: 0">
             <div class="p-field-radiobutton" style="margin-bottom: 0">
-              <div class="p-field-radiobutton" style="margin-bottom: 0">
-                <p-radioButton
-                  name="isActive"
-                  [value]="true"
-                  [(ngModel)]="
-                    accessGroup.accessGroupModulePermissions.hasAccessRight
-                  "
-                  inputId="true"
-                ></p-radioButton>
-                <label for="true">Yes</label>
-              </div>
-              <div class="p-field-radiobutton p-ml-3" style="margin-bottom: 0">
-                <p-radioButton
-                  name="isActive"
-                  [value]="false"
-                  [(ngModel)]="
-                    accessGroup.accessGroupModulePermissions.hasAccessRight
-                  "
-                  inputId="false"
-                ></p-radioButton>
-                <label for="false">No</label>
-              </div>
+              <p-radioButton
+                [hidden]="accessGroup.showCheckbox"
+                name="isActive"
+                [value]="true"
+                [(ngModel)]="
+                  accessGroup.accessGroupModulePermissions.hasAccessRight
+                "
+                inputId="true"
+              ></p-radioButton>
+              <label for="true" [hidden]="accessGroup.showCheckbox">Yes</label>
             </div>
-          </td>
-        </tr>
-      </ng-template>
+            <div class="p-field-radiobutton p-ml-3" style="margin-bottom: 0">
+              <p-radioButton
+                [hidden]="accessGroup.showCheckbox"
+                name="isActive"
+                [value]="false"
+                [(ngModel)]="
+                  accessGroup.accessGroupModulePermissions.hasAccessRight
+                "
+                inputId="false"
+              ></p-radioButton>
+              <label for="false" [hidden]="accessGroup.showCheckbox">No</label>
+            </div>
+          </div>
+        </td>
+      </tr>
     </ng-template>
   </p-table>
   <div class="p-col-12" style="text-align: right; margin-top: 20px">

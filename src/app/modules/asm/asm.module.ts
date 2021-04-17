@@ -45,6 +45,7 @@ import { EncryptPipeModule } from '../encrypt/encrypt.pipe.module';
 import { AsmRoutingModule } from './asm-routing.module';
 import { AsmComponent } from './asm.component';
 import { AsmService } from './asm.service';
+import { RequiredFiledComponent } from './requiredfiled.component';
 import { AccessAssignmentGroupDetailComponent } from './page/application-security/access-group-assignment/access-group-assignment-detail/access-group-assignment-detail.component';
 import { AccessGroupAssignmentSummaryComponent } from './page/application-security/access-group-assignment/access-group-assignment-summary/access-group-assignment-summary.component';
 import { AccessGroupDetailComponent } from './page/application-security/access-group/access-group-detail/access-group-detail.component';
@@ -71,7 +72,8 @@ export const LoaderConfiguration: NgxUiLoaderConfig = {
     AccessGroupSummaryComponent,
     AccessGroupDetailComponent,
     AccessAssignmentGroupDetailComponent,
-    AccessGroupAssignmentSummaryComponent
+    AccessGroupAssignmentSummaryComponent,
+    RequiredFiledComponent
   ],
   imports: [
     CommonModule,

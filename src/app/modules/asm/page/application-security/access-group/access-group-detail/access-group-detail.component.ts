@@ -24,18 +24,29 @@ export class AccessGroupDetailComponent implements OnInit, OnDestroy {
   module: Module[];
   accessGroupModel: AccessGroupModel;
   subscription: Subscription;
-  selectAccess: boolean;
-  selectedApplication: Application;
   application: Application[];
-  selectedDepartment: Department;
   department: Department[];
   accessGroups: AccessGroup[];
   submitted = false;
   accessgroupForm: FormGroup;
-  activatedRoute$: null;
+
   readonly config = {
     mode: {
-      isEdit: false
+      isEdit: false,
+      moduleExists: false
+    },
+    // temp logic CheckBox
+    header: {
+      checkBox: {
+        hasViewAccess: false,
+        hasCreateAccess: false,
+        hasUpdateAccess: false,
+        hasDeleteAccess: false,
+        hasAccessRight: false
+      },
+      radio: {
+        active: 'false'
+      }
     }
   };
 
@@ -43,7 +54,6 @@ export class AccessGroupDetailComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    private confirmationService: ConfirmationService,
     private moduleService: ModuleService,
     private applicationService: ApplicationService,
     private accessGroupService: AccessGroupService,
@@ -66,21 +76,15 @@ export class AccessGroupDetailComponent implements OnInit, OnDestroy {
     this.subscribeActivatedRoute();
     this.GetApplication();
   }
-  private setEditFormData() {
-    this.accessgroupForm.setValue({
-      name: this.accessGroupModel.name,
-      description: this.accessGroupModel.description,
-      applicationId: this.accessGroupModel.applicationId,
-      departmentId: this.accessGroupModel.departmentId,
-      isActive: this.accessGroupModel.isActive.toString()
-    });
-  }
+
+  // Route Check IsEditMode True OR False
   private subscribeActivatedRoute(): void {
     this.activatedRoute.paramMap.subscribe((params) => {
       const accessGroupId = params.get('id');
       if (accessGroupId) {
         this.GetAccessGroupById(+accessGroupId);
         this.config.mode.isEdit = true;
+        this.config.mode.moduleExists = true;
       } else {
         this.config.mode.isEdit = false;
         this.accessGroup = {} as AccessGroup;
@@ -88,6 +92,7 @@ export class AccessGroupDetailComponent implements OnInit, OnDestroy {
     });
   }
 
+  // Create ReactiveForm
   createForm() {
     this.accessgroupForm = this.fb.group({
       name: [null, [Validators.required]],
@@ -98,92 +103,41 @@ export class AccessGroupDetailComponent implements OnInit, OnDestroy {
     });
   }
 
-  onCancelClick() {
-    this.router.navigate(['/application-security/access-group']);
+  // Get ApplicationList
+  GetApplication() {
+    this.applicationService
+      .getApplication()
+      .subscribe((data) => (this.application = data));
   }
 
-  get DepartmentId(): any {
-    return this.accessgroupForm.get('departmentId');
-  }
-
-  get ApplicationId(): any {
-    return this.accessgroupForm.get('applicationId');
-  }
-
-  get name(): any {
-    return this.accessgroupForm.get('name');
-  }
-
-  get description(): any {
-    return this.accessgroupForm.get('description');
-  }
-
-  get isActive(): any {
-    return this.accessgroupForm.get('isActive');
-  }
-
-  onFormSubmit() {
-    this.submitted = true;
-    if (this.accessgroupForm.valid) {
-      if (this.config.mode.isEdit) {
-        let setAccessGroup = [];
-        const departmentId = this.DepartmentId.value;
-        const name = this.name.value;
-        const description = this.description.value;
-        const applicationId = this.ApplicationId.value;
-        setAccessGroup = this.setPermissions(this.accessGroups, setAccessGroup);
-        const request = {
-          accessGroupId: this.accessGroupModel.accessGroupId,
-          name: name,
-          description: description,
-          applicationId: applicationId,
-          departmentId: departmentId,
-          accessGroupModulePermissions: setAccessGroup,
-          isActive: this.isActive.value,
-          userId: this.credentialsService.authinfo.PersonIdentifer
-        };
-        this.accessGroupService
-          .updateAccessGroup(request)
-          .subscribe((data) => this.onCancelClick());
-      } else {
-        let setAccessGroup = [];
-
-        setAccessGroup = this.setPermissions(this.accessGroups, setAccessGroup);
-        const departmentId = this.DepartmentId.value;
-        const name = this.name.value;
-        const description = this.description.value;
-        const applicationId = this.ApplicationId.value;
-        const request = {
-          name: name,
-          description: description,
-          applicationId: applicationId,
-          departmentId: departmentId,
-          accessGroupModulePermissions: setAccessGroup,
-          isActive: this.isActive.value
-        };
-
-        this.accessGroupService
-          .createAccessGroup(request)
-          .subscribe((data) => this.onCancelClick());
-      }
+  // Get Module By ApllicationId { Application Dropdown (onChange) Event }
+  getAllModule() {
+    if (this.accessgroupForm.value?.applicationId === null) {
+      this.config.mode.moduleExists = false;
+      this.config.mode.moduleExists = false;
+      this.config.header.checkBox.hasViewAccess = false;
+      this.config.header.checkBox.hasUpdateAccess = false;
+      this.config.header.checkBox.hasDeleteAccess = false;
+      this.config.header.checkBox.hasCreateAccess = false;
+      this.accessGroups = [];
     } else {
+      this.config.mode.moduleExists = true;
+      this.moduleService
+        .getModulesByApplicationId(this.accessgroupForm.value?.applicationId)
+        .subscribe((data) => {
+          this.accessGroups = new AccessGroup().fromJson(data);
+        });
     }
   }
 
-  setPermissions(permission: any[], flatDataItems: any[]) {
-    permission.forEach((item) => {
-      flatDataItems.push({
-        moduleId: item.accessGroupModulePermissions.moduleId,
-        hasViewAccess: item.accessGroupModulePermissions.hasViewAccess,
-        hasCreateAccess: item.accessGroupModulePermissions.hasCreateAccess,
-        hasUpdateAccess: item.accessGroupModulePermissions.hasUpdateAccess,
-        hasDeleteAccess: item.accessGroupModulePermissions.hasDeleteAccess,
-        hasAccessRight: item.accessGroupModulePermissions.hasAccessRight
-      });
-    });
-    return flatDataItems;
+  // Get DepartmentList
+  departmentList() {
+    this.accessGroupService
+      .getDepartment()
+      .subscribe((data) => (this.department = data));
   }
 
+  // Get AccessGroupById { EditMode }
   GetAccessGroupById(id: number) {
     this.accessGroupService.getAccessGroupById(id).subscribe((data) => {
       this.accessGroupModel = data;
@@ -196,6 +150,18 @@ export class AccessGroupDetailComponent implements OnInit, OnDestroy {
     });
   }
 
+  // Set AccessGroup in  ReactiveForm Data { EditMode }
+  private setEditFormData() {
+    this.accessgroupForm.setValue({
+      name: this.accessGroupModel.name,
+      description: this.accessGroupModel.description,
+      applicationId: this.accessGroupModel.applicationId,
+      departmentId: this.accessGroupModel.departmentId,
+      isActive: this.accessGroupModel.isActive.toString()
+    });
+  }
+
+  // Set ModuleTable
   setmodule() {
     let accessGroup = [];
 
@@ -204,10 +170,10 @@ export class AccessGroupDetailComponent implements OnInit, OnDestroy {
       this.accessGroupModel.accessGroupModulePermissions,
       accessGroup
     );
-
     this.accessGroups = new AccessGroup().fromJson(accessGroup, true);
   }
 
+  // Set Edit AccessGroup
   setEditAccessGroup(
     modules: Module[],
     accessGroup: any,
@@ -262,33 +228,100 @@ export class AccessGroupDetailComponent implements OnInit, OnDestroy {
     });
     return flatDataItems;
   }
-  // get DepartmentId(): any {
-  //   return this.accessgroupForm.get('applicationId');
-  // }
-  getAllModule() {
-    let applicationId;
-    if (this.ApplicationId.value === null) {
-      applicationId = '00000000-0000-0000-0000-000000000000';
-    } else {
-      applicationId = this.ApplicationId.value;
-    }
 
-    this.moduleService
-      .getModulesByApplicationId(applicationId)
-      .subscribe((data) => {
-        this.accessGroups = new AccessGroup().fromJson(data);
+  // ModuleTable Header CheckBox  Logic
+  selectParentCheckBox(permission: string, event?: any) {
+    if (event?.checked) {
+      this.checkedPermission(permission, true);
+    } else {
+      this.checkedPermission(permission, false);
+    }
+  }
+
+  // checked And UnChecked Permission
+  checkedPermission(permission, isChecked) {
+    switch (permission) {
+      case 'hasViewAccess':
+        this.accessGroups.forEach((element) => {
+          element.accessGroupModulePermissions.hasViewAccess = isChecked;
+        });
+        break;
+      case 'hasCreateAccess':
+        this.accessGroups.forEach((element) => {
+          element.accessGroupModulePermissions.hasCreateAccess = isChecked;
+        });
+        break;
+      case 'hasUpdateAccess':
+        this.accessGroups.forEach((element) => {
+          element.accessGroupModulePermissions.hasUpdateAccess = isChecked;
+        });
+        break;
+      case 'hasDeleteAccess':
+        this.accessGroups.forEach((element) => {
+          element.accessGroupModulePermissions.hasDeleteAccess = isChecked;
+        });
+        break;
+      case 'hasAccessRight':
+        this.accessGroups.forEach((element) => {
+          var boolValue = this.config.header.radio.active.toString() === 'true';
+          element.accessGroupModulePermissions.hasAccessRight = boolValue;
+        });
+        break;
+      default:
+        break;
+    }
+  }
+
+  // OnSubmit Submit Button Click { Create And Update AccessGroup with Module Permission }
+  onFormSubmit() {
+    this.submitted = true;
+    if (this.accessgroupForm.valid) {
+      let setAccessGroup = [];
+      setAccessGroup = this.setPermissions(this.accessGroups, setAccessGroup);
+      const request = {
+        accessGroupId: this.accessGroupModel?.accessGroupId,
+        name: this.accessgroupForm.value?.name,
+        description: this.accessgroupForm.value?.description,
+        applicationId: this.accessgroupForm.value?.applicationId,
+        departmentId: this.accessgroupForm.value?.departmentId,
+        accessGroupModulePermissions: setAccessGroup,
+        isActive: this.accessgroupForm.value?.isActive,
+        userId: this.credentialsService.authinfo.PersonIdentifer
+      };
+      if (this.config.mode.isEdit) {
+        this.accessGroupService
+          .updateAccessGroup(request)
+          .subscribe((data) => this.onCancelClick());
+      } else {
+        this.accessGroupService
+          .createAccessGroup(request)
+          .subscribe((data) => this.onCancelClick());
+      }
+    } else {
+    }
+  }
+
+  //Set Permission Proper Format {OnSubmit Create And Update Json}
+  setPermissions(permission: any[], flatDataItems: any[]) {
+    permission.forEach((item) => {
+      flatDataItems.push({
+        moduleId: item.accessGroupModulePermissions.moduleId,
+        hasViewAccess: item.accessGroupModulePermissions.hasViewAccess,
+        hasCreateAccess: item.accessGroupModulePermissions.hasCreateAccess,
+        hasUpdateAccess: item.accessGroupModulePermissions.hasUpdateAccess,
+        hasDeleteAccess: item.accessGroupModulePermissions.hasDeleteAccess,
+        hasAccessRight: item.accessGroupModulePermissions.hasAccessRight
       });
+    });
+    return flatDataItems;
   }
-  GetApplication() {
-    this.applicationService
-      .getApplication()
-      .subscribe((data) => (this.application = data));
+
+  // Cancel Button Click
+  onCancelClick() {
+    this.router.navigate(['/application-security/access-group']);
   }
-  departmentList() {
-    this.accessGroupService
-      .getDepartment()
-      .subscribe((data) => (this.department = data));
-  }
+
+  //On Destroy
   ngOnDestroy(): void {
     if (this.subscription) {
       this.subscription.unsubscribe();

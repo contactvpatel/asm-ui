@@ -5,30 +5,37 @@
   <form [formGroup]="accessgroupAssignmentForm">
     <div class="p-grid p-fluid">
       <div class="p-col-12 p-md-6 p-mt-2">
-        <p-dropdown
-          [options]="application"
-          formControlName="applicationId"
-          placeholder="Select Application"
-          [ngClass]="{
-            'ng-invalid ng-dirty':
+        <span class="p-float-label">
+          <p-dropdown
+            inputId="application"
+            [autoDisplayFirst]="false"
+            [options]="application"
+            formControlName="applicationId"
+            [ngClass]="{
+              'ng-invalid ng-dirty':
+                submitted &&
+                accessgroupAssignmentForm.controls.applicationId.errors
+                  ?.required
+            }"
+            optionLabel="applicationName"
+            optionValue="applicationId"
+            [showClear]="true"
+            (onChange)="GetAccessGroup()"
+          >
+          </p-dropdown>
+          <label for="application" class="p-component"
+            >Select Application <RequiredFiled></RequiredFiled>
+          </label>
+          <small
+            class="p-invalid error"
+            *ngIf="
               submitted &&
               accessgroupAssignmentForm.controls.applicationId.errors?.required
-          }"
-          optionLabel="applicationName"
-          optionValue="applicationId"
-          [showClear]="true"
-          (onChange)="GetAccessGroup()"
-        >
-        </p-dropdown>
-        <small
-          class="p-invalid error"
-          *ngIf="
-            submitted &&
-            accessgroupAssignmentForm.controls.applicationId.errors?.required
-          "
-        >
-          Application is required.
-        </small>
+            "
+          >
+            Application is required.
+          </small>
+        </span>
       </div>
       <div class="p-col-12 p-md-6 p-mt-2">
         <div class="p-field-radiobutton">
@@ -79,32 +86,37 @@
     </div>
     <div class="p-grid p-fluid">
       <div class="p-col-12 p-md-6 p-mt-2">
-        <p-dropdown
-          [options]="department"
-          formControlName="departmentId"
-          placeholder="Select Department"
-          optionLabel="departmentName"
-          optionValue="departmentId"
-          [showClear]="true"
-          (onChange)="GetRole(); GetAccessGroup()"
-        >
-        </p-dropdown>
+        <span class="p-float-label">
+          <p-dropdown
+            inputId="department"
+            [autoDisplayFirst]="false"
+            [options]="department"
+            formControlName="departmentId"
+            optionLabel="departmentName"
+            optionValue="departmentId"
+            [showClear]="true"
+            (onChange)="GetRole(); GetAccessGroup()"
+          >
+          </p-dropdown>
+          <label for="department" class="p-component">Select Department</label>
+        </span>
       </div>
       <div class="p-col-12 p-md-6 p-mt-2">
-        <p-multiSelect
-          *ngIf="showRole"
-          [options]="role"
-          formControlName="roleId"
-          defaultLabel="Select Role"
-          optionLabel="roleName"
-          optionValue="roleId"
-          [ngClass]="{
-            'ng-invalid ng-dirty':
-              submitted &&
-              accessgroupAssignmentForm.controls.roleId.errors?.required
-          }"
-        >
-        </p-multiSelect>
+        <span class="p-float-label" *ngIf="showRole">
+          <p-multiSelect
+            [options]="role"
+            formControlName="roleId"
+            optionLabel="roleName"
+            optionValue="roleId"
+            [ngClass]="{
+              'ng-invalid ng-dirty':
+                submitted &&
+                accessgroupAssignmentForm.controls.roleId.errors?.required
+            }"
+          >
+          </p-multiSelect>
+          <label for="role" class="p-component">Select Role <RequiredFiled></RequiredFiled></label>
+        </span>
         <small
           class="p-invalid error"
           *ngIf="
@@ -115,24 +127,27 @@
         >
           Role is required.
         </small>
-        <p-dropdown
-          *ngIf="showPosition"
-          [options]="role"
-          [filter]="true"
-          filterBy="roleName"
-          formControlName="roleId"
-          [ngClass]="{
-            'ng-invalid ng-dirty':
-              submitted &&
-              accessgroupAssignmentForm.controls.roleId.errors?.required
-          }"
-          placeholder="Select Role"
-          optionLabel="roleName"
-          optionValue="roleId"
-          [showClear]="true"
-          (onChange)="GetPosition()"
-        >
-        </p-dropdown>
+        <span class="p-float-label" *ngIf="showPosition">
+          <p-dropdown
+            [options]="role"
+            inputId="role"
+            [autoDisplayFirst]="false"
+            [filter]="true"
+            filterBy="roleName"
+            formControlName="roleId"
+            [ngClass]="{
+              'ng-invalid ng-dirty':
+                submitted &&
+                accessgroupAssignmentForm.controls.roleId.errors?.required
+            }"
+            optionLabel="roleName"
+            optionValue="roleId"
+            [showClear]="true"
+            (onChange)="GetPosition()"
+          >
+          </p-dropdown>
+          <label for="role" class="p-component">Select Role <RequiredFiled></RequiredFiled></label>
+        </span>
         <small
           class="p-invalid error"
           *ngIf="
@@ -147,35 +162,45 @@
     </div>
     <div class="p-grid p-fluid">
       <div class="p-col-12 p-md-6 p-mt-3 p-mb-3">
-        <p-dropdown
-          [options]="accessGroupList"
-          formControlName="accessGroupId"
-          optionValue="accessGroupId"
-          [ngClass]="{
-            'ng-invalid ng-dirty':
+        <span class="p-float-label">
+          
+          <p-dropdown
+            inputId="accessGroup"
+            [autoDisplayFirst]="false"
+            [options]="accessGroupList"
+            formControlName="accessGroupId"
+            optionValue="accessGroupId"
+            [ngClass]="{
+              'ng-invalid ng-dirty':
+                submitted &&
+                accessgroupAssignmentForm.controls.accessGroupId.errors
+                  ?.required
+            }"
+            optionLabel="name"
+            [showClear]="true"
+            (onChange)="getAllModule()"
+          >
+          </p-dropdown>
+          
+          <label for="accessGroup" class="p-component"
+            >Select Access Group <RequiredFiled></RequiredFiled
+          ></label>
+          <small
+            class="p-invalid error"
+            *ngIf="
               submitted &&
               accessgroupAssignmentForm.controls.accessGroupId.errors?.required
-          }"
-          placeholder="Select Access Group"
-          optionLabel="name"
-          [showClear]="true"
-          (onChange)="getAllModule()"
-        >
-        </p-dropdown>
-        <small
-          class="p-invalid error"
-          *ngIf="
-            submitted &&
-            accessgroupAssignmentForm.controls.accessGroupId.errors?.required
-          "
-        >
-          Access Group is required.
-        </small>
+            "
+          >
+            Access Group is required.
+          </small>
+        </span>
       </div>
       <div class="p-col-12 p-md-6 p-mt-3 p-mb-3">
-        <p-multiSelect
-          *ngIf="showPosition"
+        <span class="p-float-label" *ngIf="showPosition">
+        <p-multiSelect          
           [options]="position"
+          inputId="position"          
           [filter]="true"
           filterBy="positionName"
           formControlName="positionId"
@@ -183,12 +208,13 @@
             'ng-invalid ng-dirty':
               submitted &&
               accessgroupAssignmentForm.controls.positionId.errors?.required
-          }"
-          placeholder="Select Position"
+          }"          
           optionLabel="positionName"
           optionValue="positionId"
         >
         </p-multiSelect>
+        <label for="position" class="p-component">Select Position <RequiredFiled></RequiredFiled></label>
+      </span>
         <small
           class="p-invalid error"
           *ngIf="
